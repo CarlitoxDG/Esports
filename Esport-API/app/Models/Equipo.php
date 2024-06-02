@@ -26,8 +26,8 @@ class Equipo extends Model
         return $this->hasMany(Partido::class, 'equipo2_id');
     }
 
-    public function juego(): BelongsTo
+    public function juegos():BelongsToMany
     {
-        return $this->belongsTo(Juego::class);
+        return $this->belongsToMany(Juego::class, 'equipos_juegos');
     }
 }

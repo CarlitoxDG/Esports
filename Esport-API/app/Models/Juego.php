@@ -9,4 +9,9 @@ class Juego extends Model
 {
     use HasFactory;
     protected $table = 'juegos';
+
+    public function equipos():BelongsToMany
+    {
+        return $this->belongsToMany(Equipo::class, 'equipo_juego');
+    }
 }
