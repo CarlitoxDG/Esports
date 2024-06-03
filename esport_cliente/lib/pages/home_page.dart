@@ -43,8 +43,8 @@ class HomePage extends StatelessWidget {
             unselectedLabelColor: Colors.white60,
             indicatorColor: Colors.white,
             tabs: [
-              Tab(text: 'Campeonatos'),
-              Tab(text: 'Equipos'),
+              Tab(icon: Icon(Icons.videogame_asset), text: 'Campeonatos'),
+              Tab(icon: Icon(Icons.people), text:'Equipos'),
             ],
           ),
         ),
