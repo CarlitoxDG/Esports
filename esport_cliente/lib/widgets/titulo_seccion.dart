@@ -16,8 +16,8 @@ class TituloSeccion extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(30, 10, 0, 5),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.fromLTRB(30, 10, 0, 5),
+      decoration: const BoxDecoration(
         color: Color(kSecondaryColor),
         border:
             Border(bottom: BorderSide(color: Color(kPrimaryColor), width: 7)),
@@ -26,17 +26,17 @@ class TituloSeccion extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            this.subtitulo,
+            subtitulo,
             style: GoogleFonts.afacad(
-                textStyle: TextStyle(
+                textStyle: const TextStyle(
                     fontSize: 20,
                     fontStyle: FontStyle.italic,
                     color: Colors.white)),
           ),
           Text(
-            this.titulo,
+            titulo,
             style: GoogleFonts.afacad(
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                   height: 0.8,
                   color: Colors.white,
                   fontSize: 28,

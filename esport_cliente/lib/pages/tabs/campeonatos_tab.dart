@@ -41,8 +41,8 @@ class CampeonatosTab extends StatelessWidget {
                       return CampeonatoTile(
                         id: campeonato['id'],
                         nombre: campeonato['nombre'],
-                        fecha_inicio: campeonato['fecha_inicio'],
-                        fecha_fin: campeonato['fecha_fin'],
+                        fechaInicio: campeonato['fecha_inicio'],
+                        fechaFin: campeonato['fecha_fin'],
                         reglas: campeonato['reglas'],
                         premios: campeonato['premios'],
                       );

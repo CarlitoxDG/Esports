@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -14,12 +13,11 @@ class HttpService {
   }
 
   Future<List<dynamic>> listarDatos(String coleccion) async {
-    var respuesta = await http.get(Uri.parse(apiUrl + '/' + coleccion));
-
+    var respuesta = await http.get(Uri.parse('$apiUrl/$coleccion'));
     if (respuesta.statusCode == 200) {
       return json.decode(respuesta.body);
     }
-    print(respuesta.statusCode);
+    //print(respuesta.statusCode);
     return [];
   }
 }

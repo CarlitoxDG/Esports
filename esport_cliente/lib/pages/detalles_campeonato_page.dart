@@ -35,7 +35,7 @@ class DetalleCampeonato extends StatelessWidget {
               )
             ],
           ),
-          bottom: TabBar(
+          bottom: const TabBar(
             labelColor: Color.fromARGB(255, 255, 255, 255),
             unselectedLabelColor: Colors.white60,
             indicatorColor: Colors.white,
@@ -49,7 +49,7 @@ class DetalleCampeonato extends StatelessWidget {
           ),
         ),
         body: TabBarView(
-          children: [Text(reglas), Text(premios), Text("integrantes")],
+          children: [Text(reglas), Text(premios), const Text("integrantes")],
         ),
       ),
     );

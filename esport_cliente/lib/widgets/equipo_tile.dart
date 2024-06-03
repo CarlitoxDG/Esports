@@ -4,25 +4,25 @@ import 'package:google_fonts/google_fonts.dart';
 class EquipoTile extends StatelessWidget {
   final String nombre;
 
-  EquipoTile({
+  const EquipoTile({super.key, 
     this.nombre = 'Sin nombre',
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(5, 4, 5, 1),
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      margin: const EdgeInsets.fromLTRB(5, 4, 5, 1),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       decoration: BoxDecoration(
-        color: Color(0xDDFFFFFF),
-        borderRadius: BorderRadius.all(Radius.circular(5)),
+        color: const Color(0xDDFFFFFF),
+        borderRadius: const BorderRadius.all(Radius.circular(5)),
         border: Border.all(color: Colors.black),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image(
-            image: AssetImage('assets/images/Equipos/' + '$nombre' + '.png'),
+            image: AssetImage('assets/images/Equipos/$nombre.png'),
             height: 40,
             width: 40,
           ),
@@ -47,22 +47,22 @@ class EquipoTile extends StatelessWidget {
                   Text(
                     '$nombre ',
                     style:
-                        GoogleFonts.afacad(textStyle: TextStyle(fontSize: 24)),
+                        GoogleFonts.afacad(textStyle: const TextStyle(fontSize: 24)),
                   )
                 ],
               ),
             ],
           ),
-          Spacer(),
+          const Spacer(),
           Column(
             children: [
               IconButton(
-                icon: Icon(Icons.groups),
+                icon: const Icon(Icons.groups),
                 onPressed: () {
                   // Aquí debes poner la navegación a la siguiente pantalla
                 },
               ),
-              Text(
+              const Text(
                 "Ver Equipo",
                 style: TextStyle(fontSize: 12, height: 0.1),
               ),

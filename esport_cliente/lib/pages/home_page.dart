@@ -16,15 +16,15 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 // Acción al presionar el botón
               },
-              child: Text(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red, // Color de fondo del botón
+                elevation: 0, // Elimina la sombra
+              ),
+              child: const  Text(
                 'Modo Editor',
                 style: TextStyle(
                   color: Colors.white,
                 ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red, // Color de fondo del botón
-                elevation: 0, // Elimina la sombra
               ),
             ),
           ],
@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
               fit: BoxFit.contain,
             ),
           ),
-          bottom: TabBar(
+          bottom: const TabBar(
             labelColor: Color.fromARGB(255, 255, 255, 255),
             unselectedLabelColor: Colors.white60,
             indicatorColor: Colors.white,
@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
         body: TabBarView(
           children: [
             CampeonatosTab(),
-            EquiposTab(),
+            const EquiposTab(),
           ],
         ),
       ),

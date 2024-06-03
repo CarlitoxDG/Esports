@@ -4,9 +4,9 @@ import 'package:esport_cliente/widgets/titulo_seccion.dart';
 import 'package:flutter/material.dart';
 
 class EquiposTab extends StatelessWidget {
-  final fondo = AssetImage('assets/images/fondo_equipos.jpg');
+  final fondo = const AssetImage('assets/images/fondo_equipos.jpg');
 
-  EquiposTab({super.key});
+  const EquiposTab({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +17,7 @@ class EquiposTab extends StatelessWidget {
         child: Column(
           children: [
             //TITULO SECCION
-            TituloSeccion(titulo: 'Equipos', subtitulo: 'Listado'),
+            const TituloSeccion(titulo: 'Equipos', subtitulo: 'Listado'),
             //FIN TITULO SECCION
             Expanded(
               child: FutureBuilder(
@@ -25,7 +25,7 @@ class EquiposTab extends StatelessWidget {
                 builder: (context, AsyncSnapshot snapshot) {
                   if (!snapshot.hasData ||
                       snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
+                    return const Center(
                         child: CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation(Colors.deepPurple),
                     ));
