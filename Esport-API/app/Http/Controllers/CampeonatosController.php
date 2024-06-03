@@ -12,6 +12,7 @@ class CampeonatosController extends Controller
      */
     public function index()
     {
+        return Campeonato::all();
         //
     }
 

@@ -12,6 +12,7 @@ class PartidosController extends Controller
      */
     public function index()
     {
+        return Partido::all();
         //
     }
 

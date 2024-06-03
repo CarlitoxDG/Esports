@@ -12,6 +12,7 @@ class JuegosController extends Controller
      */
     public function index()
     {
+        return Juego::all();
         //
     }
 

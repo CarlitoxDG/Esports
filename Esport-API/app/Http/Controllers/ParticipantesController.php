@@ -12,6 +12,7 @@ class ParticipantesController extends Controller
      */
     public function index()
     {
+        return Participante::all();
         //
     }
 
