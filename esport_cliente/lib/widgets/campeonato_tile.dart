@@ -1,21 +1,23 @@
+import 'package:esport_cliente/pages/detalles_campeonato_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CampeonatoTile extends StatelessWidget {
+  final int id;
   final String nombre;
   final String
       fecha_inicio; //deberia ser DateTime pero hay q probar como interpreta el api despues de hacer un crud por aqui
   final String fecha_fin;
-  //final String reglas;
-  // final String premios;
+  final String reglas;
+  final String premios;
 
-  CampeonatoTile({
-    this.nombre = 'Sin nombre',
-    this.fecha_inicio = "00/00/0000",
-    this.fecha_fin = "00/00/0000",
-    //this.reglas = "qwerty",
-    //this.premios = "qwertyu"
-  });
+  CampeonatoTile(
+      {this.id = 1,
+      this.nombre = 'Sin nombre',
+      this.fecha_inicio = "00/00/0000",
+      this.fecha_fin = "00/00/0000",
+      this.reglas = "qwerty",
+      this.premios = "qwertyu"});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +70,16 @@ class CampeonatoTile extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.view_headline),
                 onPressed: () {
-                  // Aquí debes poner la navegación a la siguiente pantalla
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetalleCampeonato(
+                        nombre: this.nombre,
+                        reglas: this.reglas,
+                        premios: this.premios,
+                      ),
+                    ),
+                  );
                 },
               ),
               Text(

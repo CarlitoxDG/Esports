@@ -37,11 +37,14 @@ class CampeonatosTab extends StatelessWidget {
                   return ListView.builder(
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
-                      var piloto = snapshot.data[index];
+                      var campeonato = snapshot.data[index];
                       return CampeonatoTile(
-                        nombre: piloto['nombre'],
-                        fecha_inicio: piloto['fecha_inicio'],
-                        fecha_fin: piloto['fecha_fin'],
+                        id: campeonato['id'],
+                        nombre: campeonato['nombre'],
+                        fecha_inicio: campeonato['fecha_inicio'],
+                        fecha_fin: campeonato['fecha_fin'],
+                        reglas: campeonato['reglas'],
+                        premios: campeonato['premios'],
                       );
                     },
                   );

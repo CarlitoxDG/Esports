@@ -21,6 +21,11 @@ class EquipoTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Image(
+            image: AssetImage('assets/images/Equipos/' + '$nombre' + '.png'),
+            height: 40,
+            width: 40,
+          ),
 /*           //numero
           Container(
             width: 35,
@@ -52,13 +57,13 @@ class EquipoTile extends StatelessWidget {
           Column(
             children: [
               IconButton(
-                icon: Icon(Icons.view_headline),
+                icon: Icon(Icons.groups),
                 onPressed: () {
                   // Aquí debes poner la navegación a la siguiente pantalla
                 },
               ),
               Text(
-                "Ver Detalles",
+                "Ver Equipo",
                 style: TextStyle(fontSize: 12, height: 0.1),
               ),
             ],
