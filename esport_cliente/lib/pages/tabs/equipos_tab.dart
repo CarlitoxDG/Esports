@@ -1,3 +1,5 @@
+import 'package:esport_cliente/services/http_service.dart';
+import 'package:esport_cliente/widgets/equipo_tile.dart';
 import 'package:esport_cliente/widgets/titulo_seccion.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +19,29 @@ class EquiposTab extends StatelessWidget {
             //TITULO SECCION
             TituloSeccion(titulo: 'Equipos', subtitulo: 'Listado'),
             //FIN TITULO SECCION
+            Expanded(
+              child: FutureBuilder(
+                future: HttpService().equipos(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData ||
+                      snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                        child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(Colors.deepPurple),
+                    ));
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      var piloto = snapshot.data[index];
+                      return EquipoTile(
+                        nombre: piloto['nombre'],
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
