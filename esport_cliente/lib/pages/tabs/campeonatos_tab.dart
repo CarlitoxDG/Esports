@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:esport_cliente/widgets/campeonato_tile.dart';
 import 'package:esport_cliente/widgets/titulo_seccion.dart';
@@ -27,7 +29,10 @@ class CampeonatosTab extends StatelessWidget {
                 builder: (context, AsyncSnapshot snapshot) {
                   if (!snapshot.hasData ||
                       snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center(
+                        child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(Colors.deepPurple),
+                    ));
                   }
                   return ListView.builder(
                     itemCount: snapshot.data.length,

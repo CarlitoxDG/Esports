@@ -20,8 +20,8 @@ class CampeonatoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(5, 5, 5, 1),
-      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+      margin: EdgeInsets.fromLTRB(5, 4, 5, 1),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       decoration: BoxDecoration(
         color: Color(0xDDFFFFFF),
         borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -30,7 +30,7 @@ class CampeonatoTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          //numero
+/*           //numero
           Container(
             width: 35,
             alignment: Alignment.center,
@@ -41,7 +41,7 @@ class CampeonatoTile extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(3)),
               color: Color(0xBB16171F),
             ),
-          ),
+          ), */
           //nombre
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,18 +51,32 @@ class CampeonatoTile extends StatelessWidget {
                   Text(
                     '$nombre ',
                     style:
-                        GoogleFonts.afacad(textStyle: TextStyle(fontSize: 16)),
+                        GoogleFonts.afacad(textStyle: TextStyle(fontSize: 24)),
                   )
                 ],
               ),
               Text(
                 this.fecha_inicio + " hasta " + this.fecha_fin,
                 style: GoogleFonts.afacad(
-                    textStyle: TextStyle(fontSize: 11, height: 0.8)),
+                    textStyle: TextStyle(fontSize: 14, height: 0.8)),
               ),
             ],
           ),
           Spacer(),
+          Column(
+            children: [
+              IconButton(
+                icon: Icon(Icons.view_headline),
+                onPressed: () {
+                  // Aquí debes poner la navegación a la siguiente pantalla
+                },
+              ),
+              Text(
+                "Ver Detalles",
+                style: TextStyle(fontSize: 12, height: 0.1),
+              ),
+            ],
+          )
         ],
       ),
     );
