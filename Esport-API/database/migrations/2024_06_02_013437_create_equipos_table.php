@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('equipos', function (Blueprint $table) {
             $table->unsignedInteger('id')->autoIncrement();
+            $table->string('logo');
             $table->string('nombre',20);
         });
     }

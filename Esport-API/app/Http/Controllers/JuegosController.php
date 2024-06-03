@@ -17,17 +17,37 @@ class JuegosController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Show the form for creating a new resource.
      */
-    public function store(Request $request)
+    public function create()
     {
         //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(JuegoRequest $request)
+    {
+        $juego = new Juego();
+        $juego->nombre = $request->nombre;
+        $juego->categoria = $request->categoria;
+        $juego->save();
+        return $juego;
     }
 
     /**
      * Display the specified resource.
      */
     public function show(Juego $juego)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Juego $juego)
     {
         //
     }

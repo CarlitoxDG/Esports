@@ -17,17 +17,40 @@ class CampeonatosController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Show the form for creating a new resource.
      */
-    public function store(Request $request)
+    public function create()
     {
         //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(CampeonatoRequest $request)
+    {
+        $campeonato = new Campeonato();
+        $campeonato->nombre = $request->nombre;
+        $campeonato->fecha_inicio = $request->fecha_inicio;
+        $campeonato->fecha_fin = $request->fecha_fin;
+        $campeonato->reglas = $request->reglas;
+        $campeonato->premios = $request->premios;
+        $campeonato->save();
+        return $campeonato;
     }
 
     /**
      * Display the specified resource.
      */
     public function show(Campeonato $campeonato)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Campeonato $campeonato)
     {
         //
     }

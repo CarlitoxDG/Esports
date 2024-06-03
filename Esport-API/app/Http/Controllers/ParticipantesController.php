@@ -17,17 +17,38 @@ class ParticipantesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Show the form for creating a new resource.
      */
-    public function store(Request $request)
+    public function create()
     {
         //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(ParticipanteRequest $request)
+    {
+        $participante = new Participante();
+        $participante->nombre = $request->nombre;
+        $participante->pais = $request->pais;
+        $participante->equipo_id = $request->equipo;
+        $participante->save();
+        return $participante;
     }
 
     /**
      * Display the specified resource.
      */
     public function show(Participante $participante)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Participante $participante)
     {
         //
     }

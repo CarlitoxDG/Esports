@@ -17,17 +17,37 @@ class EquiposController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Show the form for creating a new resource.
      */
-    public function store(Request $request)
+    public function create()
     {
         //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(EquipoRequest $request)
+    {
+        $equipo = new Equipo();
+        $equipo->logo = $request->logo;
+        $equipo->nombre = $request->nombre;
+        $equipo->save();
+        return $equipo;
     }
 
     /**
      * Display the specified resource.
      */
     public function show(Equipo $equipo)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Equipo $equipo)
     {
         //
     }
