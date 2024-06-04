@@ -42,7 +42,7 @@ class ParticipantesController extends Controller
      */
     public function show(Participante $participante)
     {
-        //
+        return $participante;
     }
 
     /**

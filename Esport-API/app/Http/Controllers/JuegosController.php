@@ -41,7 +41,7 @@ class JuegosController extends Controller
      */
     public function show(Juego $juego)
     {
-        //
+        return $juego;
     }
 
     /**

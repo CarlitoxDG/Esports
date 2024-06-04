@@ -44,7 +44,7 @@ class CampeonatosController extends Controller
      */
     public function show(Campeonato $campeonato)
     {
-        //
+        return $campeonato;
     }
 
     /**

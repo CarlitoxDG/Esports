@@ -11,7 +11,7 @@ use App\Http\Controllers\PartidosController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
-})->middlewgitare('auth:sanctum');
+})->middleware('auth:sanctum');
 
 Route::apiResource('/campeonatos',CampeonatosController::class);
 Route::apiResource('/equipos',EquiposController::class);

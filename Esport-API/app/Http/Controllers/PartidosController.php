@@ -47,7 +47,7 @@ class PartidosController extends Controller
      */
     public function show(Partido $partido)
     {
-        //
+        return $partido;
     }
 
     /**
