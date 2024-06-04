@@ -10,6 +10,19 @@ class DetalleCampeonato extends StatelessWidget {
       required this.reglas,
       required this.premios});
 
+  List<Widget> _buildList(String content) {
+    List<String> items = content.split('\\n');
+    return items
+        .map((item) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(item.trim()),
+                const SizedBox(height: 10), 
+              ],
+            ))
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -17,21 +30,14 @@ class DetalleCampeonato extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
-          // title: Text('Formula 1'),
           title: Column(
             children: [
               Container(
-                color: Colors.deepPurple,
-                height: 40,
-                child: Image.asset(
-                  'assets/images/esportsapp_text.png',
-                  fit: BoxFit.contain,
-                ),
+                color: Colors.deepPurple, height: 40,
+                child: Image.asset('assets/images/esportsapp_text.png', fit: BoxFit.contain),
               ),
               Container(
-                color: Colors.deepPurple,
-                height: 30,
-                child: Text(nombre),
+                color: Colors.deepPurple, height: 30, child: Text(nombre),
               )
             ],
           ),
@@ -40,18 +46,49 @@ class DetalleCampeonato extends StatelessWidget {
             unselectedLabelColor: Colors.white60,
             indicatorColor: Colors.white,
             tabs: [
-              Tab(icon: Icon(Icons.videogame_asset), text: 'Reglas'),
-              Tab(icon: Icon(Icons.people), text: 'Premios'),
-              Tab(
-                text: "integrantes",
-              )
+              Tab(icon: Icon(Icons.rule), text: 'Reglas'),
+              Tab(icon: Icon(Icons.monetization_on), text: 'Premios'),
+              Tab(icon: Icon(Icons.people), text: "integrantes"),
             ],
           ),
         ),
         body: TabBarView(
-          children: [Text(reglas), Text(premios), const Text("integrantes")],
+          children: [
+            // Lista ordenada para reglas
+            SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Reglas del campeonato',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10), 
+                  ..._buildList(reglas), 
+                ],
+              ),
+            ),
+            // Lista ordenada para premios
+            SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Premios del campeonato',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10), 
+                  ..._buildList(premios), 
+                ],
+              ),
+            ),
+            const Text("integrantes"),
+          ],
         ),
       ),
     );
   }
 }
+
