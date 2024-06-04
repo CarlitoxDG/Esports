@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 
 class Equipo extends Model
 {
@@ -28,6 +30,13 @@ class Equipo extends Model
 
     public function juegos():BelongsToMany
     {
-        return $this->belongsToMany(Juego::class, 'equipos_juegos');
+        return $this->belongsToMany(Juego::class, 'equipos_juegos','juego_id','equipo_id');
+    }
+
+    public function obtenerJuegosPorEquipoId($id){
+        
+        $equipo = Equipo::with('juegos')->find($id);
+
+        return $equipo->juegos;
     }
 }
