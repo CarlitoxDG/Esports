@@ -12,6 +12,10 @@ class HttpService {
     return listarDatos('equipos');
   }
 
+  Future<List<dynamic>> participantes() async {
+    return listarDatos('participantes');
+  }
+
   Future<List<dynamic>> listarDatos(String coleccion) async {
     var respuesta = await http.get(Uri.parse('$apiUrl/$coleccion'));
     if (respuesta.statusCode == 200) {
