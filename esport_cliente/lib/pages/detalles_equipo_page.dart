@@ -52,7 +52,7 @@ class DetallesEquipo extends StatelessWidget {
           children: [
             Expanded(
                 child: FutureBuilder<List<dynamic>>(
-                    future: HttpService().fetchParticipantes(equipoId),
+                    future: HttpService().listarParticipantes(equipoId),
                     builder: (BuildContext context,
                         AsyncSnapshot<List<dynamic>> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -77,7 +77,34 @@ class DetallesEquipo extends StatelessWidget {
                         );
                       }
                     })),
-            const Text("Juegos")
+            Expanded(
+                child: FutureBuilder<List<dynamic>>(
+                    future: HttpService().listarJuegos(equipoId),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<dynamic>> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                            child: CircularProgressIndicator(
+                          color: Colors.deepPurple,
+                        ));
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      } else {
+                        List? participantes = snapshot.data;
+                        return Scaffold(
+                          body: ListView.builder(
+                            itemCount: participantes?.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ListTile(
+                                title: Text(participantes?[index]['nombre']),
+                                subtitle:
+                                    Text(participantes?[index]['categoria']),
+                              );
+                            },
+                          ),
+                        );
+                      }
+                    }))
           ],
         ),
       ),

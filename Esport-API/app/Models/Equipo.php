@@ -34,10 +34,8 @@ class Equipo extends Model
         return $this->belongsToMany(Juego::class, 'equipos_juegos','juego_id','equipo_id');
     }
 
-    public function obtenerJuegosPorEquipoId($id){
-        
-        $equipo = Equipo::with('juegos')->find($id);
-
-        return $equipo->juegos;
+    public function juegosParticipantes()
+    {
+        return $this->juegos;
     }
 }

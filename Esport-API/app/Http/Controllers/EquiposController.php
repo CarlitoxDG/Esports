@@ -77,4 +77,8 @@ class EquiposController extends Controller
     {
         //
     }
+    public function juegosParticipantes(Equipo $equipo)
+    {
+        return response()->json($equipo->juegos);
+    }
 }
