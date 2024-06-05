@@ -4,10 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class EquipoTile extends StatelessWidget {
   final String nombre;
-
+  final int equipoId;
   const EquipoTile({
     super.key,
     this.nombre = 'Sin nombre',
+    required this.equipoId,
   });
 
   @override
@@ -64,8 +65,10 @@ class EquipoTile extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              DetallesEquipo(nombre: this.nombre)));
+                          builder: (context) => DetallesEquipo(
+                                nombre: this.nombre,
+                                equipoId: equipoId,
+                              )));
                 },
               ),
               const Text(

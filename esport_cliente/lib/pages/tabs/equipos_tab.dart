@@ -36,6 +36,7 @@ class EquiposTab extends StatelessWidget {
                       var piloto = snapshot.data[index];
                       return EquipoTile(
                         nombre: piloto['nombre'],
+                        equipoId: piloto['id'],
                       );
                     },
                   );

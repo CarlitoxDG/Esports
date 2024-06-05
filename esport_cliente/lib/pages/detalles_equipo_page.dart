@@ -1,9 +1,14 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
+import 'package:esport_cliente/widgets/integrantes_equipo_tile.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
 
 class DetallesEquipo extends StatelessWidget {
+  final int equipoId;
   final String nombre;
-  const DetallesEquipo({super.key, required this.nombre});
+  const DetallesEquipo(
+      {super.key, required this.nombre, required this.equipoId});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,36 @@ class DetallesEquipo extends StatelessWidget {
           ),
         ),
         body: TabBarView(
-          children: [Text('hola'), const Text("Juegos")],
+          children: [
+            Expanded(
+                child: FutureBuilder<List<dynamic>>(
+                    future: HttpService().fetchParticipantes(equipoId),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<dynamic>> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                            child: CircularProgressIndicator(
+                          color: Colors.deepPurple,
+                        ));
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      } else {
+                        List? participantes = snapshot.data;
+                        return Scaffold(
+                          body: ListView.builder(
+                            itemCount: participantes?.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ListTile(
+                                title: Text(participantes?[index]['nombre']),
+                                subtitle: Text(participantes?[index]['pais']),
+                              );
+                            },
+                          ),
+                        );
+                      }
+                    })),
+            const Text("Juegos")
+          ],
         ),
       ),
     );
