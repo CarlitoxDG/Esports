@@ -46,4 +46,15 @@ class HttpService {
       throw Exception('Error al cargar los juegos');
     }
   }
+
+  Future<List<dynamic>> equiposEnCampeonato(int campeonatoId) async {
+    final response =
+        await http.get(Uri.parse('$apiUrl/campeonatos/$campeonatoId/equipos'));
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Error al cargar los equipos del campeonato');
+    }
+  }
 }
