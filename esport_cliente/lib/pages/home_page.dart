@@ -11,23 +11,6 @@ class HomePage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                // Acción al presionar el botón
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red, // Color de fondo del botón
-                elevation: 0, // Elimina la sombra
-              ),
-              child: const  Text(
-                'Modo Editor',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
           backgroundColor: Colors.deepPurple,
           // title: Text('Formula 1'),
           title: Container(
@@ -44,7 +27,7 @@ class HomePage extends StatelessWidget {
             indicatorColor: Colors.white,
             tabs: [
               Tab(icon: Icon(Icons.videogame_asset), text: 'Campeonatos'),
-              Tab(icon: Icon(Icons.people), text:'Equipos'),
+              Tab(icon: Icon(Icons.people), text: 'Equipos'),
             ],
           ),
         ),

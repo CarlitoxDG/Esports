@@ -1,10 +1,12 @@
+import 'package:esport_cliente/pages/detalles_equipo_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EquipoTile extends StatelessWidget {
   final String nombre;
 
-  const EquipoTile({super.key, 
+  const EquipoTile({
+    super.key,
     this.nombre = 'Sin nombre',
   });
 
@@ -46,8 +48,8 @@ class EquipoTile extends StatelessWidget {
                 children: [
                   Text(
                     '$nombre ',
-                    style:
-                        GoogleFonts.afacad(textStyle: const TextStyle(fontSize: 24)),
+                    style: GoogleFonts.afacad(
+                        textStyle: const TextStyle(fontSize: 24)),
                   )
                 ],
               ),
@@ -59,7 +61,11 @@ class EquipoTile extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.groups),
                 onPressed: () {
-                  // Aquí debes poner la navegación a la siguiente pantalla
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              DetallesEquipo(nombre: this.nombre)));
                 },
               ),
               const Text(

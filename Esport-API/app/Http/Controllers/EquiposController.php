@@ -12,8 +12,18 @@ class EquiposController extends Controller
      */
     public function index()
     {
-        return Equipo::all();
+        $equipos = Equipo::all();
+    
+        // Retornar los equipos con los integrantes de cada uno
+        return response()->json($equipos->load('participantes'));
         //
+    }
+
+    public function listarParticipantes($id)
+    {
+    $equipo = Equipo::find($id);
+    $participantes = $equipo->participantes;
+    return response()->json($participantes);
     }
 
     /**

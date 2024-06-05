@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -13,7 +14,7 @@ class Equipo extends Model
 
     protected $table = 'equipos';
 
-    public function participantes():HasMany 
+    public function participantes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Participante::class);
     }

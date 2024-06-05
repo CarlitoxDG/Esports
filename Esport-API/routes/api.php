@@ -18,3 +18,4 @@ Route::apiResource('/equipos',EquiposController::class);
 Route::apiResource('/juegos',JuegosController::class);
 Route::apiResource('/participantes',ParticipantesController::class);
 Route::apiResource('/partidos',PartidosController::class);
+Route::get('/equipos/{id}/participantes', [EquiposController::class, 'listarParticipantes']);
