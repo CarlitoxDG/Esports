@@ -67,7 +67,10 @@ class EquiposController extends Controller
      */
     public function update(Request $request, Equipo $equipo)
     {
-        //
+        $equipo->logo = $request->logo;
+        $equipo->nombre = $request->nombre;
+        $equipo->save();
+        return $equipo;
     }
 
     /**
@@ -75,7 +78,7 @@ class EquiposController extends Controller
      */
     public function destroy(Equipo $equipo)
     {
-        //
+        return $equipo->delete();
     }
     public function juegosParticipantes(Equipo $equipo)
     {

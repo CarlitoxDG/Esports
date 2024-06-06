@@ -60,7 +60,13 @@ class CampeonatosController extends Controller
      */
     public function update(Request $request, Campeonato $campeonato)
     {
-        //
+        $campeonato->nombre = $request->nombre;
+        $campeonato->fecha_inicio = $request->fecha_inicio;
+        $campeonato->fecha_fin = $request->fecha_fin;
+        $campeonato->reglas = $request->reglas;
+        $campeonato->premios = $request->premios;
+        $campeonato->save();
+        return $campeonato;
     }
 
     /**
@@ -68,6 +74,6 @@ class CampeonatosController extends Controller
      */
     public function destroy(Campeonato $campeonato)
     {
-        //
+        return $campeonato->delete();
     }
 }

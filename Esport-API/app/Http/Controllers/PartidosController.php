@@ -63,7 +63,16 @@ class PartidosController extends Controller
      */
     public function update(Request $request, Partido $partido)
     {
-        //
+        $partido->fecha = $request->fecha;
+        $partido->pais = $request->pais;
+        $partido->ciudad = $request->ciudad;
+        $partido->sede = $request->sede;
+        $partido->resultado = $request->resultado;
+        $partido->campeonato_id = $request->campeonato;
+        $partido->equipo1_id = $request->equipo1;
+        $partido->equipo2_id = $request->equipo2;
+        $partido->save();
+        return $partido;
     }
 
     /**
@@ -71,6 +80,6 @@ class PartidosController extends Controller
      */
     public function destroy(Partido $partido)
     {
-        //
+        return $partido->delete();
     }
 }

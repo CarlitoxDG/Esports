@@ -58,7 +58,11 @@ class ParticipantesController extends Controller
      */
     public function update(Request $request, Participante $participante)
     {
-        //
+        $participante->nombre = $request->nombre;
+        $participante->pais = $request->pais;
+        $participante->equipo_id = $request->equipo;
+        $participante->save();
+        return $participante;
     }
 
     /**
@@ -66,6 +70,6 @@ class ParticipantesController extends Controller
      */
     public function destroy(Participante $participante)
     {
-        //
+        return $participante->delete();
     }
 }

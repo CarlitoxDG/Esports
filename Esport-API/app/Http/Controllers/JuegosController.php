@@ -57,7 +57,10 @@ class JuegosController extends Controller
      */
     public function update(Request $request, Juego $juego)
     {
-        //
+        $juego->nombre = $request->nombre;
+        $juego->categoria = $request->categoria;
+        $juego->save();
+        return $juego;
     }
 
     /**
@@ -65,6 +68,6 @@ class JuegosController extends Controller
      */
     public function destroy(Juego $juego)
     {
-        //
+        return $juego->delete();
     }
 }
