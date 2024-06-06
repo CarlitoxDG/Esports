@@ -76,4 +76,25 @@ class CampeonatosController extends Controller
     {
         return $campeonato->delete();
     }
+
+    public function equiposEnCampeonato($id)
+    {
+        $campeonato = Campeonato::find($id);
+
+        if (!$campeonato) {
+            return response()->json(['error' => 'Campeonato no encontrado'], 404);
+        }
+
+        $equipos = collect([]);
+
+        foreach ($campeonato->partidos as $partido) {
+            $equipos->push($partido->equipo1);
+            $equipos->push($partido->equipo2);
+        }
+
+        // Filtrar equipos únicos
+        $equiposUnicos = $equipos->unique('id')->values();
+
+        return response()->json($equiposUnicos);
+    }
 }

@@ -5,13 +5,15 @@ import 'package:google_fonts/google_fonts.dart';
 class CampeonatoTile extends StatelessWidget {
   final int id;
   final String nombre;
-  final String fechaInicio; //deberia ser DateTime pero hay q probar como interpreta el api despues de hacer un crud por aqui
+  final String
+      fechaInicio; //deberia ser DateTime pero hay q probar como interpreta el api despues de hacer un crud por aqui
   final String fechaFin;
   final String reglas;
   final String premios;
 
   const CampeonatoTile(
-      {super.key, this.id = 1,
+      {super.key,
+      this.id = 1,
       this.nombre = 'Sin nombre',
       this.fechaInicio = "00/00/0000",
       this.fechaFin = "00/00/0000",
@@ -51,8 +53,8 @@ class CampeonatoTile extends StatelessWidget {
                 children: [
                   Text(
                     '$nombre ',
-                    style:
-                        GoogleFonts.afacad(textStyle: const TextStyle(fontSize: 24)),
+                    style: GoogleFonts.afacad(
+                        textStyle: const TextStyle(fontSize: 24)),
                   )
                 ],
               ),
@@ -76,6 +78,7 @@ class CampeonatoTile extends StatelessWidget {
                         nombre: nombre,
                         reglas: reglas,
                         premios: premios,
+                        idCampeonato: id,
                       ),
                     ),
                   );

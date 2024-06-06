@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
-import 'package:esport_cliente/widgets/integrantes_equipo_tile.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
 
