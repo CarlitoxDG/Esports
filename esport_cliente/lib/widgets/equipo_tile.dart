@@ -66,7 +66,7 @@ class EquipoTile extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => DetallesEquipo(
-                                nombre: this.nombre,
+                                nombre: nombre,
                                 equipoId: equipoId,
                               )));
                 },

@@ -13,6 +13,22 @@ class DetalleCampeonato extends StatelessWidget {
       required this.premios,
       required this.idCampeonato});
 
+  List<Widget> _buildList(String content) {
+    List<String> items = content.split('\\n');
+    return items
+        .map((item) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  item.trim(),
+                  style: const TextStyle(color: Colors.white),
+                ),
+                const SizedBox(height: 10), 
+              ],
+            ))
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -50,41 +66,116 @@ class DetalleCampeonato extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
+        body: Stack(
           children: [
-            Text(reglas),
-            Text(premios),
-            FutureBuilder<List<dynamic>>(
-              future: HttpService().equiposEnCampeonato(idCampeonato),
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<dynamic>> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.deepPurple,
+            Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/fondo_detcampeonato.png'), 
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            TabBarView(
+              children: [
+
+                SingleChildScrollView(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(16.0),
+                    color: Colors.deepPurple.withOpacity(0.8), 
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Reglas del campeonato',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                        const SizedBox(height: 10), 
+                        ..._buildList(reglas), 
+                      ],
                     ),
-                  );
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                } else {
-                  List<dynamic>? equipos = snapshot.data;
-                  return ListView.builder(
-                    itemCount: equipos?.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      String? nombreEquipo = equipos?[index]['nombre'];
-                      String? urlImagen =
-                          'assets/images/Equipos/$nombreEquipo.png';
-                      return ListTile(
-                          title: Text(nombreEquipo ?? 'Nombre del Equipo'),
-                          leading: Image(
-                            image: AssetImage(urlImagen),
-                            height: 40,
-                            width: 40,
-                          ));
-                    },
-                  );
-                }
-              },
+                  ),
+                ),
+                SingleChildScrollView(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(16.0),
+                    color: Colors.deepPurple.withOpacity(0.8), 
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Premios del campeonato',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                        const SizedBox(height: 10), 
+                        ..._buildList(premios), 
+                      ],
+                    ),
+                  ),
+                ),
+
+                FutureBuilder<List<dynamic>>(
+                  future: HttpService().equiposEnCampeonato(idCampeonato),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<dynamic>> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.deepPurple,
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    } else {
+                      List<dynamic>? equipos = snapshot.data;
+                      return SingleChildScrollView(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(16.0),
+                          color: Colors.deepPurple.withOpacity(0.8), 
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Integrantes del campeonato',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                              const SizedBox(height: 10), 
+                              ...equipos?.map((equipo) => Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text(
+                                          equipo['nombre'] ?? 'Nombre del Equipo',
+                                          style: const TextStyle(color: Colors.white),
+                                        ),
+                                        leading: Image.asset(
+                                          'assets/images/Equipos/${equipo['nombre']}.png',
+                                          height: 40,
+                                          width: 40,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10), 
+                                    ],
+                                  )).toList() ?? [],
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ],
             ),
           ],
         ),
@@ -92,3 +183,4 @@ class DetalleCampeonato extends StatelessWidget {
     );
   }
 }
+
