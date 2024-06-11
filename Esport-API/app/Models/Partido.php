@@ -12,9 +12,9 @@ class Partido extends Model
 
     protected $table = 'partidos';
 
-    public function torneo():BelongsTo
+    public function campeonato():BelongsTo
     {
-        return $this->belongsTo(Torneo::class);
+        return $this->belongsTo(Campeonato::class);
     }
 
     public function equipo1():BelongsTo

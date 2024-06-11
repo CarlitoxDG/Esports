@@ -26,6 +26,18 @@ class JuegosSeeder extends Seeder
             'nombre' => 'Valorant',
             'categoria' =>'Shooter 5vs5',
             ],
+            [
+            'nombre' => 'Teamfight Tactics',
+            'categoria' =>'Estrategia',
+            ],
+            [
+            'nombre' => 'Counter Strike: Global Offensive',
+            'categoria' =>'Shooter 5vs5',
+            ],
+            [
+            'nombre' => 'PUBG: BATTLEGROUNDS',
+            'categoria' =>'Battle Royale',
+            ],
         ]);
     }
 }
