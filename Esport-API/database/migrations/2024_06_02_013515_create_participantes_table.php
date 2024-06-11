@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('pais',20);
             $table->unsignedInteger('equipo_id');
 
-            $table->foreign('equipo_id')->references('id')->on('equipos');
+            $table->foreign('equipo_id')->references('id')->on('equipos')->onDelete('cascade');
         });
     }
 
