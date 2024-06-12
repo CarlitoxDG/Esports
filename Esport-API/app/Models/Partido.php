@@ -10,8 +10,6 @@ class Partido extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $table = 'partidos';
     protected $fillable = ['fecha', 'pais', 'ciudad', 'sede', 'resultado', 'campeonato_id', 'equipo1_id', 'equipo2_id'];
     public $timestamps = false;
