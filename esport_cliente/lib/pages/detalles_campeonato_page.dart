@@ -1,8 +1,9 @@
 //import 'package:esport_cliente/pages/crud/partido_add.dart';
+import 'package:esport_cliente/pages/crud/partido_add.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
 
-class DetalleCampeonato extends StatelessWidget {
+class DetalleCampeonato extends StatefulWidget {
   final int idCampeonato;
   final String nombre;
   final String reglas;
@@ -14,6 +15,12 @@ class DetalleCampeonato extends StatelessWidget {
       required this.premios,
       required this.idCampeonato});
 
+  @override
+  State<DetalleCampeonato> createState() => _DetalleCampeonatoState();
+}
+
+class _DetalleCampeonatoState extends State<DetalleCampeonato> {
+  late Future<List<dynamic>> _futurePartidos;
   List<Widget> _buildList(String content) {
     List<String> items = content.split('\\n');
     return items
@@ -28,6 +35,12 @@ class DetalleCampeonato extends StatelessWidget {
               ],
             ))
         .toList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _actualizarPartidos();
   }
 
   @override
@@ -50,7 +63,7 @@ class DetalleCampeonato extends StatelessWidget {
               Container(
                 color: Colors.deepPurple,
                 height: 30,
-                child: Text(nombre),
+                child: Text(widget.nombre),
               )
             ],
           ),
@@ -97,7 +110,7 @@ class DetalleCampeonato extends StatelessWidget {
                               color: Colors.white),
                         ),
                         const SizedBox(height: 10),
-                        ..._buildList(reglas),
+                        ..._buildList(widget.reglas),
                       ],
                     ),
                   ),
@@ -118,13 +131,14 @@ class DetalleCampeonato extends StatelessWidget {
                               color: Colors.white),
                         ),
                         const SizedBox(height: 10),
-                        ..._buildList(premios),
+                        ..._buildList(widget.premios),
                       ],
                     ),
                   ),
                 ),
                 FutureBuilder<List<dynamic>>(
-                  future: HttpService().equiposEnCampeonato(idCampeonato),
+                  future:
+                      HttpService().equiposEnCampeonato(widget.idCampeonato),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<dynamic>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -182,7 +196,7 @@ class DetalleCampeonato extends StatelessWidget {
                   },
                 ),
                 FutureBuilder<List<dynamic>>(
-                  future: HttpService().partidosPorCampeonato(idCampeonato),
+                  future: _futurePartidos,
                   builder: (BuildContext context,
                       AsyncSnapshot<List<dynamic>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -235,7 +249,15 @@ class DetalleCampeonato extends StatelessWidget {
                                   [],
                               Center(
                                 child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => PartidoCrear(
+                                                  campeonatoId:
+                                                      widget.idCampeonato,
+                                                )));
+                                  },
                                   child: const Text("Desafiar"),
                                 ),
                               )
@@ -252,5 +274,12 @@ class DetalleCampeonato extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _actualizarPartidos() async {
+    setState(() {
+      _futurePartidos =
+          HttpService().partidosPorCampeonato(widget.idCampeonato);
+    });
   }
 }

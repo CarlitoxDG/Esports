@@ -13,7 +13,8 @@ class Partido extends Model
     public $timestamps = false;
 
     protected $table = 'partidos';
-
+    protected $fillable = ['fecha', 'pais', 'ciudad', 'sede', 'resultado', 'campeonato_id', 'equipo1_id', 'equipo2_id'];
+    public $timestamps = false;
     public function campeonato():BelongsTo
     {
         return $this->belongsTo(Campeonato::class);

@@ -28,7 +28,7 @@ class PartidosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PartidoRequest $request)
+    public function store(Request $request)
     {
         $partido = new Partido();
         $partido->fecha = $request->fecha;

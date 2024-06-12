@@ -180,27 +180,26 @@ class HttpService {
       required String ciudad,
       required String sede,
       required String resultado,
-      required int campeonatoId,
-      required int equipo1Id,
-      required int equipo2Id}) async {
+      required int campeonato,
+      required int equipo1,
+      required int equipo2}) async {
     final url = Uri.parse('$apiUrl/partidos');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
-        'fecha':
-            fecha.toIso8601String(), // Formatea la fecha en formato ISO 8601
+        'fecha': fecha.toString().substring(0, 10), // Formatea la fecha
         'pais': pais,
         'ciudad': ciudad,
         'sede': sede,
         'resultado': resultado,
-        'campeonato_id': campeonatoId,
-        'equipo1_id': equipo1Id,
-        'equipo2_id': equipo2Id,
+        'campeonato': campeonato,
+        'equipo1': equipo1,
+        'equipo2': equipo2,
       }),
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       // Si la solicitud se completó correctamente, puedes manejar la respuesta aquí si es necesario
       print('Datos del partido enviados exitosamente');
     } else {
