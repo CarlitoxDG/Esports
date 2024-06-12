@@ -10,6 +10,8 @@ class Partido extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $table = 'partidos';
 
     public function campeonato():BelongsTo

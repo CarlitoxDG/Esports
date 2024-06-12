@@ -9,6 +9,8 @@ class Campeonato extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $table = 'campeonatos';
 
     public function partidos():HasMany

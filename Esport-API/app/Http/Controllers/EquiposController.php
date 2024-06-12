@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipo;
 use Illuminate\Http\Request;
+use App\Http\Requests\EquipoRequest;
 
 class EquiposController extends Controller
 {
@@ -65,7 +66,7 @@ class EquiposController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Equipo $equipo)
+    public function update(EquipoRequest $request, Equipo $equipo)
     {
         $equipo->logo = $request->logo;
         $equipo->nombre = $request->nombre;

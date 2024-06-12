@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Partido;
 use Illuminate\Http\Request;
+use App\Http\Requests\PartidoRequest;
 
 class PartidosController extends Controller
 {
@@ -61,7 +62,7 @@ class PartidosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Partido $partido)
+    public function update(PartidoRequest $request, Partido $partido)
     {
         $partido->fecha = $request->fecha;
         $partido->pais = $request->pais;

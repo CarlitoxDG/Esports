@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Participante;
 use Illuminate\Http\Request;
+use App\Http\Requests\ParticipanteRequest;
 
 class ParticipantesController extends Controller
 {
@@ -64,7 +65,7 @@ class ParticipantesController extends Controller
         $participante->save();
         return $participante;
     } */
-    public function update(Request $request, $id)
+    public function update(ParticipanteRequest $request, $id)
     {
         $participante = Participante::findOrFail($id);
         $participante->update($request->all());

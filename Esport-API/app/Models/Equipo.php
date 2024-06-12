@@ -12,6 +12,8 @@ class Equipo extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $table = 'equipos';
 
     public function participantes(): \Illuminate\Database\Eloquent\Relations\HasMany

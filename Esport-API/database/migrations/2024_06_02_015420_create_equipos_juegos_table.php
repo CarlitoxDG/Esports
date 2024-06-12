@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedInteger('equipo_id');
             $table->unsignedInteger('juego_id');
 
-            $table->foreign('equipo_id')->references('id')->on('equipos');
-            $table->foreign('juego_id')->references('id')->on('juegos');
+            $table->foreign('equipo_id')->references('id')->on('equipos')->onDelete('cascade');
+            $table->foreign('juego_id')->references('id')->on('juegos')->onDelete('cascade');
         });
     }
 

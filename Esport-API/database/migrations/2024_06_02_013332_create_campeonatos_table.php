@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('fecha_fin');
             $table->text('reglas');
             $table->text('premios');
+
         });
     }
 

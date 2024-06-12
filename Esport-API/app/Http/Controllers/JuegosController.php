@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Juego;
 use Illuminate\Http\Request;
+use App\Http\Requests\JuegoRequest;
 
 class JuegosController extends Controller
 {
@@ -27,7 +28,7 @@ class JuegosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(JuegoRequest $request)
     {
         $juego = new Juego();
         $juego->nombre = $request->nombre;
@@ -55,7 +56,7 @@ class JuegosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(JuegoRequest $request,$id)
     {
         $juego=Juego::findOrFail($id);
         $juego->update($request->all());

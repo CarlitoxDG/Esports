@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Campeonato;
 use Illuminate\Http\Request;
+use App\Http\Requests\CampeonatoRequest;
 
 class CampeonatosController extends Controller
 {
@@ -58,7 +59,7 @@ class CampeonatosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Campeonato $campeonato)
+    public function update(CampeonatoRequest $request, Campeonato $campeonato)
     {
         $campeonato->nombre = $request->nombre;
         $campeonato->fecha_inicio = $request->fecha_inicio;

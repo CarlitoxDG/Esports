@@ -24,8 +24,8 @@ return new class extends Migration
 
 
             $table->foreign('campeonato_id')->references('id')->on('campeonatos')->onDelete('cascade');
-            $table->foreign('equipo1_id')->references('id')->on('equipos');
-            $table->foreign('equipo2_id')->references('id')->on('equipos');
+            $table->foreign('equipo1_id')->references('id')->on('equipos')->onDelete('cascade');
+            $table->foreign('equipo2_id')->references('id')->on('equipos')->onDelete('cascade');
         });
     }
 

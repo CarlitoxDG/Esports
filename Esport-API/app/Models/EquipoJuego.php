@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class EquipoJuego extends Model
 {
+
     use HasFactory;
+    public $timestamps = false;
     protected $table = 'equipos_juegos';
 
 }
