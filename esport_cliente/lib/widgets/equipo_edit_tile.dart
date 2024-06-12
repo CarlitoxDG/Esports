@@ -1,8 +1,9 @@
-import 'package:esport_cliente/pages/crud/equipo_edit.dart';
+//import 'package:esport_cliente/pages/crud/equipo_edit.dart';
+import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class EquipoTileEdit extends StatelessWidget {
+class EquipoTileEdit extends StatefulWidget {
   final String nombre;
   final int equipoId;
   const EquipoTileEdit({
@@ -11,6 +12,11 @@ class EquipoTileEdit extends StatelessWidget {
     required this.equipoId,
   });
 
+  @override
+  State<EquipoTileEdit> createState() => _EquipoTileEditState();
+}
+
+class _EquipoTileEditState extends State<EquipoTileEdit> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +31,7 @@ class EquipoTileEdit extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image(
-            image: AssetImage('assets/images/Equipos/$nombre.png'),
+            image: AssetImage('assets/images/Equipos/${widget.nombre}.png'),
             height: 40,
             width: 40,
           ),
@@ -35,7 +41,7 @@ class EquipoTileEdit extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '$nombre ',
+                    '${widget.nombre} ',
                     style: GoogleFonts.inconsolata(
                         textStyle: const TextStyle(fontSize: 24)),
                   )
@@ -50,17 +56,7 @@ class EquipoTileEdit extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.edit),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => EquipoEdit(
-                            equipoId: equipoId,
-                            nombre: nombre,
-                          ),
-                        ),
-                      );
-                    },
+                    onPressed: () {},
                   ),
                   Text(
                     "Editar",
@@ -74,7 +70,17 @@ class EquipoTileEdit extends StatelessWidget {
               Column(
                 children: [
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        print('BORRAR: ${this.widget.equipoId}');
+                        await HttpService()
+                            .eliminarEquipo(this.widget.equipoId)
+                            .then((borradoOK) {
+                          if (borradoOK) {
+                            print('equipo borrado');
+                            setState(() {});
+                          }
+                        });
+                      },
                       icon: const Icon(
                         Icons.delete_forever,
                         color: Colors.red,

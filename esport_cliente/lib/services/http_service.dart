@@ -1,4 +1,6 @@
+import 'dart:collection';
 import 'dart:convert';
+import 'package:esport_cliente/pages/crud/agregar_campeonato.dart';
 import 'package:http/http.dart' as http;
 
 class HttpService {
@@ -206,5 +208,42 @@ class HttpService {
       throw Exception(
           'Error al enviar los datos del partido: ${response.reasonPhrase}');
     }
+  }
+
+  Future<bool> eliminarCampeonato(int campeonatoId) async {
+    var respuesta = await http
+        .delete(Uri.parse(apiUrl + '/campeonatos/' + campeonatoId.toString()));
+    return respuesta.statusCode == 200;
+  }
+
+  Future<bool> eliminarEquipo(int equipoId) async {
+    var respuesta = await http
+        .delete(Uri.parse(apiUrl + '/equipos/' + equipoId.toString()));
+    return respuesta.statusCode == 200;
+  }
+
+  Future<LinkedHashMap<String, dynamic>> AgregarCampeonato(
+    String nombre,
+    String fecha_inicio,
+    String fecha_fin,
+    String reglas,
+    String premios,
+  ) async {
+    var url = Uri.parse('$apiUrl/campeonatos');
+    var respuesta = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json'
+      },
+      body: json.encode(<String, dynamic>{
+        'nombre': nombre,
+        'fecha_inicio': fecha_inicio,
+        'fecha_fin': fecha_fin,
+        'reglas': reglas,
+        'premios': premios,
+      }),
+    );
+    return json.decode(respuesta.body);
   }
 }

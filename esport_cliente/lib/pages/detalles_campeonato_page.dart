@@ -1,4 +1,4 @@
-import 'package:esport_cliente/pages/crud/partido_add.dart';
+//import 'package:esport_cliente/pages/crud/partido_add.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
 
@@ -235,15 +235,7 @@ class DetalleCampeonato extends StatelessWidget {
                                   [],
                               Center(
                                 child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => PartidoCrear(
-                                                  campeonatoId:
-                                                      this.idCampeonato,
-                                                )));
-                                  },
+                                  onPressed: () {},
                                   child: const Text("Desafiar"),
                                 ),
                               )

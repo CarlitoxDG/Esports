@@ -1,8 +1,9 @@
-import 'package:esport_cliente/pages/crud/campeonato_edit.dart';
+//import 'package:esport_cliente/pages/crud/campeonato_edit.dart';import 'package:esport_cliente/pages/detalles_campeonato_page.dart';
+import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CampeonatoTileEdit extends StatelessWidget {
+class CampeonatoTileEdit extends StatefulWidget {
   final int id;
   final String nombre;
   final String
@@ -20,6 +21,11 @@ class CampeonatoTileEdit extends StatelessWidget {
       this.reglas = "qwerty",
       this.premios = "qwertyu"});
 
+  @override
+  State<CampeonatoTileEdit> createState() => _CampeonatoTileEditState();
+}
+
+class _CampeonatoTileEditState extends State<CampeonatoTileEdit> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,14 +45,14 @@ class CampeonatoTileEdit extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '$nombre ',
+                    '${widget.nombre} ',
                     style: GoogleFonts.inconsolata(
                         textStyle: const TextStyle(fontSize: 24)),
                   )
                 ],
               ),
               Text(
-                "$fechaInicio hasta $fechaFin",
+                "${widget.fechaInicio} hasta ${widget.fechaFin}",
                 style: GoogleFonts.inconsolata(
                     textStyle: const TextStyle(fontSize: 14, height: 0.8)),
               ),
@@ -59,14 +65,7 @@ class CampeonatoTileEdit extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.edit),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CampeonatoEdit(),
-                        ),
-                      );
-                    },
+                    onPressed: () {},
                   ),
                   Text(
                     "Editar",
@@ -80,7 +79,17 @@ class CampeonatoTileEdit extends StatelessWidget {
               Column(
                 children: [
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        print('BORRAR: ${this.widget.id}');
+                        await HttpService()
+                            .eliminarCampeonato(this.widget.id)
+                            .then((borradoOK) {
+                          if (borradoOK) {
+                            print('campeonato borrado');
+                            setState(() {});
+                          }
+                        });
+                      },
                       icon: const Icon(
                         Icons.delete_forever,
                         color: Colors.red,
@@ -94,7 +103,7 @@ class CampeonatoTileEdit extends StatelessWidget {
                 ],
               )
             ],
-          )
+          ),
         ],
       ),
     );

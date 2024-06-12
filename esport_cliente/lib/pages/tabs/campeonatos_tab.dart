@@ -1,14 +1,21 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:esport_cliente/pages/crud/agregar_campeonato.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:esport_cliente/widgets/campeonato_tile.dart';
 import 'package:esport_cliente/widgets/titulo_seccion.dart';
 import 'package:flutter/material.dart';
 
-class CampeonatosTab extends StatelessWidget {
+class CampeonatosTab extends StatefulWidget {
+  CampeonatosTab({super.key});
+
+  @override
+  State<CampeonatosTab> createState() => _CampeonatosTabState();
+}
+
+class _CampeonatosTabState extends State<CampeonatosTab> {
   final fondo = AssetImage('assets/images/fondo_app.jpg');
 
-  CampeonatosTab({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
