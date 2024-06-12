@@ -1,3 +1,4 @@
+import 'package:esport_cliente/pages/crud/partido_add.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class DetalleCampeonato extends StatelessWidget {
                   item.trim(),
                   style: const TextStyle(color: Colors.white),
                 ),
-                const SizedBox(height: 10), 
+                const SizedBox(height: 10),
               ],
             ))
         .toList();
@@ -32,7 +33,7 @@ class DetalleCampeonato extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
@@ -58,11 +59,13 @@ class DetalleCampeonato extends StatelessWidget {
             unselectedLabelColor: Colors.white60,
             indicatorColor: Colors.white,
             tabs: [
-              Tab(icon: Icon(Icons.videogame_asset), text: 'Reglas'),
-              Tab(icon: Icon(Icons.people), text: 'Premios'),
+              Tab(icon: Icon(Icons.fact_check), text: 'Reglas'),
+              Tab(icon: Icon(Icons.emoji_events), text: 'Premios'),
               Tab(
-                text: "integrantes",
-              )
+                icon: Icon(Icons.groups),
+                text: "Integrantes",
+              ),
+              Tab(icon: Icon(Icons.sports), text: 'Partidos'),
             ],
           ),
         ),
@@ -71,19 +74,18 @@ class DetalleCampeonato extends StatelessWidget {
             Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/fondo_detcampeonato.png'), 
+                  image: AssetImage('assets/images/fondo_detcampeonato.png'),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
             TabBarView(
               children: [
-
                 SingleChildScrollView(
                   padding: const EdgeInsets.all(16.0),
                   child: Container(
                     padding: const EdgeInsets.all(16.0),
-                    color: Colors.deepPurple.withOpacity(0.8), 
+                    color: Colors.deepPurple.withOpacity(0.8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -94,8 +96,8 @@ class DetalleCampeonato extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
-                        const SizedBox(height: 10), 
-                        ..._buildList(reglas), 
+                        const SizedBox(height: 10),
+                        ..._buildList(reglas),
                       ],
                     ),
                   ),
@@ -104,7 +106,7 @@ class DetalleCampeonato extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Container(
                     padding: const EdgeInsets.all(16.0),
-                    color: Colors.deepPurple.withOpacity(0.8), 
+                    color: Colors.deepPurple.withOpacity(0.8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -115,13 +117,12 @@ class DetalleCampeonato extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
-                        const SizedBox(height: 10), 
-                        ..._buildList(premios), 
+                        const SizedBox(height: 10),
+                        ..._buildList(premios),
                       ],
                     ),
                   ),
                 ),
-
                 FutureBuilder<List<dynamic>>(
                   future: HttpService().equiposEnCampeonato(idCampeonato),
                   builder: (BuildContext context,
@@ -140,7 +141,7 @@ class DetalleCampeonato extends StatelessWidget {
                         padding: const EdgeInsets.all(16.0),
                         child: Container(
                           padding: const EdgeInsets.all(16.0),
-                          color: Colors.deepPurple.withOpacity(0.8), 
+                          color: Colors.deepPurple.withOpacity(0.8),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -151,23 +152,101 @@ class DetalleCampeonato extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
                               ),
-                              const SizedBox(height: 10), 
-                              ...equipos?.map((equipo) => Column(
-                                    children: [
-                                      ListTile(
-                                        title: Text(
-                                          equipo['nombre'] ?? 'Nombre del Equipo',
-                                          style: const TextStyle(color: Colors.white),
-                                        ),
-                                        leading: Image.asset(
-                                          'assets/images/Equipos/${equipo['nombre']}.png',
-                                          height: 40,
-                                          width: 40,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10), 
-                                    ],
-                                  )).toList() ?? [],
+                              const SizedBox(height: 10),
+                              ...equipos
+                                      ?.map((equipo) => Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  equipo['nombre'] ??
+                                                      'Nombre del Equipo',
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                                leading: Image.asset(
+                                                  'assets/images/Equipos/${equipo['nombre']}.png',
+                                                  height: 40,
+                                                  width: 40,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                            ],
+                                          ))
+                                      .toList() ??
+                                  [],
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
+                FutureBuilder<List<dynamic>>(
+                  future: HttpService().partidosPorCampeonato(idCampeonato),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<dynamic>> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.deepPurple,
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    } else {
+                      List<dynamic>? equipos = snapshot.data;
+                      return SingleChildScrollView(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(16.0),
+                          color: Colors.deepPurple.withOpacity(0.8),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Partidos del campeonato',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                              const SizedBox(height: 10),
+                              ...equipos
+                                      ?.map((partido) => Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  "${partido['equipo1_nombre']} vs ${partido['equipo2_nombre']}",
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                                subtitle: Text(partido['fecha']
+                                                    .toString()),
+                                                leading: Text(
+                                                    partido['resultado']
+                                                        .toString()),
+                                                trailing: Text(
+                                                    "${partido['pais']}, ${partido['ciudad']}, ${partido['sede']}"),
+                                              ),
+                                              const SizedBox(height: 10),
+                                            ],
+                                          ))
+                                      .toList() ??
+                                  [],
+                              Center(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => PartidoCrear(
+                                                  campeonatoId:
+                                                      this.idCampeonato,
+                                                )));
+                                  },
+                                  child: const Text("Desafiar"),
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -183,4 +262,3 @@ class DetalleCampeonato extends StatelessWidget {
     );
   }
 }
-

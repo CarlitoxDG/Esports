@@ -97,4 +97,12 @@ class CampeonatosController extends Controller
 
         return response()->json($equiposUnicos);
     }
+
+    public function partidos($id)
+{
+    $campeonato = Campeonato::findOrFail($id);
+    $partidos = $campeonato->partidos;
+    return response()->json($partidos);
+}
+
 }

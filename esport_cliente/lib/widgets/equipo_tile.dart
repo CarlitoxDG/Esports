@@ -29,19 +29,6 @@ class EquipoTile extends StatelessWidget {
             height: 40,
             width: 40,
           ),
-/*           //numero
-          Container(
-            width: 35,
-            alignment: Alignment.center,
-            margin: EdgeInsets.only(right: 10),
-            padding: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              border: Border.all(color: Color.fromARGB(255, 73, 17, 178)),
-              borderRadius: BorderRadius.all(Radius.circular(3)),
-              color: Color(0xBB16171F),
-            ),
-          ), */
-          //nombre
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

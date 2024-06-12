@@ -11,6 +11,8 @@ class Participante extends Model
     use HasFactory;
 
     protected $table = 'participantes';
+    protected $fillable = ['nombre', 'pais', 'equipo_id'];
+    public $timestamps = false;
 
     public function equipo():BelongsTo
     {

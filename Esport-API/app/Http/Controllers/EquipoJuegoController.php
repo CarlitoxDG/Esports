@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Juego;
+use App\Models\EquipoJuego;
 use Illuminate\Http\Request;
 
-class JuegosController extends Controller
+class EquipoJuegoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Juego::all();
-        //
+        return EquipoJuego::all();
     }
 
     /**
@@ -29,25 +28,25 @@ class JuegosController extends Controller
      */
     public function store(Request $request)
     {
-        $juego = new Juego();
-        $juego->nombre = $request->nombre;
-        $juego->categoria = $request->categoria;
-        $juego->save();
-        return $juego;
+        $equipoJuego = new EquipoJuego();
+        $equipoJuego->equipo_id = $request->equipo_id;
+        $equipoJuego->juego_id=$request->juego_id;
+        $equipoJuego->save();
+        return $equipoJuego; 
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Juego $juego)
+    public function show(EquipoJuego $equipoJuego)
     {
-        return $juego;
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Juego $juego)
+    public function edit(EquipoJuego $equipoJuego)
     {
         //
     }
@@ -55,20 +54,16 @@ class JuegosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, EquipoJuego $equipoJuego)
     {
-        $juego=Juego::findOrFail($id);
-        $juego->update($request->all());
-        return response()->json($juego, 200);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(EquipoJuego $equipoJuego)
     {
-        $juego = Juego::findOrFail($id);
-        $juego->delete();
-        return response()->json(['message' => 'Juego eliminado correctamente'], 200);
+        return $equipoJuego->delete();
     }
 }
