@@ -65,7 +65,7 @@ class ParticipantesController extends Controller
         $participante->save();
         return $participante;
     } */
-    public function update(ParticipanteRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $participante = Participante::findOrFail($id);
         $participante->update($request->all());

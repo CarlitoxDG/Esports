@@ -78,8 +78,9 @@ class _IntegranteAddState extends State<IntegranteAdd> {
                 }).catchError((error) {
                   ScaffoldMessenger.of(_context).showSnackBar(
                     const SnackBar(
-                        content: Text('Error al guardar los cambios')),
+                        content: Text('Error al guardar los cambioss')),
                   );
+                  widget.onUpdate();
                 });
                 Navigator.pop(context);
               },

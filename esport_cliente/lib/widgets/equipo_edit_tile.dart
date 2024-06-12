@@ -1,4 +1,5 @@
 //import 'package:esport_cliente/pages/crud/equipo_edit.dart';
+import 'package:esport_cliente/pages/crud/equipo_edit.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -56,7 +57,17 @@ class _EquipoTileEditState extends State<EquipoTileEdit> {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.edit),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EquipoEdit(
+                            equipoId: widget.equipoId,
+                            nombre: widget.nombre,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   Text(
                     "Editar",
