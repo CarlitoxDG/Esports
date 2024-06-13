@@ -68,11 +68,11 @@ class _PartidoCrearState extends State<PartidoCrear> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: _equipos
-              ?.map((equipo) => Column(
+              .map((equipo) => Column(
                     children: [
                       ListTile(
                         title: Text(
-                          equipo ?? 'Nombre del Equipo',
+                          equipo,
                           style: TextStyle(color: Colors.black),
                         ),
                         leading: Image.asset(

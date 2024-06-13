@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 class EquipoTileEdit extends StatefulWidget {
   final String nombre;
   final int equipoId;
+
   const EquipoTileEdit({
     super.key,
     this.nombre = 'Sin nombre',

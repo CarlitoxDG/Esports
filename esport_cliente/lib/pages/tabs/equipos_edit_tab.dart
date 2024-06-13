@@ -1,16 +1,16 @@
-import 'package:esport_cliente/pages/crud/agregar_campeonato.dart';
+import 'package:esport_cliente/pages/crud/agregar_equipo.dart';
 import 'package:esport_cliente/services/http_service.dart';
-import 'package:esport_cliente/widgets/campeonato_edit_tile.dart';
+import 'package:esport_cliente/widgets/equipo_edit_tile.dart';
 import 'package:flutter/material.dart';
 
-class CampeonatosEditTab extends StatefulWidget {
-  const CampeonatosEditTab({super.key});
+class EquiposEditTab extends StatefulWidget {
+  const EquiposEditTab({super.key});
 
   @override
-  State<CampeonatosEditTab> createState() => _CampeonatosEditTabState();
+  State<EquiposEditTab> createState() => _EquiposEditTabState();
 }
 
-class _CampeonatosEditTabState extends State<CampeonatosEditTab> {
+class _EquiposEditTabState extends State<EquiposEditTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,7 @@ class _CampeonatosEditTabState extends State<CampeonatosEditTab> {
           children: [
             Expanded(
               child: FutureBuilder(
-                future: HttpService().campeonatos(),
+                future: HttpService().equipos(),
                 builder: (context, AsyncSnapshot snapshot) {
                   if (!snapshot.hasData ||
                       snapshot.connectionState == ConnectionState.waiting) {
@@ -32,14 +32,10 @@ class _CampeonatosEditTabState extends State<CampeonatosEditTab> {
                   return ListView.builder(
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
-                      var campeonato = snapshot.data[index];
-                      return CampeonatoTileEdit(
-                        campeonatoId: campeonato['id'],
-                        nombre: campeonato['nombre'],
-                        fechaInicio: campeonato['fecha_inicio'],
-                        fechaFin: campeonato['fecha_fin'],
-                        reglas: campeonato['reglas'],
-                        premios: campeonato['premios'],
+                      var equipo = snapshot.data[index];
+                      return EquipoTileEdit(
+                        equipoId: equipo['id'],
+                        nombre: equipo['nombre'],
                       );
                     },
                   );
@@ -53,7 +49,7 @@ class _CampeonatosEditTabState extends State<CampeonatosEditTab> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AgregarCampeonato()),
+            MaterialPageRoute(builder: (context) => AgregarEquipo()),
           );
         },
         child: Icon(Icons.add),

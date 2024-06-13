@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CampeonatoTileEdit extends StatefulWidget {
-  final int id;
+  final int campeonatoId;
   final String nombre;
   final String
       fechaInicio; //deberia ser DateTime pero hay q probar como interpreta el api despues de hacer un crud por aqui
@@ -14,7 +14,7 @@ class CampeonatoTileEdit extends StatefulWidget {
 
   const CampeonatoTileEdit(
       {super.key,
-      this.id = 1,
+      this.campeonatoId = 1,
       this.nombre = 'Sin nombre',
       this.fechaInicio = "00/00/0000",
       this.fechaFin = "00/00/0000",
@@ -65,7 +65,21 @@ class _CampeonatoTileEditState extends State<CampeonatoTileEdit> {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.edit),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CampeonatoTileEdit(
+                            campeonatoId: widget.campeonatoId,
+                            nombre: widget.nombre,
+                            fechaInicio: widget.fechaInicio,
+                            fechaFin: widget.fechaFin,
+                            reglas: widget.reglas,
+                            premios: widget.premios,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   Text(
                     "Editar",
@@ -80,9 +94,9 @@ class _CampeonatoTileEditState extends State<CampeonatoTileEdit> {
                 children: [
                   IconButton(
                       onPressed: () async {
-                        print('BORRAR: ${this.widget.id}');
+                        print('BORRAR: ${this.widget.campeonatoId}');
                         await HttpService()
-                            .eliminarCampeonato(this.widget.id)
+                            .eliminarCampeonato(this.widget.campeonatoId)
                             .then((borradoOK) {
                           if (borradoOK) {
                             print('campeonato borrado');

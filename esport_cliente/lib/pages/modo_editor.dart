@@ -1,4 +1,5 @@
 import 'package:esport_cliente/pages/tabs/campeonatos_edit_tab.dart';
+import 'package:esport_cliente/pages/tabs/equipos_edit_tab.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:esport_cliente/widgets/campeonato_edit_tile.dart';
 import 'package:esport_cliente/widgets/equipo_edit_tile.dart';
@@ -71,10 +72,10 @@ class _ModoEditorState extends State<ModoEditor> {
                       return ListView.builder(
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
-                          var piloto = snapshot.data[index];
+                          var equipo = snapshot.data[index];
                           return EquipoTileEdit(
-                            nombre: piloto['nombre'],
-                            equipoId: piloto['id'],
+                            nombre: equipo['nombre'],
+                            equipoId: equipo['id'],
                           );
                         },
                       );

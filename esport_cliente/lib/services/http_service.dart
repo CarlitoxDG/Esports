@@ -1,6 +1,5 @@
 import 'dart:collection';
 import 'dart:convert';
-import 'package:esport_cliente/pages/crud/agregar_campeonato.dart';
 import 'package:http/http.dart' as http;
 
 class HttpService {
@@ -241,6 +240,49 @@ class HttpService {
         'fecha_fin': fecha_fin,
         'reglas': reglas,
         'premios': premios,
+      }),
+    );
+    return json.decode(respuesta.body);
+  }
+
+  Future<LinkedHashMap<String, dynamic>> editarCampeonato(
+    int campeonatoId,
+    String nombre,
+    String fecha_inicio,
+    String fecha_fin,
+    String reglas,
+    String premios,
+  ) async {
+    var respuesta = await http.put(
+      Uri.parse(apiUrl + '/campeonatos/' + campeonatoId.toString()),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json'
+      },
+      body: json.encode(<String, dynamic>{
+        'id': campeonatoId,
+        'nombre': nombre,
+        'fecha_inicio': fecha_inicio,
+        'fecha_fin': fecha_fin,
+        'reglas': reglas,
+        'premios': premios,
+      }),
+    );
+    return json.decode(respuesta.body);
+  }
+
+  Future<LinkedHashMap<String, dynamic>> AgregarEquipo(
+    String nombre,
+  ) async {
+    var url = Uri.parse('$apiUrl/equipos');
+    var respuesta = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json'
+      },
+      body: json.encode(<String, dynamic>{
+        'nombre': nombre,
       }),
     );
     return json.decode(respuesta.body);

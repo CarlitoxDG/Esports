@@ -40,7 +40,7 @@ class _JuegoEditState extends State<JuegoEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar Integrante'),
+        title: const Text('Editar Juego'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -49,12 +49,11 @@ class _JuegoEditState extends State<JuegoEdit> {
           children: [
             TextFormField(
               controller: _nombreController,
-              decoration:
-                  const InputDecoration(labelText: 'Nombre del Participante'),
+              decoration: const InputDecoration(labelText: 'Nombre del Juego'),
             ),
             TextFormField(
               controller: _catController,
-              decoration: const InputDecoration(labelText: 'País'),
+              decoration: const InputDecoration(labelText: 'Categoria'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
