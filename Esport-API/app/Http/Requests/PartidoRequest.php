@@ -22,34 +22,51 @@ class PartidoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fecha' => ['required'],
-            'pais' => ['required'],
-            'ciudad' => ['required'],
-            'sede' => ['required'],
+            'fecha' => ['required', 'date'],
+            'pais' => ['required', 'string', 'min:2', 'max:50'],
+            'ciudad' => ['required', 'string', 'min:2', 'max:60'],
+            'sede' => ['required', 'min:2', 'max:60'],
             'resultado' => ['nullable'],
-            'campeonato_id' => ['required','integer','exists:campeonatos,id'],
-            'equipo1_id' => ['required','integer','exists:equipos,id'],
-            'equipo2_id' => ['required','integer','exists:equipos,id'],
+            'campeonato_id' => ['required', 'integer', 'exists:campeonatos,id'],
+            'equipo1_id' => ['required', 'integer', 'different:equipo2_id', 'exists:equipos,id'],
+            'equipo2_id' => ['required', 'integer', 'different:equipo1_id', 'exists:equipos,id'],
         ];
     }
 
+    /**
+     * Get the validation messages that apply to the request.
+     *
+     * @return array<string, string>
+     */
     public function messages(): array
     {
         return [
-            'fecha.required' => 'Indique la fecha del partido',
-            'pais.required' => 'Indique el pais',
-            'ciudad.required' => 'Indique la ciudad',
-            'sede.required' => 'Indique el nombre de la sede',
-            'resultado.nullable' => '',
-            'campeonato_id.required' => 'Campeonato no válido',
-            'campeonato_id.integer' => 'Campeonato no válido',
-            'campeonato_id.exists' => 'Campeonato no válido',
-            'equipo1_id.required' => 'Equipo no válido',
-            'equipo1_id.integer' => 'Equipo no válido',
-            'equipo1_id.exists' => 'Equipo no válido',
-            'equipo2_id.required' => 'Equipo no válido',
-            'equipo2_id.integer' => 'Equipo no válido',
-            'equipo2_id.exists' => 'Equipo no válido',
+            'fecha.required' => 'La fecha del partido es obligatoria.',
+            'fecha.date' => 'La fecha del partido debe tener un formato válido (YYYY-MM-DD).',
+            'pais.required' => 'El país del partido es obligatorio.',
+            'pais.string' => 'El país del partido debe ser un texto.',
+            'pais.min' => 'El país del partido debe tener al menos 2 caracteres.',
+            'pais.max' => 'El país del partido no puede superar los 50 caracteres.',
+            'ciudad.required' => 'La ciudad del partido es obligatoria.',
+            'ciudad.string' => 'La ciudad del partido debe ser un texto.',
+            'ciudad.min' => 'La ciudad del partido debe tener al menos 2 caracteres.',
+            'ciudad.max' => 'La ciudad del partido no puede superar los 60 caracteres.',
+            'sede.required' => 'La sede del partido es obligatoria.',
+            'sede.string' => 'La sede del partido debe ser un texto.',
+            'sede.min' => 'La sede del partido debe tener al menos 2 caracteres.',
+            'sede.max' => 'La sede del partido no puede superar los 60 caracteres.',
+            'resultado.nullable' => 'El resultado del partido puede ser opcional.',
+            'campeonato_id.required' => 'El campeonato del partido es obligatorio.',
+            'campeonato_id.integer' => 'El campeonato seleccionado no existe. Elija un campeonato válido.',
+            'campeonato_id.exists' => 'El campeonato seleccionado no existe. Elija un campeonato válido.',
+            'equipo1_id.required' => 'El equipo 1 del partido es obligatorio.',
+            'equipo1_id.integer' => 'El equipo 1 seleccionado no existe. Elija un equipo válido.',
+            'equipo1_id.different' => 'El equipo 1 no puede ser el mismo que el equipo 2.',
+            'equipo1_id.exists' => 'El equipo 1 seleccionado no existe. Elija un equipo válido.',
+            'equipo2_id.required' => 'El equipo 2 del partido es obligatorio.',
+            'equipo2_id.integer' => 'El equipo 2 seleccionado no existe. Elija un equipo válido.',
+            'equipo2_id.different' => 'El equipo 2 no puede ser el mismo que el equipo 1.',
+            'equipo2_id.exists' => 'El equipo 2 seleccionado no existe. Elija un equipo válido.',
         ];
     }
 }

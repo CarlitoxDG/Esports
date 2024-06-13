@@ -41,7 +41,7 @@ class EquiposController extends Controller
     public function store(EquipoRequest $request)
     {
         $equipo = new Equipo();
-        $equipo->logo = $request->logo;
+        //$equipo->logo = $request->logo;
         $equipo->nombre = $request->nombre;
         $equipo->save();
         return $equipo;
@@ -68,7 +68,7 @@ class EquiposController extends Controller
      */
     public function update(EquipoRequest $request, Equipo $equipo)
     {
-        $equipo->logo = $request->logo;
+        //$equipo->logo = $request->logo;
         $equipo->nombre = $request->nombre;
         $equipo->save();
         return $equipo;
