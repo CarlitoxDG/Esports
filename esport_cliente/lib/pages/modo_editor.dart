@@ -1,3 +1,4 @@
+import 'package:esport_cliente/pages/tabs/campeonatos_edit_tab.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:esport_cliente/widgets/campeonato_edit_tile.dart';
 import 'package:esport_cliente/widgets/equipo_edit_tile.dart';
@@ -55,34 +56,7 @@ class _ModoEditorState extends State<ModoEditor> {
             ),
             body: TabBarView(
               children: [
-                Expanded(
-                  child: FutureBuilder(
-                    future: HttpService().campeonatos(),
-                    builder: (context, AsyncSnapshot snapshot) {
-                      if (!snapshot.hasData ||
-                          snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                            child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Colors.black),
-                        ));
-                      }
-                      return ListView.builder(
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (context, index) {
-                          var campeonato = snapshot.data[index];
-                          return CampeonatoTileEdit(
-                            id: campeonato['id'],
-                            nombre: campeonato['nombre'],
-                            fechaInicio: campeonato['fecha_inicio'],
-                            fechaFin: campeonato['fecha_fin'],
-                            reglas: campeonato['reglas'],
-                            premios: campeonato['premios'],
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
+                CampeonatosEditTab(),
                 Expanded(
                   child: FutureBuilder(
                     future: HttpService().equipos(),

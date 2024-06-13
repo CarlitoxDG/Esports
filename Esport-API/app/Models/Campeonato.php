@@ -10,7 +10,7 @@ class Campeonato extends Model
     use HasFactory;
 
     public $timestamps = false;
-
+    protected $fillable = ['nombre', 'fecha_inicio', 'fecha_fin', 'reglas','premios'];
     protected $table = 'campeonatos';
 
     public function partidos():HasMany

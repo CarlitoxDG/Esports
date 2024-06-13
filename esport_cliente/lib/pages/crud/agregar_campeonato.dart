@@ -1,5 +1,6 @@
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
 import '../../widgets/titulo_seccion.dart';
 
@@ -12,8 +13,8 @@ class AgregarCampeonato extends StatefulWidget {
 
 class _AgregarCampeonatoState extends State<AgregarCampeonato> {
   TextEditingController nombreController = TextEditingController();
-  TextEditingController fechaInicioController = TextEditingController();
-  TextEditingController fechaFinController = TextEditingController();
+  DateTime fechaInicioController = DateTime.now();
+  DateTime fechaFinController = DateTime.now();
   TextEditingController reglasController = TextEditingController();
   TextEditingController premiosController = TextEditingController();
 
@@ -49,19 +50,29 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
               Text(errNombre, style: TextStyle(color: Colors.red)),
 
               //fecha Inicio
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Fecha Inicio'),
-                controller: fechaInicioController,
-                keyboardType: TextInputType.datetime,
-              ),
+              OutlinedButton(
+                  onPressed: () {
+                    DatePicker.showDatePicker(context, showTitleActions: true,
+                        onChanged: (date) {
+                      setState(() {
+                        fechaInicioController = date;
+                      });
+                    });
+                  },
+                  child: Text("Elegir fecha de inicio")),
               Text(errFechaFin, style: TextStyle(color: Colors.red)),
 
               //fecha Fin
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Fecha Termino'),
-                controller: fechaFinController,
-                keyboardType: TextInputType.datetime,
-              ),
+              OutlinedButton(
+                  onPressed: () {
+                    DatePicker.showDatePicker(context, showTitleActions: true,
+                        onChanged: (date) {
+                      setState(() {
+                        fechaInicioController = date;
+                      });
+                    });
+                  },
+                  child: Text("Elegir fecha de inicio")),
               Text(errFechaFin, style: TextStyle(color: Colors.red)),
 
               //premios
@@ -87,8 +98,8 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
                   onPressed: () async {
                     var respuesta = await HttpService().AgregarCampeonato(
                       nombreController.text,
-                      fechaInicioController.text,
-                      fechaInicioController.text,
+                      fechaInicioController.toString().substring(0, 10),
+                      fechaInicioController.toString().substring(0, 10),
                       reglasController.text,
                       premiosController.text,
                     );

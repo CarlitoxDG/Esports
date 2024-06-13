@@ -30,3 +30,4 @@ Route::post('/equipojuego', [EquipoJuegoController::class, 'store']);
 Route::delete('/juegos/{id}', [JuegosController::class, 'destroy']);
 Route::get('/campeonatos/{id}/partidos', [CampeonatosController::class, 'partidos']);
 Route::post('/partidos', [PartidosController::class, 'store']);
+Route::post('/campeonatos',[CampeonatosController::class, 'store']);
