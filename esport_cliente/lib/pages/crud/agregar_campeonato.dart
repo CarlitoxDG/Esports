@@ -46,12 +46,6 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
                 ),
                 controller: nombreController,
                 keyboardType: TextInputType.text,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Este campo es obligatorio';
-                  }
-                  return null;
-                },
               ),
               SizedBox(height: 8),
               Text(errNombre, style: TextStyle(color: Colors.red)),
@@ -171,9 +165,11 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
         premiosController.text,
       );
 
-      if (respuesta.containsKey('message')) {
-        var errores = respuesta['errors'] ?? {};
+      if (respuesta['message'] != null) {
+        //hay errores de validación
+        var errores = respuesta['errors'];
         setState(() {
+          // errNombre = errores['nombre'][0] ?? '';
           errNombre = errores['nombre'] != null ? errores['nombre'][0] : '';
           errFechaInicio =
               errores['fecha_inicio'] != null ? errores['fecha_inicio'][0] : '';
@@ -182,9 +178,12 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
           errReglas = errores['reglas'] != null ? errores['reglas'][0] : '';
           errPremios = errores['premios'] != null ? errores['premios'][0] : '';
         });
+        print(errNombre);
       } else {
+        //todo ok, volver a la pagina que lista
         Navigator.pop(context);
       }
     }
+    ;
   }
 }

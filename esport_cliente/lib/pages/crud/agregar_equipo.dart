@@ -50,10 +50,11 @@ class _agregarEquipoState extends State<AgregarEquipo> {
                       nombreController.text,
                     );
 
-                    if (respuesta.containsKey('message')) {
+                    if (respuesta['message'] != null) {
                       //hay errores de validación
-                      var errores = respuesta['errors'] ?? {};
+                      var errores = respuesta['errors'];
                       setState(() {
+                        // errNombre = errores['nombre'][0] ?? '';
                         errNombre = errores['nombre'] != null
                             ? errores['nombre'][0]
                             : '';

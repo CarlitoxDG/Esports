@@ -28,7 +28,7 @@ class CampeonatosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CampeonatoRequest $request)
     {
         $campeonato = new Campeonato();
         $campeonato->nombre = $request->nombre;

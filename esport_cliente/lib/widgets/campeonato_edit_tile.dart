@@ -1,3 +1,4 @@
+import 'package:esport_cliente/pages/crud/campeonato_edit.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -63,7 +64,21 @@ class _CampeonatoTileEditState extends State<CampeonatoTileEdit> {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.edit),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CampeonatoEdit(
+                            campeonatoId: widget.id,
+                            nombre: widget.nombre,
+                            fechaInicio: widget.fechaInicio,
+                            fechaFin: widget.fechaFin,
+                            reglas: widget.reglas,
+                            premios: widget.premios,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   Text(
                     "Editar",
