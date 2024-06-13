@@ -12,6 +12,7 @@ class EquipoTileEdit extends StatefulWidget {
     this.nombre = 'Sin nombre',
     required this.equipoId,
   });
+
   @override
   State<EquipoTileEdit> createState() => _EquipoTileEditState();
 }

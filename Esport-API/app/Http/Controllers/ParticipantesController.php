@@ -28,7 +28,7 @@ class ParticipantesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ParticipanteRequest $request)
     {
         $participante = new Participante();
         $participante->nombre = $request->nombre;
@@ -57,15 +57,17 @@ class ParticipantesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-/*     public function update(Request $request, Participante $participante)
+   /*  
+     public function update(Request $request, Participante $participante)
     {
         $participante->nombre = $request->nombre;
         $participante->pais = $request->pais;
         $participante->equipo_id = $request->equipo;
         $participante->save();
         return $participante;
-    } */
-    public function update(Request $request, $id)
+    }  */
+
+    public function update(ParticipanteRequest $request, $id)
     {
         $participante = Participante::findOrFail($id);
         $participante->update($request->all());

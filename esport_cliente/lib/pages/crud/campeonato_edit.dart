@@ -33,6 +33,12 @@ class _CampeonatoEditState extends State<CampeonatoEdit> {
   late TextEditingController reglasController;
   late TextEditingController premiosController;
 
+  String errNombre = "";
+  String errFechaInicio = "";
+  String errFechaFin = "";
+  String errReglas = "";
+  String errPremios = "";
+
   @override
   void initState() {
     super.initState();
@@ -84,6 +90,8 @@ class _CampeonatoEditState extends State<CampeonatoEdit> {
                   return null;
                 },
               ),
+              SizedBox(height: 8),
+              Text(errNombre, style: TextStyle(color: Colors.red)),
               SizedBox(height: 16.0),
               // Fecha de Inicio
               TextFormField(
@@ -106,6 +114,8 @@ class _CampeonatoEditState extends State<CampeonatoEdit> {
                   return null;
                 },
               ),
+              SizedBox(height: 8),
+              Text(errFechaInicio, style: TextStyle(color: Colors.red)),
               SizedBox(height: 16.0),
               // Fecha de Término
               TextFormField(
@@ -127,6 +137,8 @@ class _CampeonatoEditState extends State<CampeonatoEdit> {
                   return null;
                 },
               ),
+              SizedBox(height: 8),
+              Text(errFechaFin, style: TextStyle(color: Colors.red)),
               SizedBox(height: 16.0),
               // Reglas
               TextFormField(
@@ -142,6 +154,8 @@ class _CampeonatoEditState extends State<CampeonatoEdit> {
                   return null;
                 },
               ),
+              SizedBox(height: 8),
+              Text(errReglas, style: TextStyle(color: Colors.red)),
               SizedBox(height: 16.0),
               // Premios
               TextFormField(
@@ -157,26 +171,55 @@ class _CampeonatoEditState extends State<CampeonatoEdit> {
                   return null;
                 },
               ),
+              SizedBox(height: 8),
+              Text(errPremios, style: TextStyle(color: Colors.red)),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    var respuesta = await apiService.editarCampeonato(
-                      widget.campeonatoId,
-                      nombreController.text,
-                      fechaInicioController.text,
-                      fechaFinController.text,
-                      reglasController.text,
-                      premiosController.text,
-                    );
+                    try {
+                      var respuesta = await apiService.editarCampeonato(
+                        widget.campeonatoId,
+                        nombreController.text,
+                        fechaInicioController.text,
+                        fechaFinController.text,
+                        reglasController.text,
+                        premiosController.text,
+                      );
 
-                    if (respuesta.containsKey('id')) {
+                      if (respuesta['message'] != null) {
+                        // Hay errores de validación
+                        var errores = respuesta['errors'];
+                        setState(() {
+                          errNombre = errores['nombre'] != null
+                              ? errores['nombre'][0]
+                              : '';
+                          errFechaInicio = errores['fecha_inicio'] != null
+                              ? errores['fecha_inicio'][0]
+                              : '';
+                          errFechaFin = errores['fecha_fin'] != null
+                              ? errores['fecha_fin'][0]
+                              : '';
+                          errReglas = errores['reglas'] != null
+                              ? errores['reglas'][0]
+                              : '';
+                          errPremios = errores['premios'] != null
+                              ? errores['premios'][0]
+                              : '';
+                        });
+                      } else if (respuesta.containsKey('id')) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('Campeonato actualizado'),
+                        ));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                              'Error al actualizar el campeonato: ${respuesta['message']}'),
+                        ));
+                      }
+                    } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Campeonato actualizado'),
-                      ));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Error al actualizar el campeonato'),
+                        content: Text('Ocurrió un error: $e'),
                       ));
                     }
                   }

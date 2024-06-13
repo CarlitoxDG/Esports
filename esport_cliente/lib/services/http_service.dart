@@ -172,39 +172,41 @@ class HttpService {
     }
   }
 
-  Future<void> enviarDatosPartido(
-      {required DateTime fecha,
-      required String pais,
-      required String ciudad,
-      required String sede,
-      required String resultado,
-      required int campeonato,
-      required int equipo1,
-      required int equipo2}) async {
+  Future<http.Response> enviarDatosPartido({
+    required DateTime fecha,
+    required String pais,
+    required String ciudad,
+    required String sede,
+    required String resultado,
+    required int campeonato,
+    required int equipo1,
+    required int equipo2,
+  }) async {
     final url = Uri.parse('$apiUrl/partidos');
+
+    // Cuerpo de la solicitud POST
+    final body = json.encode({
+      'fecha': fecha.toIso8601String(),
+      'pais': pais,
+      'ciudad': ciudad,
+      'sede': sede,
+      'resultado': resultado,
+      'campeonato_id': campeonato,
+      'equipo1_id': equipo1,
+      'equipo2_id': equipo2,
+    });
+
+    // Realiza la solicitud POST
     final response = await http.post(
       url,
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'fecha': fecha.toString().substring(0, 10),
-        'pais': pais,
-        'ciudad': ciudad,
-        'sede': sede,
-        'resultado': resultado,
-        'campeonato': campeonato,
-        'equipo1': equipo1,
-        'equipo2': equipo2,
-      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: body,
     );
 
-    if (response.statusCode == 201) {
-      // Si la solicitud se completó correctamente, puedes manejar la respuesta aquí si es necesario
-      print('Datos del partido enviados exitosamente');
-    } else {
-      // Si la solicitud falla, puedes manejar el error aquí
-      throw Exception(
-          'Error al enviar los datos del partido: ${response.reasonPhrase}');
-    }
+    return response;
   }
 
   Future<bool> eliminarCampeonato(int campeonatoId) async {
@@ -219,7 +221,7 @@ class HttpService {
     return respuesta.statusCode == 200;
   }
 
-  Future<LinkedHashMap<String, dynamic>> AgregarCampeonato(
+  Future<LinkedHashMap<String, dynamic>> agregarCampeonato(
     String nombre,
     String fecha_inicio,
     String fecha_fin,
@@ -282,6 +284,36 @@ class HttpService {
       },
       body: json.encode(<String, dynamic>{
         'nombre': nombre,
+      }),
+    );
+    return json.decode(respuesta.body);
+  }
+
+  Future<LinkedHashMap<String, dynamic>> AgregarPartido(
+      String fecha,
+      String pais,
+      String ciudad,
+      String sede,
+      String resultado,
+      int campeonato,
+      int equipo1,
+      int equipo2) async {
+    var url = Uri.parse('$apiUrl/campeonatos');
+    var respuesta = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json'
+      },
+      body: json.encode(<String, dynamic>{
+        'fecha': fecha,
+        'pais': pais,
+        'ciudad': ciudad,
+        'sede': sede,
+        'resultado': resultado,
+        'campeonato': campeonato,
+        'equipo1_id': equipo1,
+        'equipo2_id': equipo2,
       }),
     );
     return json.decode(respuesta.body);

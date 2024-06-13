@@ -331,7 +331,7 @@ class _DetalleCampeonatoState extends State<DetalleCampeonato> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => PartidoCrear(
+                                        builder: (context) => PartidoAdd(
                                           campeonatoId: widget.idCampeonato,
                                         ),
                                       ),
