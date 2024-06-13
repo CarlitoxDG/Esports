@@ -5,7 +5,8 @@ class IntegranteAdd extends StatefulWidget {
   final int equipoId;
   final Function onUpdate;
 
-  const IntegranteAdd({Key? key, required this.onUpdate, required this.equipoId})
+  const IntegranteAdd(
+      {Key? key, required this.onUpdate, required this.equipoId})
       : super(key: key);
 
   @override
@@ -55,7 +56,8 @@ class _IntegranteAddState extends State<IntegranteAdd> {
             const SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.red, 
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.red,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),

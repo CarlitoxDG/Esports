@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import '../../widgets/titulo_seccion.dart';
 
-
 class AgregarCampeonato extends StatefulWidget {
   const AgregarCampeonato({Key? key}) : super(key: key);
 
@@ -39,9 +38,7 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
           child: ListView(
             children: [
               TituloSeccion(titulo: 'Campeonatos', subtitulo: 'Agregar'),
-
               SizedBox(height: 16),
-
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Nombre',
@@ -58,13 +55,9 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
               ),
               SizedBox(height: 8),
               Text(errNombre, style: TextStyle(color: Colors.red)),
-
               SizedBox(height: 16),
-
               _buildDateFields(),
-
               SizedBox(height: 16),
-
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Premios',
@@ -74,9 +67,7 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
               ),
               SizedBox(height: 8),
               Text(errPremios, style: TextStyle(color: Colors.red)),
-
               SizedBox(height: 16),
-
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Reglas',
@@ -86,9 +77,7 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
               ),
               SizedBox(height: 8),
               Text(errReglas, style: TextStyle(color: Colors.red)),
-
               SizedBox(height: 32),
-
               _buildAgregarButton(),
             ],
           ),
@@ -106,23 +95,23 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
             _showDatePicker(true);
           },
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Colors.red, 
-            minimumSize: Size(double.infinity, 48), 
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.red,
+            minimumSize: Size(double.infinity, 48),
           ),
           child: Text("Elegir fecha de inicio"),
         ),
         SizedBox(height: 8),
         Text(errFechaInicio, style: TextStyle(color: Colors.red)),
-
         SizedBox(height: 16),
-
         ElevatedButton(
           onPressed: () {
             _showDatePicker(false);
           },
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Colors.red, 
-            minimumSize: Size(double.infinity, 48), 
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.red,
+            minimumSize: Size(double.infinity, 48),
           ),
           child: Text("Elegir fecha de fin"),
         ),
@@ -133,7 +122,8 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
   }
 
   void _showDatePicker(bool isStartDate) {
-    DatePicker.showDatePicker(context, showTitleActions: true, onChanged: (date) {
+    DatePicker.showDatePicker(context, showTitleActions: true,
+        onChanged: (date) {
       setState(() {
         if (isStartDate) {
           fechaInicioController = date;
@@ -148,10 +138,10 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
     return Container(
       margin: EdgeInsets.only(top: 20),
       child: SizedBox(
-        width: double.infinity, 
+        width: double.infinity,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red, 
+            backgroundColor: Colors.red,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -162,7 +152,7 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
           child: Text(
             'Agregar Campeonato',
             style: TextStyle(
-              color: Colors.white, 
+              color: Colors.white,
               fontSize: 16,
             ),
           ),
@@ -185,13 +175,15 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
         var errores = respuesta['errors'] ?? {};
         setState(() {
           errNombre = errores['nombre'] != null ? errores['nombre'][0] : '';
-          errFechaInicio = errores['fecha_inicio'] != null ? errores['fecha_inicio'][0] : '';
-          errFechaFin = errores['fecha_fin'] != null ? errores['fecha_fin'][0] : '';
+          errFechaInicio =
+              errores['fecha_inicio'] != null ? errores['fecha_inicio'][0] : '';
+          errFechaFin =
+              errores['fecha_fin'] != null ? errores['fecha_fin'][0] : '';
           errReglas = errores['reglas'] != null ? errores['reglas'][0] : '';
           errPremios = errores['premios'] != null ? errores['premios'][0] : '';
         });
       } else {
-        Navigator.pop(context); 
+        Navigator.pop(context);
       }
     }
   }

@@ -45,14 +45,19 @@ class _EquiposEditTabState extends State<EquiposEditTab> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => AgregarEquipo()),
           );
         },
-        child: Icon(Icons.add),
+        icon: Icon(Icons.add, color: Colors.white),
+        label: Text(
+          'Nuevo Equipo',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.red,
       ),
     );
   }

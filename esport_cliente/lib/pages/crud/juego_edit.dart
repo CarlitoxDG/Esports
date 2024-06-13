@@ -53,12 +53,11 @@ class _JuegoEditState extends State<JuegoEdit> {
             ),
             TextFormField(
               controller: _catController,
-              decoration: const InputDecoration(labelText: 'Categoria'),
+              decoration: const InputDecoration(labelText: 'Categoría'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-
                 final nuevosDatos = {
                   'nombre': _nombreController.text,
                   'categoria': _catController.text,
@@ -66,23 +65,22 @@ class _JuegoEditState extends State<JuegoEdit> {
                 await HttpService()
                     .actualizarJuego(widget.juegoId, nuevosDatos)
                     .then((response) {
-                  if (response.statusCode == 200) {
+                  if (response['status'] == 200) {
                     ScaffoldMessenger.of(_context).showSnackBar(
                       const SnackBar(
-                          content: Text('¡Cambios guardados con éxito!')),
+                          content: Text('¡Juego actualizado con éxito!')),
                     );
-
                     widget.onUpdate();
                   } else {
                     ScaffoldMessenger.of(_context).showSnackBar(
                       const SnackBar(
-                          content: Text('Error al guardar los cambios')),
+                          content: Text('Error al actualizar el juego')),
                     );
                   }
                 }).catchError((error) {
                   ScaffoldMessenger.of(_context).showSnackBar(
                     const SnackBar(
-                        content: Text('Error al guardar los cambios')),
+                        content: Text('Error al actualizar el juego')),
                   );
                 });
                 Navigator.pop(context);

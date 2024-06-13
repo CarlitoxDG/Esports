@@ -64,117 +64,126 @@ class _CampeonatoEditState extends State<CampeonatoEdit> {
       appBar: AppBar(
         title: Text('Editar Campeonato'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Nombre
-                TextFormField(
-                  controller: nombreController,
-                  decoration: InputDecoration(
-                    labelText: 'Nombre',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor ingrese el nombre';
-                    }
-                    return null;
-                  },
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              // Nombre
+              TextFormField(
+                controller: nombreController,
+                decoration: InputDecoration(
+                  labelText: 'Nombre',
+                  border: OutlineInputBorder(),
                 ),
-                SizedBox(height: 16.0),
-                // Fecha de Inicio
-                TextFormField(
-                  controller: fechaInicioController,
-                  decoration: InputDecoration(
-                    labelText: 'Fecha de Inicio',
-                    border: OutlineInputBorder(),
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.calendar_today),
-                      onPressed: () =>
-                          _selectDate(context, fechaInicioController),
-                    ),
-                  ),
-                  readOnly: true,
-                  onTap: () => _selectDate(context, fechaInicioController),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor seleccione la fecha de inicio';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 16.0),
-                // Fecha de Término
-                TextFormField(
-                  controller: fechaFinController,
-                  decoration: InputDecoration(
-                    labelText: 'Fecha de Término',
-                    border: OutlineInputBorder(),
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.calendar_today),
-                      onPressed: () => _selectDate(context, fechaFinController),
-                    ),
-                  ),
-                  readOnly: true,
-                  onTap: () => _selectDate(context, fechaFinController),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor seleccione la fecha de término';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 16.0),
-                // Reglas
-                TextFormField(
-                  controller: reglasController,
-                  decoration: InputDecoration(
-                    labelText: 'Reglas',
-                    border: OutlineInputBorder(),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor ingrese el nombre';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16.0),
+              // Fecha de Inicio
+              TextFormField(
+                controller: fechaInicioController,
+                decoration: InputDecoration(
+                  labelText: 'Fecha de Inicio',
+                  border: OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.calendar_today),
+                    onPressed: () =>
+                        _selectDate(context, fechaInicioController),
                   ),
                 ),
-                SizedBox(height: 16.0),
-                // Premios
-                TextFormField(
-                  controller: premiosController,
-                  decoration: InputDecoration(
-                    labelText: 'Premios',
-                    border: OutlineInputBorder(),
+                readOnly: true,
+                onTap: () => _selectDate(context, fechaInicioController),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor seleccione la fecha de inicio';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16.0),
+              // Fecha de Término
+              TextFormField(
+                controller: fechaFinController,
+                decoration: InputDecoration(
+                  labelText: 'Fecha de Término',
+                  border: OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.calendar_today),
+                    onPressed: () => _selectDate(context, fechaFinController),
                   ),
                 ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      var respuesta = await apiService.editarCampeonato(
-                        widget.campeonatoId,
-                        nombreController.text,
-                        fechaInicioController.text,
-                        fechaFinController.text,
-                        reglasController.text,
-                        premiosController.text,
-                      );
+                readOnly: true,
+                onTap: () => _selectDate(context, fechaFinController),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor seleccione la fecha de término';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16.0),
+              // Reglas
+              TextFormField(
+                controller: reglasController,
+                decoration: InputDecoration(
+                  labelText: 'Reglas',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor ingrese las reglas';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16.0),
+              // Premios
+              TextFormField(
+                controller: premiosController,
+                decoration: InputDecoration(
+                  labelText: 'Premios',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor ingrese los premios';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    var respuesta = await apiService.editarCampeonato(
+                      widget.campeonatoId,
+                      nombreController.text,
+                      fechaInicioController.text,
+                      fechaFinController.text,
+                      reglasController.text,
+                      premiosController.text,
+                    );
 
-                      if (respuesta.containsKey('id')) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Campeonato actualizado'),
-                        ));
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Error al actualizar el campeonato'),
-                        ));
-                      }
+                    if (respuesta.containsKey('id')) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Campeonato actualizado'),
+                      ));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Error al actualizar el campeonato'),
+                      ));
                     }
-                  },
-                  child: Text('Actualizar Campeonato'),
-                ),
-              ],
-            ),
+                  }
+                },
+                child: Text('Actualizar Campeonato'),
+              ),
+            ],
           ),
         ),
       ),

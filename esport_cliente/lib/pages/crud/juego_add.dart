@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class JuegoAdd extends StatefulWidget {
   final int equipoId;
   final Function onUpdate;
-  
+
   const JuegoAdd({Key? key, required this.onUpdate, required this.equipoId});
 
   @override
@@ -53,48 +53,43 @@ class _JuegoAddState extends State<JuegoAdd> {
             const SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.red, // Letras blancas
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.red, // Letras blancas
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
                 minimumSize: Size(double.infinity, 48),
               ),
               onPressed: () async {
-                // Acción para guardar los cambios
                 final nuevosDatosJuego = {
                   'nombre': _nombreController.text,
                   'categoria': _catController.text,
-                };
-                final datosEquipo = {
-                  'equipo_id': widget.equipoId
+                  'equipo_id': widget.equipoId,
                 };
 
                 await HttpService()
-                    .postNuevoJuego(nuevosDatosJuego, datosEquipo)
+                    .postNuevoJuego(nuevosDatosJuego)
                     .then((response) {
-                  if (response.statusCode == 201 ||
-                      response.statusCode == 200) {
+                  if (response['status'] == 201 || response['status'] == 200) {
                     ScaffoldMessenger.of(_context).showSnackBar(
                       const SnackBar(
-                          content: Text('¡Cambios guardados con éxito!')),
+                          content: Text('¡Juego guardado con éxito!')),
                     );
                     widget.onUpdate();
                   } else {
                     ScaffoldMessenger.of(_context).showSnackBar(
                       const SnackBar(
-                          content: Text('Error al guardar los cambios')),
+                          content: Text('Error al guardar el juego')),
                     );
-                    widget.onUpdate();
                   }
                 }).catchError((error) {
                   ScaffoldMessenger.of(_context).showSnackBar(
-                    const SnackBar(
-                        content: Text('Error al guardar los cambios')),
+                    const SnackBar(content: Text('Error al guardar el juego')),
                   );
                 });
                 Navigator.pop(context);
               },
-              child: const Text('Guardar Cambios'),
+              child: const Text('Guardar Juego'),
             ),
           ],
         ),

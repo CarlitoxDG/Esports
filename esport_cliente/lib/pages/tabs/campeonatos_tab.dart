@@ -1,6 +1,4 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:esport_cliente/pages/crud/agregar_campeonato.dart';
+//import 'package:esport_cliente/pages/crud/agregar_campeonato.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:esport_cliente/widgets/campeonato_tile.dart';
 import 'package:esport_cliente/widgets/titulo_seccion.dart';
@@ -25,10 +23,7 @@ class _CampeonatosTabState extends State<CampeonatosTab> {
         ),
         child: Column(
           children: [
-            
             TituloSeccion(titulo: 'Campeonatos', subtitulo: 'Listado'),
-            
-
 
             Expanded(
               child: FutureBuilder(

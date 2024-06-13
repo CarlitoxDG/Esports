@@ -68,14 +68,11 @@ class HttpService {
 
       // Itera sobre los partidos para obtener los nombres de los equipos
       for (var partido in partidos) {
-
         var equipo1Id = partido['equipo1_id'];
         var equipo2Id = partido['equipo2_id'];
 
-
         var equipo1 = await obtenerNombreEquipo(equipo1Id);
         var equipo2 = await obtenerNombreEquipo(equipo2Id);
-
 
         partido['equipo1_nombre'] = equipo1['nombre'];
         partido['equipo2_nombre'] = equipo2['nombre'];
@@ -105,7 +102,7 @@ class HttpService {
       headers: {"Content-Type": "application/json"},
       body: json.encode(datos),
     );
-    return response; 
+    return response;
   }
 
   Future<dynamic> actualizarJuego(int id, Map<String, dynamic> datos) async {
@@ -114,7 +111,7 @@ class HttpService {
       headers: {"Content-Type": "application/json"},
       body: json.encode(datos),
     );
-    return response; 
+    return response;
   }
 
   Future<dynamic> postNuevoParticipante(Map<String, dynamic> datos) async {
@@ -134,25 +131,17 @@ class HttpService {
     }
   }
 
-  Future<dynamic> postNuevoJuego(
-      Map<String, dynamic> datosJuego, Map<String, dynamic> datosEquipo) async {
-    final response = await http.post(
-      Uri.parse('$apiUrl/juegos'),
-      headers: {"Content-Type": "application/json"},
-      body: json.encode(datosJuego),
+  Future<LinkedHashMap<String, dynamic>> postNuevoJuego(
+      Map<String, dynamic> juego) async {
+    var respuesta = await http.post(
+      Uri.parse(apiUrl + '/juegos'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json'
+      },
+      body: json.encode(juego),
     );
-    final response2 = await http.post(Uri.parse('$apiUrl/equipojuego'),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode(datosEquipo));
-
-    if (response.statusCode == 201 || response.statusCode == 200) {
-      if (response2.statusCode == 201 || response2.statusCode == 200) {
-        return json.decode(response.body);
-      }
-    } else {
-     
-      throw Exception('Error al agregar el juego: ${response.statusCode}');
-    }
+    return json.decode(respuesta.body);
   }
 
   Future<void> eliminarParticipante(int id) async {
@@ -187,7 +176,7 @@ class HttpService {
       url,
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
-        'fecha': fecha.toString().substring(0, 10), 
+        'fecha': fecha.toString().substring(0, 10),
         'pais': pais,
         'ciudad': ciudad,
         'sede': sede,

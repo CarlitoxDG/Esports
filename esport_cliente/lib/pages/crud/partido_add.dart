@@ -28,24 +28,17 @@ class _PartidoCrearState extends State<PartidoCrear> {
 
   Future<void> enviarDatosPartido() async {
     DateTime fechaSeleccionada = _fechaSeleccionada;
-    int equipo1IdSeleccionado = _equipos.indexOf(_equipoSeleccionado1) +
-        1; 
-    int equipo2IdSeleccionado = _equipos.indexOf(_equipoSeleccionado2) +
-        1; 
+    int equipo1IdSeleccionado = _equipos.indexOf(_equipoSeleccionado1) + 1;
+    int equipo2IdSeleccionado = _equipos.indexOf(_equipoSeleccionado2) + 1;
 
     // Llama a la función para enviar los datos del partido a la API
     HttpService().enviarDatosPartido(
       fecha: fechaSeleccionada,
-      pais: paisController
-          .text, 
-      ciudad: ciudadController
-          .text, 
-      sede: sedeController
-          .text, 
-      resultado: resultadoController
-          .text, 
-      campeonato: widget
-          .campeonatoId, 
+      pais: paisController.text,
+      ciudad: ciudadController.text,
+      sede: sedeController.text,
+      resultado: resultadoController.text,
+      campeonato: widget.campeonatoId,
       equipo1: equipo1IdSeleccionado,
       equipo2: equipo2IdSeleccionado,
     );
@@ -68,29 +61,29 @@ class _PartidoCrearState extends State<PartidoCrear> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: _equipos
-              .map((equipo) => Column(
-                    children: [
-                      ListTile(
-                        title: Text(
-                          equipo,
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        leading: Image.asset(
-                          'assets/images/Equipos/$equipo.png',
-                          height: 40,
-                          width: 40,
-                        ),
-                        onTap: () {
-                          onChanged(equipo);
+          .map((equipo) => Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      equipo,
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    leading: Image.asset(
+                      'assets/images/Equipos/$equipo.png',
+                      height: 40,
+                      width: 40,
+                    ),
+                    onTap: () {
+                      onChanged(equipo);
 
-                          setState(() {}); 
-                          Navigator.pop(context);
-                        },
-                      ),
-                      SizedBox(height: 10),
-                    ],
-                  ))
-              .toList(),
+                      setState(() {});
+                      Navigator.pop(context);
+                    },
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ))
+          .toList(),
     );
   }
 
@@ -172,7 +165,7 @@ class _PartidoCrearState extends State<PartidoCrear> {
               onPressed: () {
                 // Enviar los datos del partido a la API
                 enviarDatosPartido();
-                Navigator.pop(context); 
+                Navigator.pop(context);
               },
               child: Text('Crear Partido'),
             ),

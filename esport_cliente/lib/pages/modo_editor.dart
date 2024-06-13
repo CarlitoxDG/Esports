@@ -30,48 +30,6 @@ class _ModoEditorState extends State<ModoEditor> {
                   fit: BoxFit.contain,
                 ),
               ),
-<<<<<<< HEAD
-              bottom: TabBar(
-                labelColor: const Color.fromARGB(255, 255, 255, 255),
-                unselectedLabelColor: Colors.white60,
-                indicatorColor: Colors.white,
-                tabs: [
-                  Tab(
-                      icon: const Icon(Icons.videogame_asset),
-                      child: Text("Campeonatos",
-                          style: GoogleFonts.inconsolata())),
-                  Tab(
-                      icon: const Icon(Icons.people),
-                      child: Text('Equipos', style: GoogleFonts.inconsolata())),
-                ],
-              ),
-            ),
-            body: TabBarView(
-              children: [
-                CampeonatosEditTab(),
-                Expanded(
-                  child: FutureBuilder(
-                    future: HttpService().equipos(),
-                    builder: (context, AsyncSnapshot snapshot) {
-                      if (!snapshot.hasData ||
-                          snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                            child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Colors.black),
-                        ));
-                      }
-                      return ListView.builder(
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (context, index) {
-                          var equipo = snapshot.data[index];
-                          return EquipoTileEdit(
-                            nombre: equipo['nombre'],
-                            equipoId: equipo['id'],
-                          );
-                        },
-                      );
-                    },
-=======
               Container(
                 color: Colors.red,
                 height: 30,
@@ -79,7 +37,6 @@ class _ModoEditorState extends State<ModoEditor> {
                   "Modo Editor",
                   style: GoogleFonts.inconsolata(
                     textStyle: const TextStyle(fontSize: 22),
->>>>>>> 51a875ec66910d375e5c506e5710f80f6303c3f9
                   ),
                 ),
               ),
@@ -161,8 +118,8 @@ class _ModoEditorState extends State<ModoEditor> {
             );
           },
         ),
+        EquiposEditTab(),
       ],
     );
   }
 }
-

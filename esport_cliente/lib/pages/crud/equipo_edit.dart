@@ -75,7 +75,8 @@ class _EquipoEditState extends State<EquipoEdit> {
               children: [
                 FutureBuilder<List<dynamic>>(
                   future: _futureParticipantes,
-                  builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<dynamic>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child: CircularProgressIndicator(
@@ -115,58 +116,81 @@ class _EquipoEditState extends State<EquipoEdit> {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              ...participantes?.map((participante) => Column(
-                                    children: [
-                                      ListTile(
-                                        title: Text(
-                                          participante['nombre'] ?? 'Nombre del Participante',
-                                          style: const TextStyle(color: Colors.white),
-                                        ),
-                                        subtitle: Text(
-                                          participante['pais'] ?? 'País',
-                                          style: const TextStyle(color: Colors.white70),
-                                        ),
-                                        trailing: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            IconButton(
-                                              icon: const Icon(Icons.edit, color: Colors.white),
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => IntegranteEdit(
-                                                      integranteId: participante['id'],
-                                                      nombre: participante['nombre'],
-                                                      pais: participante['pais'],
-                                                      onUpdate: _actualizarIntegrantes,
+                              ...participantes
+                                      ?.map((participante) => Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  participante['nombre'] ??
+                                                      'Nombre del Participante',
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                                subtitle: Text(
+                                                  participante['pais'] ??
+                                                      'País',
+                                                  style: const TextStyle(
+                                                      color: Colors.white70),
+                                                ),
+                                                trailing: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    IconButton(
+                                                      icon: const Icon(
+                                                          Icons.edit,
+                                                          color: Colors.white),
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                IntegranteEdit(
+                                                              integranteId:
+                                                                  participante[
+                                                                      'id'],
+                                                              nombre:
+                                                                  participante[
+                                                                      'nombre'],
+                                                              pais:
+                                                                  participante[
+                                                                      'pais'],
+                                                              onUpdate:
+                                                                  _actualizarIntegrantes,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                            IconButton(
-                                              icon: const Icon(Icons.delete, color: Colors.white),
-                                              onPressed: () async {
-                                                try {
-                                                  await HttpService().eliminarParticipante(participante['id']);
-                                                } catch (e) {
-                                                  // Manejar errores
-                                                }
-                                                _actualizarIntegrantes();
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                    ],
-                                  ))
-                                  .toList() ?? [],
+                                                    IconButton(
+                                                      icon: const Icon(
+                                                          Icons.delete,
+                                                          color: Colors.white),
+                                                      onPressed: () async {
+                                                        try {
+                                                          await HttpService()
+                                                              .eliminarParticipante(
+                                                                  participante[
+                                                                      'id']);
+                                                        } catch (e) {
+                                                          // Manejar errores
+                                                        }
+                                                        _actualizarIntegrantes();
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                            ],
+                                          ))
+                                      .toList() ??
+                                  [],
                               Center(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.red, // Color del botón
+                                    backgroundColor:
+                                        Colors.red, // Color del botón
                                   ),
                                   onPressed: () {
                                     Navigator.push(
@@ -181,7 +205,8 @@ class _EquipoEditState extends State<EquipoEdit> {
                                   },
                                   child: const Text(
                                     "Agregar Integrante",
-                                    style: TextStyle(color: Colors.white), // Color del texto
+                                    style: TextStyle(
+                                        color: Colors.white), // Color del texto
                                   ),
                                 ),
                               ),
@@ -194,7 +219,8 @@ class _EquipoEditState extends State<EquipoEdit> {
                 ),
                 FutureBuilder<List<dynamic>>(
                   future: _futureJuegos,
-                  builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<dynamic>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child: CircularProgressIndicator(
@@ -234,58 +260,78 @@ class _EquipoEditState extends State<EquipoEdit> {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              ...juegos?.map((juego) => Column(
-                                    children: [
-                                      ListTile(
-                                        title: Text(
-                                          juego['nombre'] ?? 'Nombre del Juego',
-                                          style: const TextStyle(color: Colors.white),
-                                        ),
-                                        subtitle: Text(
-                                          juego['categoria'] ?? 'Categoría',
-                                          style: const TextStyle(color: Colors.white70),
-                                        ),
-                                        trailing: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            IconButton(
-                                              icon: const Icon(Icons.edit, color: Colors.white),
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => JuegoEdit(
-                                                      nombre: juego['nombre'],
-                                                      cat: juego['categoria'],
-                                                      onUpdate: _actualizarJuegos,
-                                                      juegoId: juego['id'],
+                              ...juegos
+                                      ?.map((juego) => Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  juego['nombre'] ??
+                                                      'Nombre del Juego',
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                                subtitle: Text(
+                                                  juego['categoria'] ??
+                                                      'Categoría',
+                                                  style: const TextStyle(
+                                                      color: Colors.white70),
+                                                ),
+                                                trailing: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    IconButton(
+                                                      icon: const Icon(
+                                                          Icons.edit,
+                                                          color: Colors.white),
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    JuegoEdit(
+                                                              nombre: juego[
+                                                                  'nombre'],
+                                                              cat: juego[
+                                                                  'categoria'],
+                                                              onUpdate:
+                                                                  _actualizarJuegos,
+                                                              juegoId:
+                                                                  juego['id'],
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                            IconButton(
-                                              icon: const Icon(Icons.delete, color: Colors.white),
-                                              onPressed: () async {
-                                                try {
-                                                  await HttpService().eliminarJuego(juego['id']);
-                                                } catch (e) {
-                                                  // Manejar errores
-                                                }
-                                                _actualizarJuegos();
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                    ],
-                                  ))
-                                  .toList() ?? [],
+                                                    IconButton(
+                                                      icon: const Icon(
+                                                          Icons.delete,
+                                                          color: Colors.white),
+                                                      onPressed: () async {
+                                                        try {
+                                                          await HttpService()
+                                                              .eliminarJuego(
+                                                                  juego['id']);
+                                                        } catch (e) {
+                                                          // Manejar errores
+                                                        }
+                                                        _actualizarJuegos();
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                            ],
+                                          ))
+                                      .toList() ??
+                                  [],
                               Center(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.red, // Color del botón
+                                    backgroundColor:
+                                        Colors.red, // Color del botón
                                   ),
                                   onPressed: () {
                                     Navigator.push(
@@ -300,7 +346,7 @@ class _EquipoEditState extends State<EquipoEdit> {
                                   },
                                   child: const Text(
                                     "Agregar Juego",
-                                    style: TextStyle(color: Colors.white), 
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                 ),
                               ),

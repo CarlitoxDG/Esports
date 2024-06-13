@@ -6,35 +6,33 @@ class IntegranteEdit extends StatefulWidget {
   final String nombre;
   final String pais;
   final Function onUpdate;
-
-  const IntegranteEdit({
-    Key? key,
-    required this.integranteId,
-    required this.nombre,
-    required this.pais,
-    required this.onUpdate,
-  }) : super(key: key);
+  const IntegranteEdit(
+      {super.key,
+      required this.integranteId,
+      required this.nombre,
+      required this.pais,
+      required this.onUpdate});
 
   @override
-  _IntegranteEditState createState() => _IntegranteEditState();
+  State<IntegranteEdit> createState() => _IntegranteEditState();
 }
 
 class _IntegranteEditState extends State<IntegranteEdit> {
-  final _formKey = GlobalKey<FormState>();
-  late TextEditingController nombreController;
-  late TextEditingController paisController;
-
+  late TextEditingController _nombreController;
+  late TextEditingController _paisController;
+  late BuildContext _context;
   @override
   void initState() {
     super.initState();
-    nombreController = TextEditingController(text: widget.nombre);
-    paisController = TextEditingController(text: widget.pais);
+    _context = context;
+    _nombreController = TextEditingController(text: widget.nombre);
+    _paisController = TextEditingController(text: widget.pais);
   }
 
   @override
   void dispose() {
-    nombreController.dispose();
-    paisController.dispose();
+    _nombreController.dispose();
+    _paisController.dispose();
     super.dispose();
   }
 
@@ -44,87 +42,16 @@ class _IntegranteEditState extends State<IntegranteEdit> {
       appBar: AppBar(
         title: const Text('Editar Integrante'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Nombre del Participante
-                TextFormField(
-                  controller: nombreController,
-                  decoration: const InputDecoration(
-                    labelText: 'Nombre del Participante',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor ingrese el nombre del participante';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16.0),
-                // País
-                TextFormField(
-                  controller: paisController,
-                  decoration: const InputDecoration(
-                    labelText: 'País',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor ingrese el país';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      final nuevosDatos = {
-                        'nombre': nombreController.text,
-                        'pais': paisController.text,
-                      };
-                      await HttpService()
-                          .actualizarParticipante(
-                              widget.integranteId, nuevosDatos)
-                          .then((response) {
-                        if (response.statusCode == 200) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('¡Cambios guardados con éxito!'),
-                            ),
-                          );
-                          // Llama a la función onUpdate para actualizar los integrantes
-                          widget.onUpdate();
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Error al guardar los cambios'),
-                            ),
-                          );
-                        }
-                      }).catchError((error) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Error al guardar los cambios'),
-                          ),
-                        );
-                      });
-                      Navigator.pop(context);
-                    }
-                  },
-                  child: const Text('Guardar Cambios'),
-                ),
-              ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextFormField(
+              controller: _nombreController,
+              decoration:
+                  const InputDecoration(labelText: 'Nombre del Participante'),
             ),
-<<<<<<< HEAD
-          ),
-=======
             TextFormField(
               controller: _paisController,
               decoration: const InputDecoration(labelText: 'País'),
@@ -163,7 +90,6 @@ class _IntegranteEditState extends State<IntegranteEdit> {
               child: const Text('Guardar Cambios'),
             ),
           ],
->>>>>>> 51a875ec66910d375e5c506e5710f80f6303c3f9
         ),
       ),
     );
