@@ -62,8 +62,12 @@ class EquipoJuegoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EquipoJuego $equipoJuego)
+    public function destroy($id)
     {
-        return $equipoJuego->delete();
+        
+            $equipoJuego = EquipoJuego::findOrFail($id);
+            $equipoJuego->delete();
+            return response()->json(['message' => 'Juego eliminado correctamente'], 200);
+        
     }
 }

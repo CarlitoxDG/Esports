@@ -24,7 +24,7 @@ class _EquipoEditState extends State<EquipoEdit> {
     super.initState();
     _futureParticipantes = HttpService().listarParticipantes(widget.equipoId);
     _actualizarIntegrantes();
-    _futureJuegos = HttpService().listarJuegos(widget.equipoId);
+    _futureJuegos = HttpService().listarJuegosPorEquipo(widget.equipoId);
   }
 
   @override
@@ -373,7 +373,7 @@ class _EquipoEditState extends State<EquipoEdit> {
 
   Future<void> _actualizarJuegos() async {
     setState(() {
-      _futureJuegos = HttpService().listarJuegos(widget.equipoId);
+      _futureJuegos = HttpService().listarJuegosPorEquipo(widget.equipoId);
     });
   }
 }

@@ -1,5 +1,6 @@
 import 'package:esport_cliente/pages/tabs/campeonatos_edit_tab.dart';
 import 'package:esport_cliente/pages/tabs/equipos_edit_tab.dart';
+import 'package:esport_cliente/pages/tabs/juegos_tab.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:esport_cliente/widgets/equipo_edit_tile.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class _ModoEditorState extends State<ModoEditor> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.red,
@@ -55,6 +56,10 @@ class _ModoEditorState extends State<ModoEditor> {
                 icon: const Icon(Icons.people),
                 child: Text('Equipos', style: GoogleFonts.inconsolata()),
               ),
+              Tab(
+                icon: const Icon(Icons.gamepad),
+                child: Text('Juegos', style: GoogleFonts.inconsolata()),
+              )
             ],
           ),
         ),
@@ -62,6 +67,7 @@ class _ModoEditorState extends State<ModoEditor> {
           children: [
             _buildCampeonatosTab(),
             _buildEquiposTab(),
+            JuegosTab(),
           ],
         ),
       ),

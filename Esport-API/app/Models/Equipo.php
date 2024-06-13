@@ -36,8 +36,5 @@ class Equipo extends Model
         return $this->belongsToMany(Juego::class, 'equipos_juegos','juego_id','equipo_id');
     }
 
-    public function juegosParticipantes()
-    {
-        return $this->juegos;
-    }
+
 }

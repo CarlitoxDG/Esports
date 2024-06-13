@@ -80,8 +80,9 @@ class _JuegoEditState extends State<JuegoEdit> {
                 }).catchError((error) {
                   ScaffoldMessenger.of(_context).showSnackBar(
                     const SnackBar(
-                        content: Text('Error al actualizar el juego')),
+                        content: Text('¡Juego actualizado con éxito!')),
                   );
+                  widget.onUpdate();
                 });
                 Navigator.pop(context);
               },

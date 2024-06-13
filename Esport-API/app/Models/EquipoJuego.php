@@ -10,6 +10,7 @@ class EquipoJuego extends Model
 
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = ['equipo_id', 'juego_id'];
     protected $table = 'equipos_juegos';
 
 }

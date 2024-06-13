@@ -130,7 +130,7 @@ class DetallesEquipo extends StatelessWidget {
                   },
                 ),
                 FutureBuilder<List<dynamic>>(
-                  future: HttpService().listarJuegos(equipoId),
+                  future: HttpService().listarJuegosPorEquipo(equipoId),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<dynamic>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
