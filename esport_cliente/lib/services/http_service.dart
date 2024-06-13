@@ -68,15 +68,15 @@ class HttpService {
 
       // Itera sobre los partidos para obtener los nombres de los equipos
       for (var partido in partidos) {
-        // Obtiene los nombres de los equipos correspondientes a partir de sus IDs
+
         var equipo1Id = partido['equipo1_id'];
         var equipo2Id = partido['equipo2_id'];
 
-        // Realiza solicitudes adicionales para obtener los nombres de los equipos
+
         var equipo1 = await obtenerNombreEquipo(equipo1Id);
         var equipo2 = await obtenerNombreEquipo(equipo2Id);
 
-        // Agrega los nombres de los equipos al objeto de partido
+
         partido['equipo1_nombre'] = equipo1['nombre'];
         partido['equipo2_nombre'] = equipo2['nombre'];
       }
@@ -105,7 +105,7 @@ class HttpService {
       headers: {"Content-Type": "application/json"},
       body: json.encode(datos),
     );
-    return response; // Devuelve la respuesta de la solicitud HTTP
+    return response; 
   }
 
   Future<dynamic> actualizarJuego(int id, Map<String, dynamic> datos) async {
@@ -114,7 +114,7 @@ class HttpService {
       headers: {"Content-Type": "application/json"},
       body: json.encode(datos),
     );
-    return response; // Devuelve la respuesta de la solicitud HTTP
+    return response; 
   }
 
   Future<dynamic> postNuevoParticipante(Map<String, dynamic> datos) async {
@@ -150,7 +150,7 @@ class HttpService {
         return json.decode(response.body);
       }
     } else {
-      // Si la solicitud falló, lanzar una excepción con el mensaje de error
+     
       throw Exception('Error al agregar el juego: ${response.statusCode}');
     }
   }
@@ -187,7 +187,7 @@ class HttpService {
       url,
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
-        'fecha': fecha.toString().substring(0, 10), // Formatea la fecha
+        'fecha': fecha.toString().substring(0, 10), 
         'pais': pais,
         'ciudad': ciudad,
         'sede': sede,

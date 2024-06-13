@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 class DetallesEquipo extends StatelessWidget {
   final int equipoId;
   final String nombre;
-  const DetallesEquipo({super.key, required this.nombre, required this.equipoId});
+
+  const DetallesEquipo({
+    Key? key,
+    required this.nombre,
+    required this.equipoId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +50,7 @@ class DetallesEquipo extends StatelessWidget {
             Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/fondoequipo1.jpg'), 
+                  image: AssetImage('assets/images/fondoequipo1.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -54,7 +59,8 @@ class DetallesEquipo extends StatelessWidget {
               children: [
                 FutureBuilder<List<dynamic>>(
                   future: HttpService().listarParticipantes(equipoId),
-                  builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<dynamic>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child: CircularProgressIndicator(
@@ -68,8 +74,20 @@ class DetallesEquipo extends StatelessWidget {
                       return SingleChildScrollView(
                         padding: const EdgeInsets.all(16.0),
                         child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 16.0),
                           padding: const EdgeInsets.all(16.0),
-                          color: Colors.deepPurple.withOpacity(0.8), 
+                          decoration: BoxDecoration(
+                            color: Colors.deepPurple.withOpacity(0.8),
+                            borderRadius: BorderRadius.circular(12.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 2,
+                                blurRadius: 7,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -81,22 +99,29 @@ class DetallesEquipo extends StatelessWidget {
                                   color: Colors.white,
                                 ),
                               ),
-                              const SizedBox(height: 10), // Espacio adicional
-                              ...participantes?.map((participante) => Column(
-                                    children: [
-                                      ListTile(
-                                        title: Text(
-                                          participante['nombre'] ?? 'Nombre del Participante',
-                                          style: const TextStyle(color: Colors.white),
-                                        ),
-                                        subtitle: Text(
-                                          participante['pais'] ?? 'País',
-                                          style: const TextStyle(color: Colors.white70),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10), 
-                                    ],
-                                  )).toList() ?? [],
+                              const SizedBox(height: 10),
+                              ...participantes
+                                      ?.map((participante) => Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  participante['nombre'] ??
+                                                      'Nombre del Participante',
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                                subtitle: Text(
+                                                  participante['pais'] ??
+                                                      'País',
+                                                  style: const TextStyle(
+                                                      color: Colors.white70),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                            ],
+                                          ))
+                                      .toList() ??
+                                  [],
                             ],
                           ),
                         ),
@@ -106,7 +131,8 @@ class DetallesEquipo extends StatelessWidget {
                 ),
                 FutureBuilder<List<dynamic>>(
                   future: HttpService().listarJuegos(equipoId),
-                  builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<dynamic>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child: CircularProgressIndicator(
@@ -120,8 +146,20 @@ class DetallesEquipo extends StatelessWidget {
                       return SingleChildScrollView(
                         padding: const EdgeInsets.all(16.0),
                         child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 16.0),
                           padding: const EdgeInsets.all(16.0),
-                          color: Colors.deepPurple.withOpacity(0.8), 
+                          decoration: BoxDecoration(
+                            color: Colors.deepPurple.withOpacity(0.8),
+                            borderRadius: BorderRadius.circular(12.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 2,
+                                blurRadius: 7,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -133,22 +171,29 @@ class DetallesEquipo extends StatelessWidget {
                                   color: Colors.white,
                                 ),
                               ),
-                              const SizedBox(height: 10), 
-                              ...juegos?.map((juego) => Column(
-                                    children: [
-                                      ListTile(
-                                        title: Text(
-                                          juego['nombre'] ?? 'Nombre del Juego',
-                                          style: const TextStyle(color: Colors.white),
-                                        ),
-                                        subtitle: Text(
-                                          juego['categoria'] ?? 'Categoría',
-                                          style: const TextStyle(color: Colors.white70),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10), 
-                                    ],
-                                  )).toList() ?? [],
+                              const SizedBox(height: 10),
+                              ...juegos
+                                      ?.map((juego) => Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  juego['nombre'] ??
+                                                      'Nombre del Juego',
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                                subtitle: Text(
+                                                  juego['categoria'] ??
+                                                      'Categoría',
+                                                  style: const TextStyle(
+                                                      color: Colors.white70),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                            ],
+                                          ))
+                                      .toList() ??
+                                  [],
                             ],
                           ),
                         ),
@@ -164,4 +209,5 @@ class DetallesEquipo extends StatelessWidget {
     );
   }
 }
+
 

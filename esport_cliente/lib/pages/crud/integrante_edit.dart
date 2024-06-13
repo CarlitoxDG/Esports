@@ -122,7 +122,48 @@ class _IntegranteEditState extends State<IntegranteEdit> {
                 ),
               ],
             ),
+<<<<<<< HEAD
           ),
+=======
+            TextFormField(
+              controller: _paisController,
+              decoration: const InputDecoration(labelText: 'País'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async {
+                // Acción para guardar los cambios
+                final nuevosDatos = {
+                  'nombre': _nombreController.text,
+                  'pais': _paisController.text,
+                };
+                await HttpService()
+                    .actualizarParticipante(widget.integranteId, nuevosDatos)
+                    .then((response) {
+                  if (response.statusCode == 200) {
+                    ScaffoldMessenger.of(_context).showSnackBar(
+                      const SnackBar(
+                          content: Text('¡Cambios guardados con éxito!')),
+                    );
+                    widget.onUpdate();
+                  } else {
+                    ScaffoldMessenger.of(_context).showSnackBar(
+                      const SnackBar(
+                          content: Text('Error al guardar los cambios')),
+                    );
+                  }
+                }).catchError((error) {
+                  ScaffoldMessenger.of(_context).showSnackBar(
+                    const SnackBar(
+                        content: Text('Error al guardar los cambios')),
+                  );
+                });
+                Navigator.pop(context);
+              },
+              child: const Text('Guardar Cambios'),
+            ),
+          ],
+>>>>>>> 51a875ec66910d375e5c506e5710f80f6303c3f9
         ),
       ),
     );
