@@ -29,23 +29,23 @@ class _PartidoCrearState extends State<PartidoCrear> {
   Future<void> enviarDatosPartido() async {
     DateTime fechaSeleccionada = _fechaSeleccionada;
     int equipo1IdSeleccionado = _equipos.indexOf(_equipoSeleccionado1) +
-        1; // +1 porque los IDs de los equipos comienzan desde 1
+        1; 
     int equipo2IdSeleccionado = _equipos.indexOf(_equipoSeleccionado2) +
-        1; // +1 porque los IDs de los equipos comienzan desde 1
+        1; 
 
     // Llama a la función para enviar los datos del partido a la API
     HttpService().enviarDatosPartido(
       fecha: fechaSeleccionada,
       pais: paisController
-          .text, // Reemplaza esto con el valor ingresado por el usuario en el campo correspondiente
+          .text, 
       ciudad: ciudadController
-          .text, // Reemplaza esto con el valor ingresado por el usuario en el campo correspondiente
+          .text, 
       sede: sedeController
-          .text, // Reemplaza esto con el valor ingresado por el usuario en el campo correspondiente
+          .text, 
       resultado: resultadoController
-          .text, // Reemplaza esto con el valor ingresado por el usuario en el campo correspondiente
+          .text, 
       campeonato: widget
-          .campeonatoId, // Reemplaza esto con el valor del campeonato seleccionado por el usuario
+          .campeonatoId, 
       equipo1: equipo1IdSeleccionado,
       equipo2: equipo2IdSeleccionado,
     );
@@ -68,11 +68,11 @@ class _PartidoCrearState extends State<PartidoCrear> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: _equipos
-              ?.map((equipo) => Column(
+              .map((equipo) => Column(
                     children: [
                       ListTile(
                         title: Text(
-                          equipo ?? 'Nombre del Equipo',
+                          equipo,
                           style: TextStyle(color: Colors.black),
                         ),
                         leading: Image.asset(
@@ -83,15 +83,14 @@ class _PartidoCrearState extends State<PartidoCrear> {
                         onTap: () {
                           onChanged(equipo);
 
-                          setState(() {}); // Cerrar el diálogo
+                          setState(() {}); 
                           Navigator.pop(context);
                         },
                       ),
                       SizedBox(height: 10),
                     ],
                   ))
-              .toList() ??
-          [],
+              .toList(),
     );
   }
 
@@ -173,7 +172,7 @@ class _PartidoCrearState extends State<PartidoCrear> {
               onPressed: () {
                 // Enviar los datos del partido a la API
                 enviarDatosPartido();
-                Navigator.pop(context); // Indica que se creó un partido
+                Navigator.pop(context); 
               },
               child: Text('Crear Partido'),
             ),

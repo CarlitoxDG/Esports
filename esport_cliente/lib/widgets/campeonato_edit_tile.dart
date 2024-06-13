@@ -1,4 +1,3 @@
-//import 'package:esport_cliente/pages/crud/campeonato_edit.dart';import 'package:esport_cliente/pages/detalles_campeonato_page.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,20 +5,20 @@ import 'package:google_fonts/google_fonts.dart';
 class CampeonatoTileEdit extends StatefulWidget {
   final int id;
   final String nombre;
-  final String
-      fechaInicio; //deberia ser DateTime pero hay q probar como interpreta el api despues de hacer un crud por aqui
+  final String fechaInicio;
   final String fechaFin;
   final String reglas;
   final String premios;
 
-  const CampeonatoTileEdit(
-      {super.key,
-      this.id = 1,
-      this.nombre = 'Sin nombre',
-      this.fechaInicio = "00/00/0000",
-      this.fechaFin = "00/00/0000",
-      this.reglas = "qwerty",
-      this.premios = "qwertyu"});
+  const CampeonatoTileEdit({
+    super.key,
+    this.id = 1,
+    this.nombre = 'Sin nombre',
+    this.fechaInicio = "00/00/0000",
+    this.fechaFin = "00/00/0000",
+    this.reglas = "qwerty",
+    this.premios = "qwertyu",
+  });
 
   @override
   State<CampeonatoTileEdit> createState() => _CampeonatoTileEditState();
@@ -39,26 +38,25 @@ class _CampeonatoTileEditState extends State<CampeonatoTileEdit> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    '${widget.nombre} ',
-                    style: GoogleFonts.inconsolata(
-                        textStyle: const TextStyle(fontSize: 24)),
-                  )
-                ],
-              ),
-              Text(
-                "${widget.fechaInicio} hasta ${widget.fechaFin}",
-                style: GoogleFonts.inconsolata(
-                    textStyle: const TextStyle(fontSize: 14, height: 0.8)),
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${widget.nombre}',
+                  style: GoogleFonts.inconsolata(
+                    textStyle: const TextStyle(fontSize: 24),
+                  ),
+                ),
+                Text(
+                  "${widget.fechaInicio} hasta ${widget.fechaFin}",
+                  style: GoogleFonts.inconsolata(
+                    textStyle: const TextStyle(fontSize: 14, height: 0.8),
+                  ),
+                ),
+              ],
+            ),
           ),
-          const Spacer(),
           Row(
             children: [
               Column(
@@ -70,38 +68,41 @@ class _CampeonatoTileEditState extends State<CampeonatoTileEdit> {
                   Text(
                     "Editar",
                     style: GoogleFonts.inconsolata(
-                        textStyle: const TextStyle(
-                      fontSize: 12,
-                    )),
+                      textStyle: const TextStyle(fontSize: 12),
+                    ),
                   ),
                 ],
               ),
               Column(
                 children: [
                   IconButton(
-                      onPressed: () async {
-                        print('BORRAR: ${this.widget.id}');
-                        await HttpService()
-                            .eliminarCampeonato(this.widget.id)
-                            .then((borradoOK) {
-                          if (borradoOK) {
-                            print('campeonato borrado');
-                            setState(() {});
-                          }
-                        });
-                      },
-                      icon: const Icon(
-                        Icons.delete_forever,
-                        color: Colors.red,
-                      )),
+                    onPressed: () async {
+                      print('BORRAR: ${widget.id}');
+                      await HttpService()
+                          .eliminarCampeonato(widget.id)
+                          .then((borradoOK) {
+                        if (borradoOK) {
+                          print('campeonato borrado');
+                          setState(() {});
+                        }
+                      });
+                    },
+                    icon: const Icon(
+                      Icons.delete_forever,
+                      color: Colors.red,
+                    ),
+                  ),
                   Text(
                     "Eliminar",
                     style: GoogleFonts.inconsolata(
-                        textStyle:
-                            const TextStyle(fontSize: 12, color: Colors.red)),
+                      textStyle: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.red,
+                      ),
+                    ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ],
@@ -109,3 +110,4 @@ class _CampeonatoTileEditState extends State<CampeonatoTileEdit> {
     );
   }
 }
+

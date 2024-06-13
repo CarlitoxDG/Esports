@@ -13,7 +13,6 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
-          // title: Text('Formula 1'),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

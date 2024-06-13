@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class JuegoAdd extends StatefulWidget {
   final int equipoId;
   final Function onUpdate;
-  const JuegoAdd({super.key, required this.onUpdate, required this.equipoId});
+  
+  const JuegoAdd({Key? key, required this.onUpdate, required this.equipoId});
 
   @override
   State<JuegoAdd> createState() => _JuegoAddState();
@@ -14,6 +15,7 @@ class _JuegoAddState extends State<JuegoAdd> {
   late TextEditingController _nombreController;
   late TextEditingController _catController;
   late BuildContext _context;
+
   @override
   void initState() {
     super.initState();
@@ -24,6 +26,8 @@ class _JuegoAddState extends State<JuegoAdd> {
 
   @override
   void dispose() {
+    _nombreController.dispose();
+    _catController.dispose();
     super.dispose();
   }
 
@@ -31,7 +35,7 @@ class _JuegoAddState extends State<JuegoAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Crear Integrante'),
+        title: const Text('Crear Juego'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -40,15 +44,21 @@ class _JuegoAddState extends State<JuegoAdd> {
           children: [
             TextFormField(
               controller: _nombreController,
-              decoration:
-                  const InputDecoration(labelText: 'Nombre del Participante'),
+              decoration: const InputDecoration(labelText: 'Nombre del Juego'),
             ),
             TextFormField(
               controller: _catController,
-              decoration: const InputDecoration(labelText: 'País'),
+              decoration: const InputDecoration(labelText: 'Categoría'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white, backgroundColor: Colors.red, // Letras blancas
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                minimumSize: Size(double.infinity, 48),
+              ),
               onPressed: () async {
                 // Acción para guardar los cambios
                 final nuevosDatosJuego = {
@@ -57,7 +67,8 @@ class _JuegoAddState extends State<JuegoAdd> {
                 };
                 final datosEquipo = {
                   'equipo_id': widget.equipoId
-                }; //falta el id del juego, q resulta ser el id de el juego que se está creando. asi q no cacho
+                };
+
                 await HttpService()
                     .postNuevoJuego(nuevosDatosJuego, datosEquipo)
                     .then((response) {
@@ -67,7 +78,6 @@ class _JuegoAddState extends State<JuegoAdd> {
                       const SnackBar(
                           content: Text('¡Cambios guardados con éxito!')),
                     );
-                    // Llama a la función onUpdate para actualizar los integrantes
                     widget.onUpdate();
                   } else {
                     ScaffoldMessenger.of(_context).showSnackBar(

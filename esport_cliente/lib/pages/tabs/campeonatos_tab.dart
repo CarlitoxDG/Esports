@@ -25,11 +25,11 @@ class _CampeonatosTabState extends State<CampeonatosTab> {
         ),
         child: Column(
           children: [
-            //TITULO SECCION
+            
             TituloSeccion(titulo: 'Campeonatos', subtitulo: 'Listado'),
-            //FIN TITULO SECCION
+            
 
-            //lista de campeonatos
+
             Expanded(
               child: FutureBuilder(
                 future: HttpService().campeonatos(),

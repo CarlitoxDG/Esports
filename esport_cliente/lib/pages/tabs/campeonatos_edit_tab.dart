@@ -14,46 +14,55 @@ class _CampeonatosEditTabState extends State<CampeonatosEditTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-          child: Column(
-            children: [
-              Expanded(
-                child: FutureBuilder(
-                  future: HttpService().campeonatos(),
-                  builder: (context, AsyncSnapshot snapshot) {
-                    if (!snapshot.hasData ||
-                        snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                          child: CircularProgressIndicator(
+      body: Container(
+        child: Column(
+          children: [
+            Expanded(
+              child: FutureBuilder(
+                future: HttpService().campeonatos(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation(Colors.black),
-                      ));
-                    }
-                    return ListView.builder(
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, index) {
-                        var campeonato = snapshot.data[index];
-                        return CampeonatoTileEdit(
-                          id: campeonato['id'],
-                          nombre: campeonato['nombre'],
-                          fechaInicio: campeonato['fecha_inicio'],
-                          fechaFin: campeonato['fecha_fin'],
-                          reglas: campeonato['reglas'],
-                          premios: campeonato['premios'],
-                        );
-                      },
+                      ),
                     );
-                  },
-                ),
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      var campeonato = snapshot.data[index];
+                      return CampeonatoTileEdit(
+                        id: campeonato['id'],
+                        nombre: campeonato['nombre'],
+                        fechaInicio: campeonato['fecha_inicio'],
+                        fechaFin: campeonato['fecha_fin'],
+                        reglas: campeonato['reglas'],
+                        premios: campeonato['premios'],
+                      );
+                    },
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AgregarCampeonato()));
-          },
-          child: Icon(Icons.add),
-        ));
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AgregarCampeonato()),
+          );
+        },
+        icon: Icon(Icons.add, color: Colors.white),
+        label: Text(
+          'Agregar Campeonato',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.red, 
+      ),
+    );
   }
 }
+

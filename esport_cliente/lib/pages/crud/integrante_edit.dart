@@ -72,7 +72,6 @@ class _IntegranteEditState extends State<IntegranteEdit> {
                       const SnackBar(
                           content: Text('¡Cambios guardados con éxito!')),
                     );
-                    // Llama a la función onUpdate para actualizar los integrantes
                     widget.onUpdate();
                   } else {
                     ScaffoldMessenger.of(_context).showSnackBar(

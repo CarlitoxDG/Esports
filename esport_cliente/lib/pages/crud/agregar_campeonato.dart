@@ -1,8 +1,8 @@
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
-
 import '../../widgets/titulo_seccion.dart';
+
 
 class AgregarCampeonato extends StatefulWidget {
   const AgregarCampeonato({Key? key}) : super(key: key);
@@ -33,109 +33,166 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
         title: Text('Agregar Nuevo Campeonato'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(16),
         child: Form(
           key: formKey,
           child: ListView(
             children: [
-              //TITULO
               TituloSeccion(titulo: 'Campeonatos', subtitulo: 'Agregar'),
 
-              //nombre
+              SizedBox(height: 16),
+
               TextFormField(
-                decoration: InputDecoration(labelText: 'Nombre'),
+                decoration: InputDecoration(
+                  labelText: 'Nombre',
+                  hintText: 'Ingrese el nombre del campeonato',
+                ),
                 controller: nombreController,
                 keyboardType: TextInputType.text,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Este campo es obligatorio';
+                  }
+                  return null;
+                },
               ),
+              SizedBox(height: 8),
               Text(errNombre, style: TextStyle(color: Colors.red)),
 
-              //fecha Inicio
-              OutlinedButton(
-                  onPressed: () {
-                    DatePicker.showDatePicker(context, showTitleActions: true,
-                        onChanged: (date) {
-                      setState(() {
-                        fechaInicioController = date;
-                      });
-                    });
-                  },
-                  child: Text("Elegir fecha de inicio")),
-              Text(errFechaFin, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 16),
 
-              //fecha Fin
-              OutlinedButton(
-                  onPressed: () {
-                    DatePicker.showDatePicker(context, showTitleActions: true,
-                        onChanged: (date) {
-                      setState(() {
-                        fechaInicioController = date;
-                      });
-                    });
-                  },
-                  child: Text("Elegir fecha de inicio")),
-              Text(errFechaFin, style: TextStyle(color: Colors.red)),
+              _buildDateFields(),
 
-              //premios
+              SizedBox(height: 16),
+
               TextFormField(
-                decoration: InputDecoration(labelText: 'Premios'),
+                decoration: InputDecoration(
+                  labelText: 'Premios',
+                  hintText: 'Descripción de los premios del campeonato',
+                ),
                 controller: premiosController,
               ),
-              Text(errNombre, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 8),
+              Text(errPremios, style: TextStyle(color: Colors.red)),
 
-              //reglas
+              SizedBox(height: 16),
+
               TextFormField(
-                decoration: InputDecoration(labelText: 'Reglas'),
+                decoration: InputDecoration(
+                  labelText: 'Reglas',
+                  hintText: 'Descripción de las reglas del campeonato',
+                ),
                 controller: reglasController,
               ),
-              Text(errNombre, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 8),
+              Text(errReglas, style: TextStyle(color: Colors.red)),
 
-              //boton
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                child: FilledButton(
-                  style: FilledButton.styleFrom(),
-                  child: Text('Agregar Campeonato'),
-                  onPressed: () async {
-                    var respuesta = await HttpService().AgregarCampeonato(
-                      nombreController.text,
-                      fechaInicioController.toString().substring(0, 10),
-                      fechaInicioController.toString().substring(0, 10),
-                      reglasController.text,
-                      premiosController.text,
-                    );
+              SizedBox(height: 32),
 
-                    if (respuesta.containsKey('message')) {
-                      //hay errores de validación
-                      var errores = respuesta['errors'] ?? {};
-                      setState(() {
-                        errNombre = errores['nombre'] != null
-                            ? errores['nombre'][0]
-                            : '';
-                        errFechaInicio = errores['fecha_inicio'] != null
-                            ? errores['fecha_inicio'][0]
-                            : '';
-                        errFechaFin = errores['fecha_fin'] != null
-                            ? errores['fecha_fin'][0]
-                            : '';
-                        errReglas = errores['reglas'] != null
-                            ? errores['reglas'][0]
-                            : '';
-                        errPremios = errores['premios'] != null
-                            ? errores['premios'][0]
-                            : '';
-                      });
-                      print(errNombre);
-                    } else {
-                      //todo ok, volver a la pagina que lista
-                      Navigator.pop(context);
-                    }
-                  },
-                ),
-              ),
+              _buildAgregarButton(),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildDateFields() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            _showDatePicker(true);
+          },
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white, backgroundColor: Colors.red, 
+            minimumSize: Size(double.infinity, 48), 
+          ),
+          child: Text("Elegir fecha de inicio"),
+        ),
+        SizedBox(height: 8),
+        Text(errFechaInicio, style: TextStyle(color: Colors.red)),
+
+        SizedBox(height: 16),
+
+        ElevatedButton(
+          onPressed: () {
+            _showDatePicker(false);
+          },
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white, backgroundColor: Colors.red, 
+            minimumSize: Size(double.infinity, 48), 
+          ),
+          child: Text("Elegir fecha de fin"),
+        ),
+        SizedBox(height: 8),
+        Text(errFechaFin, style: TextStyle(color: Colors.red)),
+      ],
+    );
+  }
+
+  void _showDatePicker(bool isStartDate) {
+    DatePicker.showDatePicker(context, showTitleActions: true, onChanged: (date) {
+      setState(() {
+        if (isStartDate) {
+          fechaInicioController = date;
+        } else {
+          fechaFinController = date;
+        }
+      });
+    });
+  }
+
+  Widget _buildAgregarButton() {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      child: SizedBox(
+        width: double.infinity, 
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red, 
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          onPressed: () async {
+            await _submitForm();
+          },
+          child: Text(
+            'Agregar Campeonato',
+            style: TextStyle(
+              color: Colors.white, 
+              fontSize: 16,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _submitForm() async {
+    if (formKey.currentState!.validate()) {
+      var respuesta = await HttpService().AgregarCampeonato(
+        nombreController.text,
+        fechaInicioController.toString().substring(0, 10),
+        fechaFinController.toString().substring(0, 10),
+        reglasController.text,
+        premiosController.text,
+      );
+
+      if (respuesta.containsKey('message')) {
+        var errores = respuesta['errors'] ?? {};
+        setState(() {
+          errNombre = errores['nombre'] != null ? errores['nombre'][0] : '';
+          errFechaInicio = errores['fecha_inicio'] != null ? errores['fecha_inicio'][0] : '';
+          errFechaFin = errores['fecha_fin'] != null ? errores['fecha_fin'][0] : '';
+          errReglas = errores['reglas'] != null ? errores['reglas'][0] : '';
+          errPremios = errores['premios'] != null ? errores['premios'][0] : '';
+        });
+      } else {
+        Navigator.pop(context); 
+      }
+    }
   }
 }

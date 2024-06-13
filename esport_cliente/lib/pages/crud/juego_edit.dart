@@ -59,7 +59,7 @@ class _JuegoEditState extends State<JuegoEdit> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                // Acción para guardar los cambios
+
                 final nuevosDatos = {
                   'nombre': _nombreController.text,
                   'categoria': _catController.text,
@@ -72,7 +72,7 @@ class _JuegoEditState extends State<JuegoEdit> {
                       const SnackBar(
                           content: Text('¡Cambios guardados con éxito!')),
                     );
-                    // Llama a la función onUpdate para actualizar los integrantes
+
                     widget.onUpdate();
                   } else {
                     ScaffoldMessenger.of(_context).showSnackBar(
