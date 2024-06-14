@@ -333,9 +333,11 @@ class _DetalleCampeonatoState extends State<DetalleCampeonato> {
                                       MaterialPageRoute(
                                         builder: (context) => PartidoAdd(
                                           campeonatoId: widget.idCampeonato,
+                                          onUpdate: _actualizarPartidos,
                                         ),
                                       ),
                                     );
+                                    _actualizarPartidos();
                                   },
                                   style: ElevatedButton.styleFrom(
                                     foregroundColor: Colors.white,
