@@ -78,12 +78,15 @@ class HttpService {
 
       // Itera sobre los partidos para obtener los nombres de los equipos
       for (var partido in partidos) {
+        // Obtiene los nombres de los equipos correspondientes a partir de sus IDs
         var equipo1Id = partido['equipo1_id'];
         var equipo2Id = partido['equipo2_id'];
 
+        // Realiza solicitudes adicionales para obtener los nombres de los equipos
         var equipo1 = await obtenerNombreEquipo(equipo1Id);
         var equipo2 = await obtenerNombreEquipo(equipo2Id);
 
+        // Agrega los nombres de los equipos al objeto de partido
         partido['equipo1_nombre'] = equipo1['nombre'];
         partido['equipo2_nombre'] = equipo2['nombre'];
       }
@@ -172,41 +175,39 @@ class HttpService {
     }
   }
 
-  Future<http.Response> enviarDatosPartido({
-    required DateTime fecha,
-    required String pais,
-    required String ciudad,
-    required String sede,
-    required String resultado,
-    required int campeonato,
-    required int equipo1,
-    required int equipo2,
-  }) async {
+  Future<void> enviarDatosPartido(
+      {required DateTime fecha,
+      required String pais,
+      required String ciudad,
+      required String sede,
+      required String resultado,
+      required int campeonato,
+      required int equipo1,
+      required int equipo2}) async {
     final url = Uri.parse('$apiUrl/partidos');
-
-    // Cuerpo de la solicitud POST
-    final body = json.encode({
-      'fecha': fecha.toIso8601String(),
-      'pais': pais,
-      'ciudad': ciudad,
-      'sede': sede,
-      'resultado': resultado,
-      'campeonato_id': campeonato,
-      'equipo1_id': equipo1,
-      'equipo2_id': equipo2,
-    });
-
-    // Realiza la solicitud POST
     final response = await http.post(
       url,
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: body,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'fecha': fecha.toString().substring(0, 10), // Formatea la fecha
+        'pais': pais,
+        'ciudad': ciudad,
+        'sede': sede,
+        'resultado': resultado,
+        'campeonato': campeonato,
+        'equipo1': equipo1,
+        'equipo2': equipo2,
+      }),
     );
 
-    return response;
+    if (response.statusCode == 201) {
+      // Si la solicitud se completó correctamente, puedes manejar la respuesta aquí si es necesario
+      print('Datos del partido enviados exitosamente');
+    } else {
+      // Si la solicitud falla, puedes manejar el error aquí
+      throw Exception(
+          'Error al enviar los datos del partido: ${response.reasonPhrase}');
+    }
   }
 
   Future<bool> eliminarCampeonato(int campeonatoId) async {
