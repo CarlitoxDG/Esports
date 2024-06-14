@@ -11,7 +11,14 @@ class EquiposEditTab extends StatefulWidget {
 }
 
 class _EquiposEditTabState extends State<EquiposEditTab> {
+  late Future<List<dynamic>> _futureEquipos;
+
   @override
+  void initState() {
+    super.initState();
+    _futureEquipos = HttpService().equipos();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -19,7 +26,7 @@ class _EquiposEditTabState extends State<EquiposEditTab> {
           children: [
             Expanded(
               child: FutureBuilder(
-                future: HttpService().equipos(),
+                future: _futureEquipos,
                 builder: (context, AsyncSnapshot snapshot) {
                   if (!snapshot.hasData ||
                       snapshot.connectionState == ConnectionState.waiting) {
@@ -34,9 +41,9 @@ class _EquiposEditTabState extends State<EquiposEditTab> {
                     itemBuilder: (context, index) {
                       var equipo = snapshot.data[index];
                       return EquipoTileEdit(
-                        equipoId: equipo['id'],
-                        nombre: equipo['nombre'],
-                      );
+                          equipoId: equipo['id'],
+                          nombre: equipo['nombre'],
+                          onUpdate: _actualizarEquipos);
                     },
                   );
                 },
@@ -49,8 +56,12 @@ class _EquiposEditTabState extends State<EquiposEditTab> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AgregarEquipo()),
+            MaterialPageRoute(
+                builder: (context) => AgregarEquipo(
+                      onUpdate: _actualizarEquipos,
+                    )),
           );
+          _actualizarEquipos();
         },
         icon: Icon(Icons.add, color: Colors.white),
         label: Text(
@@ -60,5 +71,11 @@ class _EquiposEditTabState extends State<EquiposEditTab> {
         backgroundColor: Colors.red,
       ),
     );
+  }
+
+  Future<void> _actualizarEquipos() async {
+    setState(() {
+      _futureEquipos = HttpService().equipos();
+    });
   }
 }

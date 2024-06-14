@@ -7,10 +7,12 @@ import 'package:google_fonts/google_fonts.dart';
 class EquipoTileEdit extends StatefulWidget {
   final String nombre;
   final int equipoId;
+  final Function onUpdate;
   const EquipoTileEdit({
     super.key,
     this.nombre = 'Sin nombre',
     required this.equipoId,
+    required this.onUpdate,
   });
 
   @override
@@ -82,15 +84,13 @@ class _EquipoTileEditState extends State<EquipoTileEdit> {
                 children: [
                   IconButton(
                       onPressed: () async {
-                        print('BORRAR: ${this.widget.equipoId}');
-                        await HttpService()
-                            .eliminarEquipo(this.widget.equipoId)
-                            .then((borradoOK) {
-                          if (borradoOK) {
-                            print('equipo borrado');
-                            setState(() {});
-                          }
-                        });
+                        try {
+                          await HttpService()
+                              .eliminarEquipo(this.widget.equipoId);
+                        } catch (e) {
+                          //erro
+                        }
+                        widget.onUpdate();
                       },
                       icon: const Icon(
                         Icons.delete_forever,

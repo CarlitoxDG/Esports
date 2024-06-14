@@ -14,7 +14,14 @@ class ModoEditor extends StatefulWidget {
 }
 
 class _ModoEditorState extends State<ModoEditor> {
+  late Future<List<dynamic>> _futureEquipos;
+
   @override
+  void initState() {
+    super.initState();
+    _futureEquipos = HttpService().equipos();
+  }
+
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
@@ -102,7 +109,7 @@ class _ModoEditorState extends State<ModoEditor> {
           ),
         ),
         FutureBuilder(
-          future: HttpService().equipos(),
+          future: _futureEquipos,
           builder: (context, AsyncSnapshot snapshot) {
             if (!snapshot.hasData ||
                 snapshot.connectionState == ConnectionState.waiting) {
@@ -119,6 +126,7 @@ class _ModoEditorState extends State<ModoEditor> {
                 return EquipoTileEdit(
                   nombre: equipo['nombre'],
                   equipoId: equipo['id'],
+                  onUpdate: _actualizarEquipos,
                 );
               },
             );
@@ -127,5 +135,11 @@ class _ModoEditorState extends State<ModoEditor> {
         EquiposEditTab(),
       ],
     );
+  }
+
+  Future<void> _actualizarEquipos() async {
+    setState(() {
+      _futureEquipos = HttpService().equipos();
+    });
   }
 }

@@ -3,8 +3,8 @@ import 'package:esport_cliente/services/http_service.dart';
 import '../../widgets/titulo_seccion.dart';
 
 class AgregarEquipo extends StatefulWidget {
-  const AgregarEquipo({Key? key}) : super(key: key);
-
+  final Function onUpdate;
+  const AgregarEquipo({Key? key, required this.onUpdate}) : super(key: key);
   @override
   State<AgregarEquipo> createState() => _AgregarEquipoState();
 }
@@ -97,10 +97,9 @@ class _AgregarEquipoState extends State<AgregarEquipo> {
         });
         print(errNombre);
       } else {
-        
+        widget.onUpdate();
         Navigator.pop(context);
       }
     }
   }
 }
-
