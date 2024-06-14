@@ -57,22 +57,22 @@ class ParticipantesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-   /*  
-     public function update(Request $request, Participante $participante)
+   
+     public function update(ParticipanteRequest $request, Participante $participante)
     {
         $participante->nombre = $request->nombre;
         $participante->pais = $request->pais;
-        $participante->equipo_id = $request->equipo;
+        $participante->equipo_id = $request->equipo_id;
         $participante->save();
         return $participante;
-    }  */
-
+    }  
+/* 
     public function update(ParticipanteRequest $request, $id)
     {
         $participante = Participante::findOrFail($id);
         $participante->update($request->all());
         return response()->json($participante, 200);
-    }
+    } */
 
     /**
      * Remove the specified resource from storage.

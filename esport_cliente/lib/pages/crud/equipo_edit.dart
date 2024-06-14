@@ -157,6 +157,8 @@ class _EquipoEditState extends State<EquipoEdit> {
                                                                       'pais'],
                                                               onUpdate:
                                                                   _actualizarIntegrantes,
+                                                              equipoId: widget
+                                                                  .equipoId,
                                                             ),
                                                           ),
                                                         );

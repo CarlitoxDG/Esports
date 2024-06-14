@@ -2,6 +2,7 @@ import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
 
 class IntegranteEdit extends StatefulWidget {
+  final int equipoId;
   final int integranteId;
   final String nombre;
   final String pais;
@@ -11,7 +12,8 @@ class IntegranteEdit extends StatefulWidget {
       required this.integranteId,
       required this.nombre,
       required this.pais,
-      required this.onUpdate});
+      required this.onUpdate,
+      required this.equipoId});
 
   @override
   State<IntegranteEdit> createState() => _IntegranteEditState();
@@ -60,30 +62,39 @@ class _IntegranteEditState extends State<IntegranteEdit> {
             ElevatedButton(
               onPressed: () async {
                 // Acción para guardar los cambios
-                final nuevosDatos = {
-                  'nombre': _nombreController.text,
-                  'pais': _paisController.text,
-                };
+
                 await HttpService()
-                    .actualizarParticipante(widget.integranteId, nuevosDatos)
+                    .actualizarParticipante(
+                        widget.integranteId,
+                        widget.equipoId,
+                        _nombreController.text,
+                        _paisController.text)
                     .then((response) {
-                  if (response.statusCode == 200) {
+                  if (response['mensaje'] != null) {
                     ScaffoldMessenger.of(_context).showSnackBar(
-                      const SnackBar(
-                          content: Text('¡Cambios guardados con éxito!')),
+                      const SnackBar(content: Text('¡atao')),
+                    );
+                    widget.onUpdate();
+                  } else if (response.containsKey('id')) {
+                    ScaffoldMessenger.of(_context).showSnackBar(
+                      const SnackBar(content: Text('bien')),
                     );
                     widget.onUpdate();
                   } else {
                     ScaffoldMessenger.of(_context).showSnackBar(
-                      const SnackBar(
-                          content: Text('Error al guardar los cambios')),
+                      SnackBar(
+                        content:
+                            Text('${response.entries} ${response['mensaje']}'),
+                      ),
                     );
+                    widget.onUpdate();
                   }
                 }).catchError((error) {
                   ScaffoldMessenger.of(_context).showSnackBar(
                     const SnackBar(
-                        content: Text('Error al guardar los cambios')),
+                        content: Text('Error al guardar los cambioss')),
                   );
+                  widget.onUpdate();
                 });
                 Navigator.pop(context);
               },

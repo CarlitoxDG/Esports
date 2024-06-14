@@ -108,14 +108,21 @@ class HttpService {
     }
   }
 
-  Future<dynamic> actualizarParticipante(
-      int id, Map<String, dynamic> datos) async {
-    final response = await http.put(
-      Uri.parse('$apiUrl/participantes/$id'),
-      headers: {"Content-Type": "application/json"},
-      body: json.encode(datos),
+  Future<LinkedHashMap<String, dynamic>> actualizarParticipante(
+      int id, int id_equipo, String nombre, String pais) async {
+    var response = await http.put(
+      Uri.parse(apiUrl + '/participantes/' + id.toString()),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json'
+      },
+      body: json.encode(<String, dynamic>{
+        'equipo_id': id_equipo,
+        'nombre': nombre,
+        'pais': pais
+      }),
     );
-    return response;
+    return json.decode(response.body);
   }
 
   Future<dynamic> actualizarJuego(int id, Map<String, dynamic> datos) async {
