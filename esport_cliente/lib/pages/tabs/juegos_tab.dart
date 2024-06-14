@@ -18,6 +18,7 @@ class _JuegosTabState extends State<JuegosTab> {
   void initState() {
     super.initState();
     _futureJuegos = HttpService().listarJuegos();
+    _actualizarJuegos();
   }
 
   Widget build(BuildContext context) {
@@ -154,6 +155,7 @@ class _JuegosTabState extends State<JuegosTab> {
                                 child: const Text(
                                   "Agregar Juego",
                                   style: TextStyle(color: Colors.white),
+                                  
                                 ),
                               ),
                             ),

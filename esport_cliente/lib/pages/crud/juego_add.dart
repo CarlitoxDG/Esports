@@ -87,6 +87,7 @@ class _JuegoAddState extends State<JuegoAdd> {
                     const SnackBar(content: Text('Error al guardar el juego')),
                   );
                 });
+                widget.onUpdate();
                 Navigator.pop(context);
               },
               child: const Text('Guardar Juego'),
