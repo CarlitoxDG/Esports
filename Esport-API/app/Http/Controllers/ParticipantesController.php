@@ -28,7 +28,7 @@ class ParticipantesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ParticipanteRequest $request)
+    public function store(Request $request)
     {
         $participante = new Participante();
         $participante->nombre = $request->nombre;

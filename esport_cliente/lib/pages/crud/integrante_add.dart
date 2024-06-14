@@ -82,6 +82,7 @@ class _IntegranteAddState extends State<IntegranteAdd> {
                   );
                   widget.onUpdate();
                 });
+
                 Navigator.pop(context);
               },
               child: const Text('Guardar Cambios'),
