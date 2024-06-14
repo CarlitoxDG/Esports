@@ -67,13 +67,11 @@ class _JuegoEditState extends State<JuegoEdit> {
                       const SnackBar(content: Text('Operación exitosa')),
                     );
                     widget.onUpdate();
-                    Navigator.pop(context);
                   } else if (response.containsKey('id')) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Operación exitosa')),
                     );
                     widget.onUpdate();
-                    Navigator.pop(context);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -87,8 +85,8 @@ class _JuegoEditState extends State<JuegoEdit> {
                     const SnackBar(
                         content: Text('¡Juego actualizado con éxito!')),
                   );
-                  widget.onUpdate();
                 });
+                widget.onUpdate();
                 Navigator.pop(context);
               },
               child: const Text('Guardar Cambios'),
