@@ -33,4 +33,4 @@ Route::put('/juegos/{id}',                [JuegosController::class,        'upda
 Route::apiResource('/juegos',             JuegosController::class);        //get
 Route::apiResource('/partidos',           PartidosController::class);
 Route::post('/partidos',                  [PartidosController::class,      'store']);
-
+Route::put('/partidos/{id}',                [PartidosController::class,        'update']);
