@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:esport_cliente/pages/crud/campeonato_edit.dart';
 import 'package:esport_cliente/services/http_service.dart';
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CampeonatoTileEdit extends StatefulWidget {
@@ -10,16 +10,18 @@ class CampeonatoTileEdit extends StatefulWidget {
   final String fechaFin;
   final String reglas;
   final String premios;
+  final Function onUpdate; // Agregar onUpdate como parte de los parámetros
 
   const CampeonatoTileEdit({
-    super.key,
-    this.id = 1,
-    this.nombre = 'Sin nombre',
-    this.fechaInicio = "00/00/0000",
-    this.fechaFin = "00/00/0000",
-    this.reglas = "qwerty",
-    this.premios = "qwertyu",
-  });
+    Key? key,
+    required this.id,
+    required this.nombre,
+    required this.fechaInicio,
+    required this.fechaFin,
+    required this.reglas,
+    required this.premios,
+    required this.onUpdate, // Marcar como requerido
+  }) : super(key: key);
 
   @override
   State<CampeonatoTileEdit> createState() => _CampeonatoTileEditState();
@@ -75,6 +77,7 @@ class _CampeonatoTileEditState extends State<CampeonatoTileEdit> {
                             fechaFin: widget.fechaFin,
                             reglas: widget.reglas,
                             premios: widget.premios,
+                            onUpdate: widget.onUpdate, // Pasar onUpdate al constructor de CampeonatoEdit
                           ),
                         ),
                       );
@@ -98,6 +101,8 @@ class _CampeonatoTileEditState extends State<CampeonatoTileEdit> {
                           .then((borradoOK) {
                         if (borradoOK) {
                           print('campeonato borrado');
+                          // Llamar al callback onUpdate para actualizar la lista
+                          widget.onUpdate();
                           setState(() {});
                         }
                       });
@@ -125,3 +130,5 @@ class _CampeonatoTileEditState extends State<CampeonatoTileEdit> {
     );
   }
 }
+
+

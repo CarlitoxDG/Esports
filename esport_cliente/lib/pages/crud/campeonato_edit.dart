@@ -8,6 +8,7 @@ class CampeonatoEdit extends StatefulWidget {
   final String fechaFin;
   final String reglas;
   final String premios;
+  final Function onUpdate; // Agregar onUpdate como parte de los parámetros
 
   const CampeonatoEdit({
     Key? key,
@@ -17,6 +18,7 @@ class CampeonatoEdit extends StatefulWidget {
     required this.fechaFin,
     required this.reglas,
     required this.premios,
+    required this.onUpdate, // Marcar como requerido
   }) : super(key: key);
 
   @override
@@ -211,7 +213,8 @@ class _CampeonatoEditState extends State<CampeonatoEdit> {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text('Campeonato actualizado'),
                         ));
-                        // Navegar de regreso a la página anterior
+                        // Llamar a onUpdate después de actualizar el campeonato
+                        widget.onUpdate();
                         Navigator.pop(context, true);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
