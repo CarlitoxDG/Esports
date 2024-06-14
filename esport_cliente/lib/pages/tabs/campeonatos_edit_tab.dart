@@ -76,7 +76,8 @@ class _CampeonatosEditTabState extends State<CampeonatosEditTab> {
             if (value == true) {
               _actualizarCampeonatos();
             }
-          });
+          }
+        );
         },
         icon: Icon(Icons.add, color: Colors.white),
         label: Text(

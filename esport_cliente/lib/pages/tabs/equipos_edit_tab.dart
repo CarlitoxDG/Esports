@@ -59,8 +59,7 @@ class _EquiposEditTabState extends State<EquiposEditTab> {
             MaterialPageRoute(
                 builder: (context) => AgregarEquipo(
                       onUpdate: _actualizarEquipos,
-                    )),
-          );
+                    )));
           _actualizarEquipos();
         },
         icon: Icon(Icons.add, color: Colors.white),

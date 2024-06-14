@@ -10,7 +10,7 @@ class CampeonatoTileEdit extends StatefulWidget {
   final String fechaFin;
   final String reglas;
   final String premios;
-  final Function onUpdate; // Agregar onUpdate como parte de los parámetros
+  final Function onUpdate; 
 
   const CampeonatoTileEdit({
     Key? key,
@@ -20,7 +20,7 @@ class CampeonatoTileEdit extends StatefulWidget {
     required this.fechaFin,
     required this.reglas,
     required this.premios,
-    required this.onUpdate, // Marcar como requerido
+    required this.onUpdate, 
   }) : super(key: key);
 
   @override
@@ -77,7 +77,7 @@ class _CampeonatoTileEditState extends State<CampeonatoTileEdit> {
                             fechaFin: widget.fechaFin,
                             reglas: widget.reglas,
                             premios: widget.premios,
-                            onUpdate: widget.onUpdate, // Pasar onUpdate al constructor de CampeonatoEdit
+                            onUpdate: widget.onUpdate, 
                           ),
                         ),
                       );
@@ -101,7 +101,6 @@ class _CampeonatoTileEditState extends State<CampeonatoTileEdit> {
                           .then((borradoOK) {
                         if (borradoOK) {
                           print('campeonato borrado');
-                          // Llamar al callback onUpdate para actualizar la lista
                           widget.onUpdate();
                           setState(() {});
                         }

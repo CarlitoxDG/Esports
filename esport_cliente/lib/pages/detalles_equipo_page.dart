@@ -23,16 +23,12 @@ class DetallesEquipo extends StatelessWidget {
               Container(
                 color: Colors.deepPurple,
                 height: 40,
-                child: Image.asset(
-                  'assets/images/esportsapp_text.png',
-                  fit: BoxFit.contain,
-                ),
-              ),
+                child: Image.asset('assets/images/esportsapp_text.png',
+                  fit: BoxFit.contain,)),
               Container(
                 color: Colors.deepPurple,
                 height: 30,
-                child: Text(nombre),
-              )
+                child: Text(nombre))
             ],
           ),
           bottom: const TabBar(
@@ -91,9 +87,8 @@ class DetallesEquipo extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Integrantes del equipo',
-                                style: TextStyle(
+                              const Text('Integrantes del equipo',
+                                  style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -105,16 +100,13 @@ class DetallesEquipo extends StatelessWidget {
                                             children: [
                                               ListTile(
                                                 title: Text(
-                                                  participante['nombre'] ??
-                                                      'Nombre del Participante',
+                                                  participante['nombre'] ?? 'Nombre del Participante',
                                                   style: const TextStyle(
-                                                      color: Colors.white),
+                                                  color: Colors.white),
                                                 ),
-                                                subtitle: Text(
-                                                  participante['pais'] ??
-                                                      'País',
+                                                subtitle: Text(participante['pais'] ?? 'País',
                                                   style: const TextStyle(
-                                                      color: Colors.white70),
+                                                  color: Colors.white70),
                                                 ),
                                               ),
                                               const SizedBox(height: 10),
@@ -176,18 +168,13 @@ class DetallesEquipo extends StatelessWidget {
                                       ?.map((juego) => Column(
                                             children: [
                                               ListTile(
-                                                title: Text(
-                                                  juego['nombre'] ??
-                                                      'Nombre del Juego',
+                                                title: Text(juego['nombre'] ?? 'Nombre del Juego',
                                                   style: const TextStyle(
-                                                      color: Colors.white),
+                                                  color: Colors.white),
                                                 ),
-                                                subtitle: Text(
-                                                  juego['categoria'] ??
-                                                      'Categoría',
+                                                subtitle: Text(juego['categoria'] ?? 'Categoría',
                                                   style: const TextStyle(
-                                                      color: Colors.white70),
-                                                ),
+                                                  color: Colors.white70)),
                                               ),
                                               const SizedBox(height: 10),
                                             ],

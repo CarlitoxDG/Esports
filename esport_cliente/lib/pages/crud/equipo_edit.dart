@@ -208,7 +208,7 @@ class _EquipoEditState extends State<EquipoEdit> {
                                   child: const Text(
                                     "Agregar Integrante",
                                     style: TextStyle(
-                                        color: Colors.white), // Color del texto
+                                        color: Colors.white), 
                                   ),
                                 ),
                               ),

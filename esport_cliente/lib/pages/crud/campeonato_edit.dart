@@ -9,7 +9,7 @@ class CampeonatoEdit extends StatefulWidget {
   final String fechaFin;
   final String reglas;
   final String premios;
-  final Function onUpdate; // Agregar onUpdate como parte de los parámetros
+  final Function onUpdate; 
 
   const CampeonatoEdit({
     Key? key,
@@ -19,7 +19,7 @@ class CampeonatoEdit extends StatefulWidget {
     required this.fechaFin,
     required this.reglas,
     required this.premios,
-    required this.onUpdate, // Marcar como requerido
+    required this.onUpdate, 
   }) : super(key: key);
 
   @override
@@ -79,7 +79,6 @@ class _CampeonatoEditState extends State<CampeonatoEdit> {
           key: _formKey,
           child: ListView(
             children: [
-              // Nombre
               TextFormField(
                 controller: nombreController,
                 decoration: InputDecoration(
@@ -120,7 +119,6 @@ class _CampeonatoEditState extends State<CampeonatoEdit> {
               SizedBox(height: 8),
               Text(errFechaInicio, style: TextStyle(color: Colors.red)),
               SizedBox(height: 16.0),
-              // Fecha de Término
               TextFormField(
                 controller: fechaFinController,
                 decoration: InputDecoration(
@@ -241,9 +239,7 @@ class _CampeonatoEditState extends State<CampeonatoEdit> {
                       builder: (context) => PartidoAdd(
                         campeonatoId: widget.campeonatoId,
                         onUpdate: () {
-                          // Actualiza la vista del campeonato después de agregar un partido
                           setState(() {
-                            // Lógica para actualizar la vista aquí, si es necesario
                           });
                         },
                       ),

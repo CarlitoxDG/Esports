@@ -103,7 +103,6 @@ class _IntegranteEditState extends State<IntegranteEdit> {
       );
 
       if (response['message'] != null) {
-        // Hay errores de validación
         var errores = response['errors'];
         setState(() {
           _errNombre = errores['nombre'] != null ? errores['nombre'][0] : '';
@@ -111,7 +110,7 @@ class _IntegranteEditState extends State<IntegranteEdit> {
         });
       } else if (response.containsKey('id')) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Operación exitosa')),
+          const SnackBar(content: Text('Actualización exitosa')),
         );
         widget.onUpdate();
         Navigator.pop(context);

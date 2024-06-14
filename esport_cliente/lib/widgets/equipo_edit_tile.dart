@@ -71,11 +71,10 @@ class _EquipoTileEditState extends State<EquipoTileEdit> {
                       );
                     },
                   ),
-                  Text(
-                    "Editar",
+                  Text("Editar",
                     style: GoogleFonts.inconsolata(
-                        textStyle: const TextStyle(
-                      fontSize: 12,
+                    textStyle: const TextStyle(
+                    fontSize: 12,
                     )),
                   ),
                 ],

@@ -76,17 +76,17 @@ class HttpService {
     if (respuesta.statusCode == 200) {
       List<dynamic> partidos = json.decode(respuesta.body);
 
-      // Itera sobre los partidos para obtener los nombres de los equipos
+
       for (var partido in partidos) {
-        // Obtiene los nombres de los equipos correspondientes a partir de sus IDs
+
         var equipo1Id = partido['equipo1_id'];
         var equipo2Id = partido['equipo2_id'];
 
-        // Realiza solicitudes adicionales para obtener los nombres de los equipos
+
         var equipo1 = await obtenerNombreEquipo(equipo1Id);
         var equipo2 = await obtenerNombreEquipo(equipo2Id);
 
-        // Agrega los nombres de los equipos al objeto de partido
+
         partido['equipo1_nombre'] = equipo1['nombre'];
         partido['equipo2_nombre'] = equipo2['nombre'];
       }
@@ -97,7 +97,7 @@ class HttpService {
     }
   }
 
-// Método para obtener el nombre de un equipo a partir de su ID
+
   Future<dynamic> obtenerNombreEquipo(int equipoId) async {
     final respuesta = await http.get(Uri.parse('$apiUrl/equipos/$equipoId'));
 
