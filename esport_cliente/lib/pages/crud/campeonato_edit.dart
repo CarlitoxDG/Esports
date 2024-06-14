@@ -1,5 +1,5 @@
-import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
+import 'package:esport_cliente/services/http_service.dart';
 
 class CampeonatoEdit extends StatefulWidget {
   final int campeonatoId;
@@ -211,6 +211,8 @@ class _CampeonatoEditState extends State<CampeonatoEdit> {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text('Campeonato actualizado'),
                         ));
+                        // Navegar de regreso a la página anterior
+                        Navigator.pop(context, true);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text(

@@ -13,6 +13,7 @@ class JuegosTab extends StatefulWidget {
 
 class _JuegosTabState extends State<JuegosTab> {
   late Future<List<dynamic>> _futureJuegos;
+  
   @override
   void initState() {
     super.initState();
@@ -45,8 +46,7 @@ class _JuegosTabState extends State<JuegosTab> {
                         margin: const EdgeInsets.symmetric(horizontal: 16.0),
                         padding: const EdgeInsets.all(16.0),
                         decoration: BoxDecoration(
-                          color:
-                              const Color.fromARGB(0, 0, 0, 0).withOpacity(0.8),
+                          color: const Color.fromARGB(0, 0, 0, 0).withOpacity(0.8),
                           borderRadius: BorderRadius.circular(12.0),
                           boxShadow: [
                             BoxShadow(
@@ -69,53 +69,39 @@ class _JuegosTabState extends State<JuegosTab> {
                                           children: [
                                             ListTile(
                                               title: Text(
-                                                juego['nombre'] ??
-                                                    'Nombre del Juego',
+                                                juego['nombre'] ?? 'Nombre del Juego',
                                                 style: GoogleFonts.inconsolata(
-                                                    fontSize: 20,
-                                                    color: Colors.white),
+                                                    fontSize: 20, color: Colors.white),
                                               ),
                                               subtitle: Text(
-                                                juego['categoria'] ??
-                                                    'Categoría',
+                                                juego['categoria'] ?? 'Categoría',
                                                 style: GoogleFonts.inconsolata(
-                                                    fontSize: 16,
-                                                    color: Colors.white70),
+                                                    fontSize: 16, color: Colors.white70),
                                               ),
                                               trailing: Row(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [
                                                   IconButton(
-                                                    icon: const Icon(Icons.edit,
-                                                        color: Colors.white),
+                                                    icon: const Icon(Icons.edit, color: Colors.white),
                                                     onPressed: () {
                                                       Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              JuegoEdit(
-                                                            nombre:
-                                                                juego['nombre'],
-                                                            cat: juego[
-                                                                'categoria'],
-                                                            onUpdate:
-                                                                _actualizarJuegos,
-                                                            juegoId:
-                                                                juego['id'],
+                                                          builder: (context) => JuegoEdit(
+                                                            nombre: juego['nombre'],
+                                                            cat: juego['categoria'],
+                                                            onUpdate: _actualizarJuegos,
+                                                            juegoId: juego['id'],
                                                           ),
                                                         ),
                                                       );
                                                     },
                                                   ),
                                                   IconButton(
-                                                    icon: const Icon(
-                                                        Icons.delete,
-                                                        color: Colors.white),
+                                                    icon: const Icon(Icons.delete, color: Colors.white),
                                                     onPressed: () async {
                                                       try {
-                                                        await HttpService()
-                                                            .eliminarJuego(
-                                                                juego['id']);
+                                                        await HttpService().eliminarJuego(juego['id']);
                                                       } catch (e) {
                                                         // Manejar errores
                                                       }
@@ -133,8 +119,7 @@ class _JuegosTabState extends State<JuegosTab> {
                             Center(
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Colors.red, // Color del botón
+                                  backgroundColor: Colors.red, // Color del botón
                                 ),
                                 onPressed: () {
                                   Navigator.push(

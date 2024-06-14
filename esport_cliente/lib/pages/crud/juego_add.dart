@@ -79,7 +79,7 @@ class _JuegoAddState extends State<JuegoAdd> {
                   } else {
                     ScaffoldMessenger.of(_context).showSnackBar(
                       const SnackBar(
-                          content: Text('Error al guardar el juego')),
+                          content: Text('¡Juego guardado con éxito!')),
                     );
                   }
                 }).catchError((error) {

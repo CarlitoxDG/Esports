@@ -1,21 +1,22 @@
-import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
-
+import 'package:esport_cliente/services/http_service.dart';
 import '../../widgets/titulo_seccion.dart';
 
 class AgregarEquipo extends StatefulWidget {
-  const AgregarEquipo({super.key});
+  const AgregarEquipo({Key? key}) : super(key: key);
 
   @override
-  State<AgregarEquipo> createState() => _agregarEquipoState();
+  State<AgregarEquipo> createState() => _AgregarEquipoState();
 }
 
-class _agregarEquipoState extends State<AgregarEquipo> {
-  TextEditingController nombreController = TextEditingController();
-
+class _AgregarEquipoState extends State<AgregarEquipo> {
+  final HttpService apiService = HttpService();
   final formKey = GlobalKey<FormState>();
 
+  TextEditingController nombreController = TextEditingController();
+
   String errNombre = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,54 +24,83 @@ class _agregarEquipoState extends State<AgregarEquipo> {
         title: Text('Agregar Nuevo Equipo'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(16),
         child: Form(
           key: formKey,
           child: ListView(
             children: [
-              //TITULO
               TituloSeccion(titulo: 'Equipos', subtitulo: 'Agregar'),
-
-              //nombre
+              SizedBox(height: 16),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Nombre'),
                 controller: nombreController,
-                keyboardType: TextInputType.text,
-              ),
-              Text(errNombre, style: TextStyle(color: Colors.red)),
-
-              //boton
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                child: FilledButton(
-                  style: FilledButton.styleFrom(),
-                  child: Text('Agregar Equipo'),
-                  onPressed: () async {
-                    var respuesta = await HttpService().AgregarEquipo(
-                      nombreController.text,
-                    );
-
-                    if (respuesta['message'] != null) {
-                      //hay errores de validación
-                      var errores = respuesta['errors'];
-                      setState(() {
-                        // errNombre = errores['nombre'][0] ?? '';
-                        errNombre = errores['nombre'] != null
-                            ? errores['nombre'][0]
-                            : '';
-                      });
-                      print(errNombre);
-                    } else {
-                      //todo ok, volver a la pagina que lista
-                      Navigator.pop(context);
-                    }
-                  },
+                decoration: InputDecoration(
+                  labelText: 'Nombre',
+                  hintText: 'Ingrese el nombre del equipo',
+                  border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, ingrese el nombre del equipo';
+                  }
+                  return null;
+                },
               ),
+              SizedBox(height: 8),
+              Text(errNombre, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 32),
+              _buildAgregarButton(),
             ],
           ),
         ),
       ),
     );
   }
+
+  Widget _buildAgregarButton() {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      child: SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          onPressed: () async {
+            await _submitForm();
+          },
+          child: Text(
+            'Agregar Equipo',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _submitForm() async {
+    if (formKey.currentState!.validate()) {
+      var respuesta = await HttpService().AgregarEquipo(
+        nombreController.text,
+      );
+
+      if (respuesta['message'] != null) {
+        // hay errores de validación
+        var errores = respuesta['errors'];
+        setState(() {
+          errNombre = errores['nombre'] != null ? errores['nombre'][0] : '';
+        });
+        print(errNombre);
+      } else {
+        
+        Navigator.pop(context);
+      }
+    }
+  }
 }
+
