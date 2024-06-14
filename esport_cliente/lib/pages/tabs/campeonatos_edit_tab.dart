@@ -1,16 +1,31 @@
 import 'package:esport_cliente/pages/crud/agregar_campeonato.dart';
+import 'package:flutter/material.dart';
+import 'package:esport_cliente/pages/crud/campeonato_edit.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:esport_cliente/widgets/campeonato_edit_tile.dart';
-import 'package:flutter/material.dart';
 
 class CampeonatosEditTab extends StatefulWidget {
-  const CampeonatosEditTab({super.key});
+  const CampeonatosEditTab({Key? key}) : super(key: key);
 
   @override
   State<CampeonatosEditTab> createState() => _CampeonatosEditTabState();
 }
 
 class _CampeonatosEditTabState extends State<CampeonatosEditTab> {
+  late Future<List<dynamic>> _futureCampeonatos;
+
+  @override
+  void initState() {
+    super.initState();
+    _futureCampeonatos = HttpService().campeonatos();
+  }
+
+  Future<void> _actualizarCampeonatos() async {
+    setState(() {
+      _futureCampeonatos = HttpService().campeonatos();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +34,7 @@ class _CampeonatosEditTabState extends State<CampeonatosEditTab> {
           children: [
             Expanded(
               child: FutureBuilder(
-                future: HttpService().campeonatos(),
+                future: _futureCampeonatos,
                 builder: (context, AsyncSnapshot snapshot) {
                   if (!snapshot.hasData ||
                       snapshot.connectionState == ConnectionState.waiting) {
@@ -40,6 +55,7 @@ class _CampeonatosEditTabState extends State<CampeonatosEditTab> {
                         fechaFin: campeonato['fecha_fin'],
                         reglas: campeonato['reglas'],
                         premios: campeonato['premios'],
+                        onUpdate: _actualizarCampeonatos, // Pasar la función onUpdate
                       );
                     },
                   );
@@ -53,8 +69,12 @@ class _CampeonatosEditTabState extends State<CampeonatosEditTab> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AgregarCampeonato()),
-          );
+            MaterialPageRoute(builder: (context) => AgregarCampeonato(onUpdate: () {  },)),
+          ).then((value) {
+            if (value == true) {
+              _actualizarCampeonatos();
+            }
+          });
         },
         icon: Icon(Icons.add, color: Colors.white),
         label: Text(

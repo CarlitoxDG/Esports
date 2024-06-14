@@ -1,30 +1,40 @@
-import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
-import '../../widgets/titulo_seccion.dart';
+import 'package:esport_cliente/services/http_service.dart';
 
 class AgregarCampeonato extends StatefulWidget {
-  const AgregarCampeonato({Key? key}) : super(key: key);
+  final Function onUpdate; // Agregar onUpdate como parte de los parámetros
+
+  const AgregarCampeonato({Key? key, required this.onUpdate}) : super(key: key);
 
   @override
-  State<AgregarCampeonato> createState() => _AgregarCampeonatoState();
+  _AgregarCampeonatoState createState() => _AgregarCampeonatoState();
 }
 
 class _AgregarCampeonatoState extends State<AgregarCampeonato> {
   final HttpService apiService = HttpService();
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
-  TextEditingController nombreController = TextEditingController();
-  TextEditingController fechaInicioController = TextEditingController();
-  TextEditingController fechaFinController = TextEditingController();
-  TextEditingController reglasController = TextEditingController();
-  TextEditingController premiosController = TextEditingController();
+  late TextEditingController nombreController;
+  late TextEditingController fechaInicioController;
+  late TextEditingController fechaFinController;
+  late TextEditingController reglasController;
+  late TextEditingController premiosController;
 
   String errNombre = "";
   String errFechaInicio = "";
   String errFechaFin = "";
   String errReglas = "";
   String errPremios = "";
+
+  @override
+  void initState() {
+    super.initState();
+    nombreController = TextEditingController();
+    fechaInicioController = TextEditingController();
+    fechaFinController = TextEditingController();
+    reglasController = TextEditingController();
+    premiosController = TextEditingController();
+  }
 
   void _selectDate(
       BuildContext context, TextEditingController controller) async {
@@ -45,27 +55,32 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agregar Nuevo Campeonato'),
+        title: Text('Agregar Campeonato'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.0),
         child: Form(
-          key: formKey,
+          key: _formKey,
           child: ListView(
             children: [
-              TituloSeccion(titulo: 'Campeonatos', subtitulo: 'Agregar'),
-              SizedBox(height: 16),
+              // Nombre
               TextFormField(
                 controller: nombreController,
                 decoration: InputDecoration(
                   labelText: 'Nombre',
-                  hintText: 'Ingrese el nombre del campeonato',
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor ingrese el nombre';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 8),
               Text(errNombre, style: TextStyle(color: Colors.red)),
-              SizedBox(height: 16),
+              SizedBox(height: 16.0),
+              // Fecha de Inicio
               TextFormField(
                 controller: fechaInicioController,
                 decoration: InputDecoration(
@@ -79,14 +94,21 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
                 ),
                 readOnly: true,
                 onTap: () => _selectDate(context, fechaInicioController),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor seleccione la fecha de inicio';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 8),
               Text(errFechaInicio, style: TextStyle(color: Colors.red)),
-              SizedBox(height: 16),
+              SizedBox(height: 16.0),
+              // Fecha de Término
               TextFormField(
                 controller: fechaFinController,
                 decoration: InputDecoration(
-                  labelText: 'Fecha de Fin',
+                  labelText: 'Fecha de Término',
                   border: OutlineInputBorder(),
                   suffixIcon: IconButton(
                     icon: Icon(Icons.calendar_today),
@@ -95,92 +117,108 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
                 ),
                 readOnly: true,
                 onTap: () => _selectDate(context, fechaFinController),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor seleccione la fecha de término';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 8),
               Text(errFechaFin, style: TextStyle(color: Colors.red)),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: premiosController,
-                decoration: InputDecoration(
-                  labelText: 'Premios',
-                  hintText: 'Descripción de los premios del campeonato',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 8),
-              Text(errPremios, style: TextStyle(color: Colors.red)),
-              SizedBox(height: 16),
+              SizedBox(height: 16.0),
+              // Reglas
               TextFormField(
                 controller: reglasController,
                 decoration: InputDecoration(
                   labelText: 'Reglas',
-                  hintText: 'Descripción de las reglas del campeonato',
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor ingrese las reglas';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 8),
               Text(errReglas, style: TextStyle(color: Colors.red)),
-              SizedBox(height: 32),
-              _buildAgregarButton(),
+              SizedBox(height: 16.0),
+              // Premios
+              TextFormField(
+                controller: premiosController,
+                decoration: InputDecoration(
+                  labelText: 'Premios',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor ingrese los premios';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 8),
+              Text(errPremios, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    try {
+                      var respuesta = await apiService.agregarCampeonato(
+                        nombreController.text,
+                        fechaInicioController.text,
+                        fechaFinController.text,
+                        reglasController.text,
+                        premiosController.text,
+                      );
+
+                      if (respuesta['message'] != null) {
+                        // Hay errores de validación
+                        var errores = respuesta['errors'];
+                        setState(() {
+                          errNombre = errores['nombre'] != null
+                              ? errores['nombre'][0]
+                              : '';
+                          errFechaInicio = errores['fecha_inicio'] != null
+                              ? errores['fecha_inicio'][0]
+                              : '';
+                          errFechaFin = errores['fecha_fin'] != null
+                              ? errores['fecha_fin'][0]
+                              : '';
+                          errReglas = errores['reglas'] != null
+                              ? errores['reglas'][0]
+                              : '';
+                          errPremios = errores['premios'] != null
+                              ? errores['premios'][0]
+                              : '';
+                        });
+                      } else if (respuesta.containsKey('id')) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('Campeonato agregado'),
+                        ));
+                        // Llamar a onUpdate después de agregar el campeonato
+                        widget.onUpdate();
+                        Navigator.pop(context, true);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                              'Error al agregar el campeonato: ${respuesta['message']}'),
+                        ));
+                      }
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Ocurrió un error: $e'),
+                      ));
+                    }
+                  }
+                },
+                child: Text('Agregar Campeonato'),
+              ),
             ],
           ),
         ),
       ),
     );
-  }
-
-  Widget _buildAgregarButton() {
-    return Container(
-      margin: EdgeInsets.only(top: 20),
-      child: SizedBox(
-        width: double.infinity,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          onPressed: () async {
-            await _submitForm();
-          },
-          child: Text(
-            'Agregar Campeonato',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Future<void> _submitForm() async {
-    var respuesta = await HttpService().agregarCampeonato(
-      nombreController.text,
-      fechaInicioController.text,
-      fechaFinController.text,
-      reglasController.text,
-      premiosController.text,
-    );
-
-    if (respuesta['message'] != null) {
-      //hay errores de validación
-      var errores = respuesta['errors'];
-      setState(() {
-        errNombre = errores['nombre'] != null ? errores['nombre'][0] : '';
-        errFechaInicio =
-            errores['fecha_inicio'] != null ? errores['fecha_inicio'][0] : '';
-        errFechaFin =
-            errores['fecha_fin'] != null ? errores['fecha_fin'][0] : '';
-        errReglas = errores['reglas'] != null ? errores['reglas'][0] : '';
-        errPremios = errores['premios'] != null ? errores['premios'][0] : '';
-      });
-      print(errNombre);
-    } else {
-      //todo ok, volver a la pagina que lista
-      Navigator.pop(context);
-    }
   }
 }
