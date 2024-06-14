@@ -137,15 +137,15 @@ class _JuegosTabState extends State<JuegosTab> {
                                       Colors.red, // Color del botón
                                 ),
                                 onPressed: () {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => JuegoAdd(
-                                  //       onUpdate: _actualizarJuegos,
-                                  //       equipoId: widget.equipoId,
-                                  //     ),
-                                  //   ),
-                                  // );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => JuegoAdd(
+                                        onUpdate: _actualizarJuegos,
+                                        equipoId: 0, // Cambiar según sea necesario
+                                      ),
+                                    ),
+                                  );
                                 },
                                 child: const Text(
                                   "Agregar Juego",
