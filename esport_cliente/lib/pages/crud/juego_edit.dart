@@ -58,23 +58,28 @@ class _JuegoEditState extends State<JuegoEdit> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                final nuevosDatos = {
-                  'nombre': _nombreController.text,
-                  'categoria': _catController.text,
-                };
                 await HttpService()
-                    .actualizarJuego(widget.juegoId, nuevosDatos)
+                    .actualizarJuego(widget.juegoId, _nombreController.text,
+                        _catController.text)
                     .then((response) {
-                  if (response['status'] == 200) {
-                    ScaffoldMessenger.of(_context).showSnackBar(
-                      const SnackBar(
-                          content: Text('¡Juego actualizado con éxito!')),
+                  if (response['mensaje'] != null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Operación exitosa')),
                     );
                     widget.onUpdate();
+                    Navigator.pop(context);
+                  } else if (response.containsKey('id')) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Operación exitosa')),
+                    );
+                    widget.onUpdate();
+                    Navigator.pop(context);
                   } else {
-                    ScaffoldMessenger.of(_context).showSnackBar(
-                      const SnackBar(
-                          content: Text('Error al actualizar el juego')),
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content:
+                            Text('${response.entries} ${response['mensaje']}'),
+                      ),
                     );
                   }
                 }).catchError((error) {

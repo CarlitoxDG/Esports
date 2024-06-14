@@ -56,11 +56,12 @@ class JuegosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(JuegoRequest $request,Juego $juego)
     {
-        $juego=Juego::findOrFail($id);
-        $juego->update($request->all());
-        return response()->json($juego, 200);
+        $juego->nombre = $request->nombre;
+        $juego->categoria = $request->categoria;
+        $juego->save();
+        return $juego;
     }
 
     /**

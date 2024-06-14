@@ -22,7 +22,7 @@ class JuegoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre' => ['required','min:3','max:50','unique:juegos,nombre',],
+            'nombre' => ['required','min:3','max:50',/* 'unique:juegos,nombre' */],
             'categoria' => ['required','min:2','max:30',],
         ];
     }
@@ -38,7 +38,7 @@ class JuegoRequest extends FormRequest
             'nombre.required' => 'El nombre del videojuego es obligatorio.',
             'nombre.min' => 'El nombre del videojuego debe tener al menos 3 caracteres.',
             'nombre.max' => 'El nombre del videojuego no puede superar los 50 caracteres.',
-            'nombre.unique' => 'El nombre es inválido. Elija otro nombre.',
+            //'nombre.unique' => 'El nombre es inválido. Elija otro nombre.',
             'categoria.required' => 'La categoría del videojuego es obligatoria.',
             'categoria.min' => 'La categoría del videojuego debe tener al menos 2 caracteres.',
             'categoria.max' => 'La categoría del videojuego no puede superar los 30 caracteres.',

@@ -11,7 +11,7 @@ class PartidoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class PartidoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fecha' => ['required', 'date'],
+            'fecha' => ['required', 'date','after:yesterday'],
             'pais' => ['required', 'string', 'min:2', 'max:50'],
             'ciudad' => ['required', 'string', 'min:2', 'max:60'],
             'sede' => ['required', 'min:2', 'max:60'],
@@ -43,6 +43,7 @@ class PartidoRequest extends FormRequest
         return [
             'fecha.required' => 'La fecha del partido es obligatoria.',
             'fecha.date' => 'La fecha del partido debe tener un formato válido (YYYY-MM-DD).',
+            'fecha.after' => 'La fecha del partido debe ser posterior a ayer.',
             'pais.required' => 'El país del partido es obligatorio.',
             'pais.string' => 'El país del partido debe ser un texto.',
             'pais.min' => 'El país del partido debe tener al menos 2 caracteres.',

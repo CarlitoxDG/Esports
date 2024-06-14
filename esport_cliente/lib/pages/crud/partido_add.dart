@@ -1,177 +1,267 @@
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
+//import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
+import '../../widgets/titulo_seccion.dart';
 
 class PartidoAdd extends StatefulWidget {
-  final int campeonatoId;
-
-  const PartidoAdd({super.key, required this.campeonatoId});
+  final int campeonatoId; // Recibe el ID del campeonato al inicializar
+  const PartidoAdd({Key? key, required this.campeonatoId}) : super(key: key);
 
   @override
-  _PartidoAddState createState() => _PartidoAddState();
+  State<PartidoAdd> createState() => _PartidoAddState();
 }
 
 class _PartidoAddState extends State<PartidoAdd> {
-  final TextEditingController paisController = TextEditingController();
-  final TextEditingController ciudadController = TextEditingController();
-  final TextEditingController sedeController = TextEditingController();
-  final TextEditingController resultadoController = TextEditingController();
-  DateTime _fechaSeleccionada = DateTime.now();
-  String _equipoSeleccionado1 = 'sel 1';
-  String _equipoSeleccionado2 = 'sel 2';
-  List<String> _equipos = [];
+  final HttpService apiService = HttpService();
+  final formKey = GlobalKey<FormState>();
 
+  TextEditingController fechaController = TextEditingController();
+  TextEditingController paisController = TextEditingController();
+  TextEditingController ciudadController = TextEditingController();
+  TextEditingController sedeController = TextEditingController();
+  TextEditingController resultadoController = TextEditingController();
+
+  int? selectedEquipo1;
+  int? selectedEquipo2;
+  List<dynamic> equipos = [];
+
+  String errFecha = "";
+  String errPais = "";
+  String errCiudad = "";
+  String errSede = "";
+  String errResultado = "";
+  String errEquipo1 = "";
+  String errEquipo2 = "";
+
+  @override
   void initState() {
     super.initState();
-    _cargarEquipos();
+    fetchInitialData();
   }
 
-  Future<void> enviarDatosPartido() async {
-    DateTime fechaSeleccionada = _fechaSeleccionada;
-    int equipo1IdSeleccionado = _equipos.indexOf(_equipoSeleccionado1) + 1;
-    int equipo2IdSeleccionado = _equipos.indexOf(_equipoSeleccionado2) + 1;
+  Future<void> fetchInitialData() async {
+    var fetchedEquipos =
+        await apiService.equiposEnCampeonato(widget.campeonatoId);
+    setState(() {
+      equipos = fetchedEquipos;
+    });
+  }
 
-    // Llama a la función para enviar los datos del partido a la API
-    HttpService().enviarDatosPartido(
-      fecha: fechaSeleccionada,
-      pais: paisController.text,
-      ciudad: ciudadController.text,
-      sede: sedeController.text,
-      resultado: resultadoController.text,
-      campeonato: widget.campeonatoId,
-      equipo1: equipo1IdSeleccionado,
-      equipo2: equipo2IdSeleccionado,
+  void _selectDate(
+      BuildContext context, TextEditingController controller) async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
     );
-  }
-
-  Future<void> _cargarEquipos() async {
-    try {
-      List<dynamic> equipos =
-          await HttpService().equiposEnCampeonato(widget.campeonatoId);
+    if (picked != null) {
       setState(() {
-        _equipos =
-            equipos.map((equipo) => equipo['nombre'].toString()).toList();
+        controller.text = "${picked.toLocal()}".split(' ')[0];
       });
-    } catch (e) {
-      print('Error al cargar equipos: $e');
     }
-  }
-
-  Widget _buildEquipoDropdown(String value, ValueChanged<String> onChanged) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: _equipos
-          .map((equipo) => Column(
-                children: [
-                  ListTile(
-                    title: Text(
-                      equipo,
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    leading: Image.asset(
-                      'assets/images/Equipos/$equipo.png',
-                      height: 40,
-                      width: 40,
-                    ),
-                    onTap: () {
-                      onChanged(equipo);
-
-                      setState(() {});
-                      Navigator.pop(context);
-                    },
-                  ),
-                  SizedBox(height: 10),
-                ],
-              ))
-          .toList(),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Crear Partido'),
+        title: Text('Agregar Nuevo Partido'),
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Seleccionar Equipos'),
-                      content: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            _buildEquipoDropdown(_equipoSeleccionado1,
-                                (String newValue) {
-                              setState(() {
-                                _equipoSeleccionado1 = newValue;
-                              });
-                            }),
-                            SizedBox(height: 20),
-                            _buildEquipoDropdown(_equipoSeleccionado2,
-                                (String newValue) {
-                              setState(() {
-                                _equipoSeleccionado2 = newValue;
-                              });
-                            }),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-              child: Text('Seleccionar Equipos'),
-            ),
-            OutlinedButton(
-              onPressed: () {
-                DatePicker.showDatePicker(
-                  context,
-                  showTitleActions: true,
-                  onChanged: (date) {
-                    setState(() {
-                      _fechaSeleccionada = date;
-                    });
-                  },
-                  currentTime: DateTime.now(),
-                  locale: LocaleType.es,
-                );
-              },
-              child: Text(
-                'Seleccionar Fecha: $_fechaSeleccionada',
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Form(
+          key: formKey,
+          child: ListView(
+            children: [
+              TituloSeccion(titulo: 'Partidos', subtitulo: 'Agregar'),
+              SizedBox(height: 16),
+              // Fecha
+              TextFormField(
+                controller: fechaController,
+                decoration: InputDecoration(
+                  labelText: 'Fecha del partido',
+                  border: OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.calendar_today),
+                    onPressed: () => _selectDate(context, fechaController),
+                  ),
+                ),
+                readOnly: true,
+                onTap: () => _selectDate(context, fechaController),
               ),
-            ),
-            // Agregar más campos para otros datos del partido (por ejemplo, resultado, sede, etc.)
-            TextFormField(
-              controller: paisController,
-            ),
-            TextFormField(
-              controller: ciudadController,
-            ),
-            TextFormField(
-              controller: sedeController,
-            ),
-            TextFormField(
-              controller: resultadoController,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Enviar los datos del partido a la API
-                enviarDatosPartido();
-                Navigator.pop(context);
-              },
-              child: Text('Crear Partido'),
-            ),
-          ],
+              SizedBox(height: 8),
+              Text(errFecha, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 16),
+
+              // País
+              TextFormField(
+                controller: paisController,
+                decoration: InputDecoration(
+                  labelText: 'País',
+                  hintText: 'Ingrese el país donde se jugará',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(errPais, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 16),
+
+              // Ciudad
+              TextFormField(
+                controller: ciudadController,
+                decoration: InputDecoration(
+                  labelText: 'Ciudad donde se jugará',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(errCiudad, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 16),
+
+              // Sede
+              TextFormField(
+                controller: sedeController,
+                decoration: InputDecoration(
+                  labelText: 'Sede',
+                  hintText: 'Descripción de la sede del campeonato',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(errSede, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 16),
+
+              // Resultado
+              TextFormField(
+                controller: resultadoController,
+                decoration: InputDecoration(
+                  labelText: 'Resultado',
+                  hintText: 'Resultado del partido',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(errResultado, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 16),
+
+              // Equipo 1
+              DropdownButtonFormField<int>(
+                decoration: InputDecoration(
+                  labelText: 'Equipo 1',
+                  border: OutlineInputBorder(),
+                ),
+                value: selectedEquipo1,
+                onChanged: (int? newValue) {
+                  setState(() {
+                    selectedEquipo1 = newValue;
+                  });
+                },
+                items: equipos.map<DropdownMenuItem<int>>((dynamic value) {
+                  return DropdownMenuItem<int>(
+                    value: value['id'],
+                    child: Text(value['nombre']),
+                  );
+                }).toList(),
+              ),
+              SizedBox(height: 8),
+              Text(errEquipo1, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 16),
+
+              // Equipo 2
+              DropdownButtonFormField<int>(
+                decoration: InputDecoration(
+                  labelText: 'Equipo 2',
+                  border: OutlineInputBorder(),
+                ),
+                value: selectedEquipo2,
+                onChanged: (int? newValue) {
+                  setState(() {
+                    selectedEquipo2 = newValue;
+                  });
+                },
+                items: equipos.map<DropdownMenuItem<int>>((dynamic value) {
+                  return DropdownMenuItem<int>(
+                    value: value['id'],
+                    child: Text(value['nombre']),
+                  );
+                }).toList(),
+              ),
+              SizedBox(height: 8),
+              Text(errEquipo2, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 16),
+
+              SizedBox(height: 32),
+              _buildAgregarButton(),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Widget _buildAgregarButton() {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      child: SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          onPressed: () async {
+            await _submitForm();
+          },
+          child: Text(
+            'Agregar Partido',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _submitForm() async {
+    if (formKey.currentState!.validate()) {
+      var respuesta = await apiService.agregarPartido(
+        fechaController.text,
+        paisController.text,
+        ciudadController.text,
+        sedeController.text,
+        resultadoController.text,
+        widget.campeonatoId,
+        selectedEquipo1!,
+        selectedEquipo2!,
+      );
+
+      if (respuesta['message'] != null) {
+        // Hay errores de validación
+        var errores = respuesta['errors'];
+        setState(() {
+          errFecha = errores['fecha'] != null ? errores['fecha'][0] : '';
+          errPais = errores['pais'] != null ? errores['pais'][0] : '';
+          errCiudad = errores['ciudad'] != null ? errores['ciudad'][0] : '';
+          errSede = errores['sede'] != null ? errores['sede'][0] : '';
+          errResultado =
+              errores['resultado'] != null ? errores['resultado'][0] : '';
+          errEquipo1 =
+              errores['equipo1_id'] != null ? errores['equipo1_id'][0] : '';
+          errEquipo2 =
+              errores['equipo2_id'] != null ? errores['equipo2_id'][0] : '';
+        });
+        print('Errores de validación: $errores');
+      } else {
+        print('Partido agregado exitosamente');
+        Navigator.pop(context);
+      }
+    } else {
+      print('Formulario no es válido');
+    }
   }
 }

@@ -28,7 +28,7 @@ class PartidosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PartidoRequest $request)
     {
         $partido = new Partido();
         $partido->fecha = $request->fecha;
@@ -36,9 +36,9 @@ class PartidosController extends Controller
         $partido->ciudad = $request->ciudad;
         $partido->sede = $request->sede;
         $partido->resultado = $request->resultado;
-        $partido->campeonato_id = $request->campeonato;
-        $partido->equipo1_id = $request->equipo1;
-        $partido->equipo2_id = $request->equipo2;
+        $partido->campeonato_id = $request->campeonato_id;
+        $partido->equipo1_id = $request->equipo1_id;
+        $partido->equipo2_id = $request->equipo2_id;
         $partido->save();
         return $partido;
     }
