@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import '../../widgets/titulo_seccion.dart';
 
 class PartidoAdd extends StatefulWidget {
+  final Function onUpdate;
   final int campeonatoId; // Recibe el ID del campeonato al inicializar
-  const PartidoAdd({Key? key, required this.campeonatoId}) : super(key: key);
+  const PartidoAdd(
+      {Key? key, required this.campeonatoId, required this.onUpdate})
+      : super(key: key);
 
   @override
   State<PartidoAdd> createState() => _PartidoAddState();
@@ -258,6 +261,7 @@ class _PartidoAddState extends State<PartidoAdd> {
         print('Errores de validación: $errores');
       } else {
         print('Partido agregado exitosamente');
+        widget.onUpdate();
         Navigator.pop(context);
       }
     } else {
