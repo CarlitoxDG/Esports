@@ -1,11 +1,11 @@
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import '../../widgets/titulo_seccion.dart';
 
 class PartidoAdd extends StatefulWidget {
   final Function onUpdate;
   final int campeonatoId; // Recibe el ID del campeonato al inicializar
+
   const PartidoAdd(
       {Key? key, required this.campeonatoId, required this.onUpdate})
       : super(key: key);
@@ -232,12 +232,15 @@ class _PartidoAddState extends State<PartidoAdd> {
 
   Future<void> _submitForm() async {
     if (formKey.currentState!.validate()) {
+      String resultado =
+          resultadoController.text.isEmpty ? "" : resultadoController.text;
+
       var respuesta = await apiService.agregarPartido(
         fechaController.text,
         paisController.text,
         ciudadController.text,
         sedeController.text,
-        resultadoController.text,
+        resultado,
         widget.campeonatoId,
         selectedEquipo1!,
         selectedEquipo2!,

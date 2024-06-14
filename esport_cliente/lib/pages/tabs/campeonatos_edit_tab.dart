@@ -1,6 +1,5 @@
 import 'package:esport_cliente/pages/crud/agregar_campeonato.dart';
 import 'package:flutter/material.dart';
-import 'package:esport_cliente/pages/crud/campeonato_edit.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:esport_cliente/widgets/campeonato_edit_tile.dart';
 
@@ -55,7 +54,7 @@ class _CampeonatosEditTabState extends State<CampeonatosEditTab> {
                         fechaFin: campeonato['fecha_fin'],
                         reglas: campeonato['reglas'],
                         premios: campeonato['premios'],
-                        onUpdate: _actualizarCampeonatos, // Pasar la función onUpdate
+                        onUpdate: _actualizarCampeonatos,
                       );
                     },
                   );
@@ -69,7 +68,10 @@ class _CampeonatosEditTabState extends State<CampeonatosEditTab> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AgregarCampeonato(onUpdate: () {  },)),
+            MaterialPageRoute(
+                builder: (context) => AgregarCampeonato(
+                      onUpdate: () {},
+                    )),
           ).then((value) {
             if (value == true) {
               _actualizarCampeonatos();

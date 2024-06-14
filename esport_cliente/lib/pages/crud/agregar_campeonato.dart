@@ -70,12 +70,6 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
                   labelText: 'Nombre',
                   border: OutlineInputBorder(),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor ingrese el nombre';
-                  }
-                  return null;
-                },
               ),
               SizedBox(height: 8),
               Text(errNombre, style: TextStyle(color: Colors.red)),
@@ -94,12 +88,6 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
                 ),
                 readOnly: true,
                 onTap: () => _selectDate(context, fechaInicioController),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor seleccione la fecha de inicio';
-                  }
-                  return null;
-                },
               ),
               SizedBox(height: 8),
               Text(errFechaInicio, style: TextStyle(color: Colors.red)),
@@ -117,12 +105,6 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
                 ),
                 readOnly: true,
                 onTap: () => _selectDate(context, fechaFinController),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor seleccione la fecha de término';
-                  }
-                  return null;
-                },
               ),
               SizedBox(height: 8),
               Text(errFechaFin, style: TextStyle(color: Colors.red)),
@@ -134,12 +116,6 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
                   labelText: 'Reglas',
                   border: OutlineInputBorder(),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor ingrese las reglas';
-                  }
-                  return null;
-                },
               ),
               SizedBox(height: 8),
               Text(errReglas, style: TextStyle(color: Colors.red)),
@@ -151,12 +127,6 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
                   labelText: 'Premios',
                   border: OutlineInputBorder(),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor ingrese los premios';
-                  }
-                  return null;
-                },
               ),
               SizedBox(height: 8),
               Text(errPremios, style: TextStyle(color: Colors.red)),

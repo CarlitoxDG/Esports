@@ -1,3 +1,4 @@
+import 'package:esport_cliente/pages/crud/partido_add.dart';
 import 'package:flutter/material.dart';
 import 'package:esport_cliente/services/http_service.dart';
 
@@ -230,6 +231,26 @@ class _CampeonatoEditState extends State<CampeonatoEdit> {
                   }
                 },
                 child: Text('Actualizar Campeonato'),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PartidoAdd(
+                        campeonatoId: widget.campeonatoId,
+                        onUpdate: () {
+                          // Actualiza la vista del campeonato después de agregar un partido
+                          setState(() {
+                            // Lógica para actualizar la vista aquí, si es necesario
+                          });
+                        },
+                      ),
+                    ),
+                  );
+                },
+                child: Text('Agregar Partido'),
               ),
             ],
           ),

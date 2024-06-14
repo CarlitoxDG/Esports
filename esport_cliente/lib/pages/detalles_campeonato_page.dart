@@ -1,4 +1,4 @@
-import 'package:esport_cliente/pages/crud/partido_add.dart';
+//import 'package:esport_cliente/pages/crud/partido_add.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';
 
@@ -325,7 +325,7 @@ class _DetalleCampeonatoState extends State<DetalleCampeonato> {
                                           ))
                                       .toList() ??
                                   [],
-                              Center(
+                              /* Center(
                                 child: ElevatedButton(
                                   onPressed: () {
                                     Navigator.push(
@@ -345,7 +345,7 @@ class _DetalleCampeonatoState extends State<DetalleCampeonato> {
                                   ),
                                   child: const Text("Desafiar"),
                                 ),
-                              ),
+                              ), */
                             ],
                           ),
                         ),

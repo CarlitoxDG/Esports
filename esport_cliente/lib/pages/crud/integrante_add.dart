@@ -16,16 +16,18 @@ class IntegranteAdd extends StatefulWidget {
 }
 
 class _IntegranteAddState extends State<IntegranteAdd> {
+  final HttpService apiService = HttpService();
+  final _formKey = GlobalKey<FormState>();
+
   late TextEditingController _nombreController;
   late TextEditingController _paisController;
-  late GlobalKey<FormState> _formKey;
-  String? _nombreError;
-  String? _paisError;
+
+  String _errNombre = "";
+  String _errPais = "";
 
   @override
   void initState() {
     super.initState();
-    _formKey = GlobalKey<FormState>();
     _nombreController = TextEditingController();
     _paisController = TextEditingController();
   }
@@ -55,29 +57,9 @@ class _IntegranteAddState extends State<IntegranteAdd> {
                   labelText: 'Nombre del Participante',
                   border: OutlineInputBorder(),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, ingresa el nombre del participante';
-                  }
-                  if (value.length < 3) {
-                    return 'El nombre debe tener al menos 3 caracteres';
-                  }
-                  return null;
-                },
-                onChanged: (_) {
-                  setState(() {
-                    _nombreError = null;
-                  });
-                },
               ),
-              if (_nombreError != null)
-                Padding(
-                  padding: const EdgeInsets.only(left: 12.0, top: 4.0),
-                  child: Text(
-                    _nombreError!,
-                    style: TextStyle(color: Colors.red),
-                  ),
-                ),
+              SizedBox(height: 8),
+              Text(_errNombre, style: TextStyle(color: Colors.red)),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _paisController,
@@ -85,26 +67,9 @@ class _IntegranteAddState extends State<IntegranteAdd> {
                   labelText: 'País',
                   border: OutlineInputBorder(),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, ingresa el país';
-                  }
-                  return null;
-                },
-                onChanged: (_) {
-                  setState(() {
-                    _paisError = null;
-                  });
-                },
               ),
-              if (_paisError != null)
-                Padding(
-                  padding: const EdgeInsets.only(left: 12.0, top: 4.0),
-                  child: Text(
-                    _paisError!,
-                    style: TextStyle(color: Colors.red),
-                  ),
-                ),
+              SizedBox(height: 8),
+              Text(_errPais, style: TextStyle(color: Colors.red)),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () async {
@@ -129,12 +94,13 @@ class _IntegranteAddState extends State<IntegranteAdd> {
         _paisController.text,
       );
 
-      if (response['mensaje'] != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Operación exitosa')),
-        );
-        widget.onUpdate();
-        Navigator.pop(context);
+      if (response['message'] != null) {
+        // Hay errores de validación
+        var errores = response['errors'];
+        setState(() {
+          _errNombre = errores['nombre'] != null ? errores['nombre'][0] : '';
+          _errPais = errores['pais'] != null ? errores['pais'][0] : '';
+        });
       } else if (response.containsKey('id')) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Operación exitosa')),
@@ -144,7 +110,7 @@ class _IntegranteAddState extends State<IntegranteAdd> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${response.entries} ${response['mensaje']}'),
+            content: Text('${response.entries} ${response['message']}'),
           ),
         );
       }
@@ -156,4 +122,3 @@ class _IntegranteAddState extends State<IntegranteAdd> {
     }
   }
 }
-

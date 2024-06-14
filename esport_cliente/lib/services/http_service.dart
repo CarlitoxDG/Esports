@@ -157,14 +157,17 @@ class HttpService {
   }
 
   Future<LinkedHashMap<String, dynamic>> postNuevoJuego(
-      Map<String, dynamic> juego) async {
+      String nombre, String categoria) async {
     var respuesta = await http.post(
       Uri.parse(apiUrl + '/juegos'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json'
       },
-      body: json.encode(juego),
+      body: json.encode(<String, dynamic>{
+        'nombre': nombre,
+        'categoria': categoria,
+      }),
     );
     return json.decode(respuesta.body);
   }
@@ -300,5 +303,37 @@ class HttpService {
       print('Error al agregar partido: ${respuesta.body}');
       return jsonDecode(respuesta.body);
     }
+  }
+
+  Future<LinkedHashMap<String, dynamic>> editarPartido(
+    int partidoId,
+    String fecha,
+    String pais,
+    String ciudad,
+    String sede,
+    String resultado,
+    int campeonato,
+    int equipo1,
+    int equipo2,
+  ) async {
+    var respuesta = await http.put(
+      Uri.parse(apiUrl + '/partidos/' + partidoId.toString()),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json'
+      },
+      body: json.encode(<String, dynamic>{
+        'id': partidoId,
+        'fecha': fecha,
+        'pais': pais,
+        'ciudad': ciudad,
+        'sede': sede,
+        'resultado': resultado,
+        'campeonato_id': campeonato,
+        'equipo1_id': equipo1,
+        'equipo2_id': equipo2,
+      }),
+    );
+    return json.decode(respuesta.body);
   }
 }

@@ -295,7 +295,7 @@ class _EquipoEditState extends State<EquipoEdit> {
                                                                     JuegoEdit(
                                                               nombre: juego[
                                                                   'nombre'],
-                                                              cat: juego[
+                                                              categoria: juego[
                                                                   'categoria'],
                                                               onUpdate:
                                                                   _actualizarJuegos,

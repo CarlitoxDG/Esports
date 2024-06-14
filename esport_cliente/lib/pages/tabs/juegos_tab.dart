@@ -97,7 +97,7 @@ class _JuegosTabState extends State<JuegosTab> {
                                                               JuegoEdit(
                                                             nombre:
                                                                 juego['nombre'],
-                                                            cat: juego[
+                                                            categoria: juego[
                                                                 'categoria'],
                                                             onUpdate:
                                                                 _actualizarJuegos,
