@@ -134,21 +134,21 @@ class HttpService {
     return response;
   }
 
-  Future<dynamic> postNuevoParticipante(Map<String, dynamic> datos) async {
-    final response = await http.post(
-      Uri.parse('$apiUrl/participantes'),
-      headers: {"Content-Type": "application/json"},
-      body: json.encode(datos),
+  Future<LinkedHashMap<String, dynamic>> postNuevoParticipante(
+      int id_equipo, String nombre, String pais) async {
+    var response = await http.post(
+      Uri.parse(apiUrl + '/participantes'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json'
+      },
+      body: json.encode(<String, dynamic>{
+        'equipo_id': id_equipo,
+        'nombre': nombre,
+        'pais': pais
+      }),
     );
-
-    if (response.statusCode == 201 || response.statusCode == 200) {
-      // Si la solicitud se completó correctamente, devolver la respuesta como JSON
-      return json.decode(response.body);
-    } else {
-      // Si la solicitud falló, lanzar una excepción con el mensaje de error
-      throw Exception(
-          'Error al agregar el participante: ${response.statusCode}');
-    }
+    return json.decode(response.body);
   }
 
   Future<LinkedHashMap<String, dynamic>> postNuevoJuego(
