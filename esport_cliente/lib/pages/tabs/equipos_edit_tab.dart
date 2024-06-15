@@ -1,4 +1,4 @@
-import 'package:esport_cliente/pages/crud/agregar_equipo.dart';
+import 'package:esport_cliente/pages/crud/equipo_add.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:esport_cliente/widgets/equipo_edit_tile.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +57,7 @@ class _EquiposEditTabState extends State<EquiposEditTab> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => AgregarEquipo(
+                builder: (context) => EquipoAdd(
                       onUpdate: _actualizarEquipos,
                     )));
           _actualizarEquipos();

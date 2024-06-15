@@ -11,7 +11,7 @@ class PartidoEdit extends StatefulWidget {
   final int campeonatoId;
   final int equipo1Id;
   final int equipo2Id;
-  final Function onUpdate; // Agregar onUpdate como parte de los parámetros
+  final Function onUpdate; 
 
   const PartidoEdit({
     Key? key,
@@ -24,7 +24,7 @@ class PartidoEdit extends StatefulWidget {
     required this.campeonatoId,
     required this.equipo1Id,
     required this.equipo2Id,
-    required this.onUpdate, // Marcar como requerido
+    required this.onUpdate, 
   }) : super(key: key);
 
   @override
@@ -84,7 +84,6 @@ class _PartidoEditState extends State<PartidoEdit> {
           key: _formKey,
           child: ListView(
             children: [
-              // Fecha
               TextFormField(
                 controller: fechaController,
                 decoration: InputDecoration(
@@ -118,7 +117,6 @@ class _PartidoEditState extends State<PartidoEdit> {
               SizedBox(height: 8),
               Text(errPais, style: TextStyle(color: Colors.red)),
               SizedBox(height: 16.0),
-              // Ciudad
               TextFormField(
                 controller: ciudadController,
                 decoration: InputDecoration(
@@ -129,7 +127,6 @@ class _PartidoEditState extends State<PartidoEdit> {
               SizedBox(height: 8),
               Text(errCiudad, style: TextStyle(color: Colors.red)),
               SizedBox(height: 16.0),
-              // Sede
               TextFormField(
                 controller: sedeController,
                 decoration: InputDecoration(
@@ -140,7 +137,6 @@ class _PartidoEditState extends State<PartidoEdit> {
               SizedBox(height: 8),
               Text(errSede, style: TextStyle(color: Colors.red)),
               SizedBox(height: 16.0),
-              // Resultado
               TextFormField(
                 controller: resultadoController,
                 decoration: InputDecoration(

@@ -22,7 +22,6 @@ class HttpService {
     if (respuesta.statusCode == 200) {
       return json.decode(respuesta.body);
     }
-    //print(respuesta.statusCode);
     return [];
   }
 

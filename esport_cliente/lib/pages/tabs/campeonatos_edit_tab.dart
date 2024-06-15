@@ -1,4 +1,4 @@
-import 'package:esport_cliente/pages/crud/agregar_campeonato.dart';
+import 'package:esport_cliente/pages/crud/campeonato_add.dart';
 import 'package:flutter/material.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:esport_cliente/widgets/campeonato_edit_tile.dart';
@@ -69,7 +69,7 @@ class _CampeonatosEditTabState extends State<CampeonatosEditTab> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => AgregarCampeonato(
+                builder: (context) => CampeonatoAdd(
                       onUpdate: () {},
                     )),
           ).then((value) {

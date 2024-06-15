@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import '../../widgets/titulo_seccion.dart';
 
-class AgregarEquipo extends StatefulWidget {
+class EquipoAdd extends StatefulWidget {
   final Function onUpdate;
-  const AgregarEquipo({Key? key, required this.onUpdate}) : super(key: key);
+  const EquipoAdd({Key? key, required this.onUpdate}) : super(key: key);
   @override
-  State<AgregarEquipo> createState() => _AgregarEquipoState();
+  State<EquipoAdd> createState() => _EquipoAddState();
 }
 
-class _AgregarEquipoState extends State<AgregarEquipo> {
+class _EquipoAddState extends State<EquipoAdd> {
   final HttpService apiService = HttpService();
   final formKey = GlobalKey<FormState>();
 

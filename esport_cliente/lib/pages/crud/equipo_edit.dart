@@ -1,6 +1,5 @@
 import 'package:esport_cliente/pages/crud/integrante_add.dart';
 import 'package:esport_cliente/pages/crud/integrante_edit.dart';
-import 'package:esport_cliente/pages/crud/juego_add.dart';
 import 'package:esport_cliente/pages/crud/juego_edit.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:flutter/material.dart';

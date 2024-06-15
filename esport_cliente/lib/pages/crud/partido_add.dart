@@ -4,7 +4,7 @@ import '../../widgets/titulo_seccion.dart';
 
 class PartidoAdd extends StatefulWidget {
   final Function onUpdate;
-  final int campeonatoId; // Recibe el ID del campeonato al inicializar
+  final int campeonatoId; 
 
   const PartidoAdd(
       {Key? key, required this.campeonatoId, required this.onUpdate})
@@ -79,7 +79,6 @@ class _PartidoAddState extends State<PartidoAdd> {
             children: [
               TituloSeccion(titulo: 'Partidos', subtitulo: 'Agregar'),
               SizedBox(height: 16),
-              // Fecha
               TextFormField(
                 controller: fechaController,
                 decoration: InputDecoration(
@@ -97,7 +96,6 @@ class _PartidoAddState extends State<PartidoAdd> {
               Text(errFecha, style: TextStyle(color: Colors.red)),
               SizedBox(height: 16),
 
-              // País
               TextFormField(
                 controller: paisController,
                 decoration: InputDecoration(
@@ -110,7 +108,6 @@ class _PartidoAddState extends State<PartidoAdd> {
               Text(errPais, style: TextStyle(color: Colors.red)),
               SizedBox(height: 16),
 
-              // Ciudad
               TextFormField(
                 controller: ciudadController,
                 decoration: InputDecoration(
@@ -122,7 +119,6 @@ class _PartidoAddState extends State<PartidoAdd> {
               Text(errCiudad, style: TextStyle(color: Colors.red)),
               SizedBox(height: 16),
 
-              // Sede
               TextFormField(
                 controller: sedeController,
                 decoration: InputDecoration(
@@ -135,7 +131,6 @@ class _PartidoAddState extends State<PartidoAdd> {
               Text(errSede, style: TextStyle(color: Colors.red)),
               SizedBox(height: 16),
 
-              // Resultado
               TextFormField(
                 controller: resultadoController,
                 decoration: InputDecoration(
@@ -148,7 +143,6 @@ class _PartidoAddState extends State<PartidoAdd> {
               Text(errResultado, style: TextStyle(color: Colors.red)),
               SizedBox(height: 16),
 
-              // Equipo 1
               DropdownButtonFormField<int>(
                 decoration: InputDecoration(
                   labelText: 'Equipo 1',

@@ -3,7 +3,7 @@ import 'package:esport_cliente/pages/tabs/equipos_edit_tab.dart';
 import 'package:esport_cliente/pages/tabs/juegos_tab.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:esport_cliente/widgets/equipo_edit_tile.dart';
-import 'package:esport_cliente/widgets/prueba2.dart';
+import 'package:esport_cliente/widgets/partido_edit_tile2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:esport_cliente/services/http_service.dart';
 
-class AgregarCampeonato extends StatefulWidget {
-  final Function onUpdate; // Agregar onUpdate como parte de los parámetros
+class CampeonatoAdd extends StatefulWidget {
+  final Function onUpdate; 
 
-  const AgregarCampeonato({Key? key, required this.onUpdate}) : super(key: key);
+  const CampeonatoAdd({Key? key, required this.onUpdate}) : super(key: key);
 
   @override
-  _AgregarCampeonatoState createState() => _AgregarCampeonatoState();
+  _CampeonatoAddState createState() => _CampeonatoAddState();
 }
 
-class _AgregarCampeonatoState extends State<AgregarCampeonato> {
+class _CampeonatoAddState extends State<CampeonatoAdd> {
   final HttpService apiService = HttpService();
   final _formKey = GlobalKey<FormState>();
 

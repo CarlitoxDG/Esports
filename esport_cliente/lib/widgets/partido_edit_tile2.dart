@@ -1,8 +1,7 @@
-import 'package:esport_cliente/widgets/partido_edit_prueba.dart';
+import 'package:esport_cliente/widgets/partido_edit_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:esport_cliente/services/http_service.dart';
-import 'package:esport_cliente/widgets/campeonato_edit_tile.dart';
-import 'package:esport_cliente/pages/crud/agregar_campeonato.dart';
+import 'package:esport_cliente/pages/crud/campeonato_add.dart';
 
 class CampeonatoPartidoEdit extends StatefulWidget {
   const CampeonatoPartidoEdit({Key? key}) : super(key: key);
@@ -70,7 +69,7 @@ class _CampeonatoPartidoEditState extends State<CampeonatoPartidoEdit> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => AgregarCampeonato(
+                builder: (context) => CampeonatoAdd(
                       onUpdate: _actualizarCampeonatos,
                     )),
           ).then((value) {
