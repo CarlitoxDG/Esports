@@ -207,8 +207,7 @@ class _EquipoEditState extends State<EquipoEdit> {
                                   },
                                   child: const Text(
                                     "Agregar Integrante",
-                                    style: TextStyle(
-                                        color: Colors.white), 
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                 ),
                               ),
@@ -329,29 +328,6 @@ class _EquipoEditState extends State<EquipoEdit> {
                                           ))
                                       .toList() ??
                                   [],
-                              Center(
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        Colors.red, // Color del botón
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => JuegoAdd(
-                                          onUpdate: _actualizarJuegos,
-                                          equipoId: widget.equipoId,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: const Text(
-                                    "Agregar Juego",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                         ),

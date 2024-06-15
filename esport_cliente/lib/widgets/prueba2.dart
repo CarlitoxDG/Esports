@@ -81,7 +81,7 @@ class _CampeonatoPartidoEditState extends State<CampeonatoPartidoEdit> {
         },
         icon: const Icon(Icons.add, color: Colors.white),
         label: const Text(
-          'Agregar Campeonato',
+          'Agregar Partido',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.red,

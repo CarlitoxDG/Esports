@@ -35,7 +35,7 @@ class _ModoEditorState extends State<ModoEditor> {
                 color: Colors.red,
                 height: 40,
                 child: Image.asset('assets/images/esportsapp_text.png',
-                  fit: BoxFit.contain),
+                    fit: BoxFit.contain),
               ),
               Container(
                 color: Colors.red,
@@ -56,9 +56,13 @@ class _ModoEditorState extends State<ModoEditor> {
             tabs: [
               Tab(
                 icon: const Icon(Icons.videogame_asset),
-                child: Text("Campeonatos", style: GoogleFonts.inconsolata()),
+                child: Text("Campeonatos",
+                    style: GoogleFonts.inconsolata(
+                        textStyle: TextStyle(fontSize: 12))),
               ),
-              Tab(icon: const Icon(Icons.sports), child: Text("Partidos")),
+              Tab(
+                  icon: const Icon(Icons.sports),
+                  child: Text("Partidos", style: GoogleFonts.inconsolata())),
               Tab(
                 icon: const Icon(Icons.people),
                 child: Text('Equipos', style: GoogleFonts.inconsolata()),
