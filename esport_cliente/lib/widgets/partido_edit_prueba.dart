@@ -3,7 +3,7 @@ import 'package:esport_cliente/pages/crud/partido_add.dart';
 import 'package:esport_cliente/pages/crud/partido_edit.dart';
 import 'package:esport_cliente/services/http_service.dart';
 
-class CampeonatoTileEdit extends StatelessWidget {
+class CampeonatoPartidoTileEdit extends StatelessWidget {
   final int id;
   final String nombre;
   final String fechaInicio;
@@ -12,7 +12,7 @@ class CampeonatoTileEdit extends StatelessWidget {
   final String premios;
   final Function onUpdate;
 
-  const CampeonatoTileEdit({
+  const CampeonatoPartidoTileEdit({
     Key? key,
     required this.id,
     required this.nombre,

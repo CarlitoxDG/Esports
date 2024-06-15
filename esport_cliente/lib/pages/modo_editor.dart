@@ -3,6 +3,7 @@ import 'package:esport_cliente/pages/tabs/equipos_edit_tab.dart';
 import 'package:esport_cliente/pages/tabs/juegos_tab.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:esport_cliente/widgets/equipo_edit_tile.dart';
+import 'package:esport_cliente/widgets/prueba2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,7 +25,7 @@ class _ModoEditorState extends State<ModoEditor> {
 
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.red,
@@ -59,6 +60,7 @@ class _ModoEditorState extends State<ModoEditor> {
                 icon: const Icon(Icons.videogame_asset),
                 child: Text("Campeonatos", style: GoogleFonts.inconsolata()),
               ),
+              Tab(icon: const Icon(Icons.sports), child: Text("Partidos")),
               Tab(
                 icon: const Icon(Icons.people),
                 child: Text('Equipos', style: GoogleFonts.inconsolata()),
@@ -73,6 +75,7 @@ class _ModoEditorState extends State<ModoEditor> {
         body: TabBarView(
           children: [
             _buildCampeonatosTab(),
+            CampeonatoPartidoEdit(),
             _buildEquiposTab(),
             JuegosTab(),
           ],

@@ -1,16 +1,17 @@
+import 'package:esport_cliente/widgets/partido_edit_prueba.dart';
 import 'package:flutter/material.dart';
 import 'package:esport_cliente/services/http_service.dart';
 import 'package:esport_cliente/widgets/campeonato_edit_tile.dart';
 import 'package:esport_cliente/pages/crud/agregar_campeonato.dart';
 
-class CampeonatosEditTab extends StatefulWidget {
-  const CampeonatosEditTab({Key? key}) : super(key: key);
+class CampeonatoPartidoEdit extends StatefulWidget {
+  const CampeonatoPartidoEdit({Key? key}) : super(key: key);
 
   @override
-  State<CampeonatosEditTab> createState() => _CampeonatosEditTabState();
+  State<CampeonatoPartidoEdit> createState() => _CampeonatoPartidoEditState();
 }
 
-class _CampeonatosEditTabState extends State<CampeonatosEditTab> {
+class _CampeonatoPartidoEditState extends State<CampeonatoPartidoEdit> {
   late Future<List<dynamic>> _futureCampeonatos;
 
   @override
@@ -47,7 +48,7 @@ class _CampeonatosEditTabState extends State<CampeonatosEditTab> {
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
                       var campeonato = snapshot.data[index];
-                      return CampeonatoTileEdit(
+                      return CampeonatoPartidoTileEdit(
                         id: campeonato['id'],
                         nombre: campeonato['nombre'],
                         fechaInicio: campeonato['fecha_inicio'],
