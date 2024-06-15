@@ -71,8 +71,7 @@ class _AgregarEquipoState extends State<AgregarEquipo> {
           onPressed: () async {
             await _submitForm();
           },
-          child: Text(
-            'Agregar Equipo',
+          child: Text('Agregar Equipo',
             style: TextStyle(
               color: Colors.white,
               fontSize: 16,
@@ -90,7 +89,6 @@ class _AgregarEquipoState extends State<AgregarEquipo> {
       );
 
       if (respuesta['message'] != null) {
-        // hay errores de validación
         var errores = respuesta['errors'];
         setState(() {
           errNombre = errores['nombre'] != null ? errores['nombre'][0] : '';

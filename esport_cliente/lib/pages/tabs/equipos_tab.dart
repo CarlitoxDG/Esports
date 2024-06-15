@@ -16,9 +16,7 @@ class EquiposTab extends StatelessWidget {
         ),
         child: Column(
           children: [
-            //TITULO SECCION
             const TituloSeccion(titulo: 'Equipos', subtitulo: 'Listado'),
-            //FIN TITULO SECCION
             Expanded(
               child: FutureBuilder(
                 future: HttpService().equipos(),

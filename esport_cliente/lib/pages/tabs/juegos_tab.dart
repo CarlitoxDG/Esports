@@ -64,8 +64,7 @@ class _JuegosTabState extends State<JuegosTab> {
                             Text('Juegos',
                                 style: GoogleFonts.inconsolata(
                                     fontSize: 24, color: Colors.white)),
-                            const SizedBox(height: 10),
-                            ...juegos
+                            const SizedBox(height: 10),...juegos
                                     ?.map((juego) => Column(
                                           children: [
                                             ListTile(
@@ -73,36 +72,24 @@ class _JuegosTabState extends State<JuegosTab> {
                                                 juego['nombre'] ??
                                                     'Nombre del Juego',
                                                 style: GoogleFonts.inconsolata(
-                                                    fontSize: 20,
-                                                    color: Colors.white),
-                                              ),
+                                                    fontSize: 20, color: Colors.white)),
                                               subtitle: Text(
                                                 juego['categoria'] ??
                                                     'Categoría',
-                                                style: GoogleFonts.inconsolata(
-                                                    fontSize: 16,
-                                                    color: Colors.white70),
-                                              ),
-                                              trailing: Row(
-                                                mainAxisSize: MainAxisSize.min,
+                                                style: GoogleFonts.inconsolata(fontSize: 16, color: Colors.white70)),
+                                              trailing: Row(mainAxisSize: MainAxisSize.min,
                                                 children: [
-                                                  IconButton(
-                                                    icon: const Icon(Icons.edit,
-                                                        color: Colors.white),
+                                                  IconButton(icon: const Icon(Icons.edit, color: Colors.white),
                                                     onPressed: () {
-                                                      Navigator.push(
-                                                        context,
+                                                      Navigator.push(context,
                                                         MaterialPageRoute(
                                                           builder: (context) =>
                                                               JuegoEdit(
                                                             nombre:
-                                                                juego['nombre'],
-                                                            categoria: juego[
-                                                                'categoria'],
-                                                            onUpdate:
-                                                                _actualizarJuegos,
-                                                            juegoId:
-                                                                juego['id'],
+                                                              juego['nombre'],
+                                                              categoria: juego['categoria'],
+                                                              onUpdate: _actualizarJuegos,
+                                                              juegoId: juego['id'],
                                                           ),
                                                         ),
                                                       );
@@ -110,16 +97,13 @@ class _JuegosTabState extends State<JuegosTab> {
                                                     },
                                                   ),
                                                   IconButton(
-                                                    icon: const Icon(
-                                                        Icons.delete,
-                                                        color: Colors.white),
+                                                    icon: const Icon(Icons.delete, color: Colors.white),
                                                     onPressed: () async {
                                                       try {
                                                         await HttpService()
                                                             .eliminarJuego(
                                                                 juego['id']);
                                                       } catch (e) {
-                                                        // Manejar errores
                                                       }
                                                       _actualizarJuegos();
                                                     },
@@ -136,7 +120,7 @@ class _JuegosTabState extends State<JuegosTab> {
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
-                                      Colors.red, // Color del botón
+                                      Colors.red, 
                                 ),
                                 onPressed: () {
                                   Navigator.push(
@@ -145,7 +129,7 @@ class _JuegosTabState extends State<JuegosTab> {
                                       builder: (context) => JuegoAdd(
                                         onUpdate: _actualizarJuegos,
                                         equipoId:
-                                            0, // Cambiar según sea necesario
+                                            0, 
                                       ),
                                     ),
                                   );

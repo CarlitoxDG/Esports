@@ -5,8 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 class CampeonatoTile extends StatelessWidget {
   final int id;
   final String nombre;
-  final String
-      fechaInicio; //deberia ser DateTime pero hay q probar como interpreta el api despues de hacer un crud por aqui
+  final String fechaInicio; 
   final String fechaFin;
   final String reglas;
   final String premios;
@@ -33,19 +32,6 @@ class CampeonatoTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-/*           //numero
-          Container(
-            width: 35,
-            alignment: Alignment.center,
-            margin: EdgeInsets.only(right: 10),
-            padding: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              border: Border.all(color: Color.fromARGB(255, 73, 17, 178)),
-              borderRadius: BorderRadius.all(Radius.circular(3)),
-              color: Color(0xBB16171F),
-            ),
-          ), */
-          //nombre
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

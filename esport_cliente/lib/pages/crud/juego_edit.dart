@@ -100,7 +100,6 @@ class _JuegoEditState extends State<JuegoEdit> {
       );
 
       if (response['message'] != null) {
-        // Hay errores de validación
         var errores = response['errors'];
         setState(() {
           _errNombre = errores['nombre'] != null ? errores['nombre'][0] : '';

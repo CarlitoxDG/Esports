@@ -174,7 +174,6 @@ class _PartidoEditState extends State<PartidoEdit> {
                       );
 
                       if (respuesta['message'] != null) {
-                        // Hay errores de validación
                         var errores = respuesta['errors'];
                         setState(() {
                           errFecha = errores['fecha'] != null
@@ -195,7 +194,6 @@ class _PartidoEditState extends State<PartidoEdit> {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text('Partido actualizado'),
                         ));
-                        // Llamar a onUpdate después de actualizar el partido
                         widget.onUpdate();
                         Navigator.pop(context, true);
                       } else {

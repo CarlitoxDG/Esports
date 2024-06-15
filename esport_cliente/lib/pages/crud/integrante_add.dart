@@ -103,7 +103,7 @@ class _IntegranteAddState extends State<IntegranteAdd> {
         });
       } else if (response.containsKey('id')) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Operación exitosa')),
+          const SnackBar(content: Text('Actualización exitosa')),
         );
         widget.onUpdate();
         Navigator.pop(context);

@@ -55,8 +55,7 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agregar Campeonato'),
-      ),
+        title: Text('Agregar Campeonato')),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(
@@ -167,7 +166,6 @@ class _AgregarCampeonatoState extends State<AgregarCampeonato> {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text('Campeonato agregado'),
                         ));
-                        // Llamar a onUpdate después de agregar el campeonato
                         widget.onUpdate();
                         Navigator.pop(context, true);
                       } else {

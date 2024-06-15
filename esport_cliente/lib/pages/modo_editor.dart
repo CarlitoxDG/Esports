@@ -34,10 +34,8 @@ class _ModoEditorState extends State<ModoEditor> {
               Container(
                 color: Colors.red,
                 height: 40,
-                child: Image.asset(
-                  'assets/images/esportsapp_text.png',
-                  fit: BoxFit.contain,
-                ),
+                child: Image.asset('assets/images/esportsapp_text.png',
+                  fit: BoxFit.contain),
               ),
               Container(
                 color: Colors.red,

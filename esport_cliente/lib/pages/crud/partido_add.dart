@@ -171,7 +171,6 @@ class _PartidoAddState extends State<PartidoAdd> {
               Text(errEquipo1, style: TextStyle(color: Colors.red)),
               SizedBox(height: 16),
 
-              // Equipo 2
               DropdownButtonFormField<int>(
                 decoration: InputDecoration(
                   labelText: 'Equipo 2',
@@ -247,7 +246,6 @@ class _PartidoAddState extends State<PartidoAdd> {
       );
 
       if (respuesta['message'] != null) {
-        // Hay errores de validación
         var errores = respuesta['errors'];
         setState(() {
           errFecha = errores['fecha'] != null ? errores['fecha'][0] : '';

@@ -57,8 +57,7 @@ class _DetalleCampeonatoState extends State<DetalleCampeonato> {
               Container(
                 color: Colors.deepPurple,
                 height: 40,
-                child: Image.asset(
-                  'assets/images/esportsapp_text.png',
+                child: Image.asset('assets/images/esportsapp_text.png',
                   fit: BoxFit.contain,
                 ),
               ),
@@ -116,9 +115,8 @@ class _DetalleCampeonatoState extends State<DetalleCampeonato> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Reglas del campeonato',
-                          style: TextStyle(
+                        const Text('Reglas del campeonato',
+                            style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -150,9 +148,8 @@ class _DetalleCampeonatoState extends State<DetalleCampeonato> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Premios del campeonato',
-                          style: TextStyle(
+                        const Text('Premios del campeonato',
+                            style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -199,28 +196,23 @@ class _DetalleCampeonatoState extends State<DetalleCampeonato> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Integrantes del campeonato',
+                              const Text('Integrantes del campeonato',
                                 style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                               ),
                               const SizedBox(height: 10),
                               ...equipos
                                       ?.map((equipo) => Column(
                                             children: [
                                               ListTile(
-                                                title: Text(
-                                                  equipo['nombre'] ??
-                                                      'Nombre del Equipo',
+                                                title: Text( equipo['nombre'] ?? 'Nombre del Equipo',
                                                   style: TextStyle(
-                                                    color: Colors.white,
+                                                  color: Colors.white,
                                                   ),
                                                 ),
-                                                leading: Image.asset(
-                                                  'assets/images/Equipos/${equipo['nombre']}.png',
+                                                leading: Image.asset('assets/images/Equipos/${equipo['nombre']}.png',
                                                   height: 40,
                                                   width: 40,
                                                 ),
@@ -271,52 +263,36 @@ class _DetalleCampeonatoState extends State<DetalleCampeonato> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Partidos del campeonato',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
+                              const Text('Partidos del campeonato',
+                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
                               const SizedBox(height: 10),
                               ...partidos
                                       ?.map((partido) => Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8.0),
+                                            padding: const EdgeInsets.symmetric(vertical: 8.0),
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  "${partido['equipo1_nombre']} vs ${partido['equipo2_nombre']}",
+                                                Text("${partido['equipo1_nombre']} vs ${partido['equipo2_nombre']}",
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 18,
                                                   ),
                                                 ),
-                                                Text(
-                                                  partido['fecha'],
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 14,
+                                                Text(partido['fecha'],
+                                                  style: TextStyle(color: Colors.white, fontSize: 14,
                                                   ),
                                                 ),
                                                 Row(
                                                   children: [
-                                                    Text(
-                                                      partido['resultado'],
+                                                    Text(partido['resultado'],
                                                       style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 18,
+                                                      color: Colors.white,
+                                                      fontSize: 18,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      " | ${partido['pais']}, ${partido['ciudad']}, ${partido['sede']}",
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 16,
-                                                      ),
+                                                    Text( " | ${partido['pais']}, ${partido['ciudad']}, ${partido['sede']}",
+                                                      style: TextStyle(color: Colors.white, fontSize: 16),
                                                     ),
                                                   ],
                                                 ),
@@ -325,27 +301,6 @@ class _DetalleCampeonatoState extends State<DetalleCampeonato> {
                                           ))
                                       .toList() ??
                                   [],
-                              /* Center(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => PartidoAdd(
-                                          campeonatoId: widget.idCampeonato,
-                                          onUpdate: _actualizarPartidos,
-                                        ),
-                                      ),
-                                    );
-                                    _actualizarPartidos();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    foregroundColor: Colors.white,
-                                    backgroundColor: Colors.red,
-                                  ),
-                                  child: const Text("Desafiar"),
-                                ),
-                              ), */
                             ],
                           ),
                         ),
